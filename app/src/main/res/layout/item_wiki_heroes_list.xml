@@ -68,7 +68,7 @@
                                                 android:orientation="vertical"
                                                 app:layout_constraintGuide_percent="0.7"/>
     <TextView
-            android:text="Раиндхард"
+            android:text="Hamond"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/item_wiki_heroes_list_name_secondary"
@@ -78,7 +78,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_name_primary"
             android:textAppearance="@style/TextWikiHeroesListSecondary"/>
     <TextView
-            android:text="Танк"
+            android:text="Tank"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/item_wiki_heroes_list_role_secondary" app:layout_constraintEnd_toEndOf="parent"
