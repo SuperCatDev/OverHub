@@ -17,23 +17,25 @@ class WikiListHeroesItemView(context: Context, attrs: AttributeSet): View(contex
     private val defaultWidth = resources.getDimensionPixelSize(R.dimen.framing_list_hero_default_width)
     private val defaultHeight = resources.getDimensionPixelSize(R.dimen.framing_list_hero_default_height)
     private val depth = 0.05f
+    private val firstAngle = 0.275f
+    private val secondAngle = 0.45f
 
     private val pointsFrame = listOf(
         0.0f to 1.0f,
-        0.275f to 1.0f,
-        0.55f to depth,
+        (firstAngle + 0.3f * depth) to 1.0f,
+        (secondAngle + 0.3f * depth) to depth,
         1.0f to depth,
         1.0f to 0.0f,
-        0.55f to 0.0f,
-        0.275f to (1 - depth),
+        secondAngle to 0.0f,
+        firstAngle to (1 - depth),
         0.0f to (1 - depth)
     )
 
     private val points2 = listOf(
-        0.275f to 1.0f,
+        (firstAngle + 0.3f * depth) to 1.0f,
         1.0f to 1.0f,
         1.0f to depth,
-        0.55f to depth
+        (secondAngle + 0.3f * depth) to depth
     )
 
     init {

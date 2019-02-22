@@ -3,5 +3,7 @@
     <string name="wiki_main_heroes">heroes</string>
     <string name="wiki_main_maps">maps</string>
     <string name="wiki_main_update">updates</string>
-
+    <string name="wiki_heroes_list_name">Name</string>
+    <string name="wiki_heroes_list_role">Role</string>
+    <string name="wiki_heroes_list_complexity">Complexity</string>
 </resources>

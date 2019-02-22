@@ -7,7 +7,7 @@
 
     <ImageView
             android:layout_width="140dp"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/hero_portrait_hum"
+            android:layout_height="0dp" app:srcCompat="@drawable/hero_portrait_hum"
             android:id="@+id/item_wiki_heroes_list_image"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,12 +22,81 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/item_wiki_heroes_list_guideline"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.4"/>
     <TextView
+            android:text="@string/wiki_heroes_list_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_wiki_heroes_list_name_primary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/item_wiki_heroes_list_role_primary"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/item_wiki_heroes_list_guideline2"
+            android:layout_marginEnd="8dp" android:textAppearance="@style/TextWikiHeroesListPrimary"
+            android:textAlignment="textEnd" app:layout_constraintVertical_chainStyle="spread_inside"/>
+    <TextView
+            android:text="@string/wiki_heroes_list_complexity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_wiki_heroes_list_complexity_primary"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline"
+            app:layout_constraintEnd_toStartOf="@+id/item_wiki_heroes_list_guideline2" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/item_wiki_heroes_list_role_primary"
+            android:textAppearance="@style/TextWikiHeroesListPrimary" android:textAlignment="textEnd"/>
+    <TextView
+            android:text="@string/wiki_heroes_list_role"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_wiki_heroes_list_role_primary"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/item_wiki_heroes_list_name_primary"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/item_wiki_heroes_list_guideline2"
+            android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/item_wiki_heroes_list_complexity_primary"
+            android:textAppearance="@style/TextWikiHeroesListPrimary" android:textAlignment="textEnd"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/item_wiki_heroes_list_guideline2"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.7"/>
+    <TextView
+            android:text="Раиндхард"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/item_wiki_heroes_list_name_secondary"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline2"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@+id/item_wiki_heroes_list_name_primary"
+            app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_name_primary"
+            android:textAppearance="@style/TextWikiHeroesListSecondary"/>
+    <TextView
+            android:text="Танк"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/item_wiki_heroes_list_role_secondary" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline2"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/item_wiki_heroes_list_role_primary"
+            app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_role_primary"
+            android:textAppearance="@style/TextWikiHeroesListSecondary"/>
+    <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_wiki_heroes_list_text" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item_wiki_heroes_list_image" android:layout_marginStart="32dp"
-            android:text="Герой: Таран \n Класс: Танк \n Сложность: ***"/>
+            style="@style/StarRating"
+            android:id="@+id/item_wiki_heroes_list_complexity_rating_bar"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/item_wiki_heroes_list_guideline2" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_complexity_primary"
+            app:layout_constraintTop_toTopOf="@+id/item_wiki_heroes_list_complexity_primary"
+            app:layout_constraintHorizontal_bias="0.0" android:rating="2"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,22 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="TextWikiHeroesListSecondary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextWikiHeroesListPrimary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="StarRating" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressTint">@color/colorStarRating</item>
+        <item name="android:secondaryProgressTint">@color/colorStarRating</item>
+        <item name="android:numStars">3</item>
+
+    </style>
 </resources>
