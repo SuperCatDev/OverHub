@@ -1,9 +1,9 @@
-package com.sc.overhub
+package com.sc.overhub.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sc.overhub.R
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
