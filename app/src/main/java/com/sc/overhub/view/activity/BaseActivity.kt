@@ -17,7 +17,7 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope, LifecycleOwner {
         get() = job + Dispatchers.Main
 
     private lateinit var job: Job
-    private val lifecycleRegistry = initLifecycle()
+    private val lifecycleRegistry: LifecycleRegistry? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope, LifecycleOwner {
     }
 
     override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+        lifecycleRegistry ?: initLifecycle()
 
     private fun initLifecycle(): LifecycleRegistry =
         LifecycleRegistry(this)
