@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">OverHub</string>
+    <string name="wiki_main_heroes">heroes</string>
+    <string name="wiki_main_maps">maps</string>
+    <string name="wiki_main_update">updates</string>
+
 </resources>
