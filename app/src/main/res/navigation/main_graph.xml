@@ -9,5 +9,11 @@
     <fragment android:id="@+id/trackerFragment" android:name="com.sc.overhub.view.fragment.TrackerFragment"
               android:label="TrackerFragment"/>
     <fragment android:id="@+id/wikiFragment" android:name="com.sc.overhub.view.fragment.wiki.WikiFragment"
-              android:label="fragment_wiki" tools:layout="@layout/fragment_wiki"/>
+              android:label="fragment_wiki" tools:layout="@layout/fragment_wiki">
+        <action android:id="@+id/action_wikiFragment_to_wikiHeroesListFragment"
+                app:destination="@id/wikiHeroesListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/wikiHeroesListFragment"
+              android:name="com.sc.overhub.view.fragment.wiki.herosList.WikiHeroesListFragment"
+              android:label="WikiHeroesListFragment"/>
 </navigation>
