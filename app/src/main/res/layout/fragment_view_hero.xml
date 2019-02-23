@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment">
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/wiki_hero_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:background="@color/colorAccent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="scrollable"
+            app:tabMaxWidth="0dp"
+            app:tabSelectedTextColor="@android:color/white"/>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/wiki_hero_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@android:color/white"/>
+</LinearLayout>
