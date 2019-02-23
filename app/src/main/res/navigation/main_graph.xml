@@ -8,4 +8,6 @@
               android:label="StatisticsFragment"/>
     <fragment android:id="@+id/trackerFragment" android:name="com.sc.overhub.view.fragment.TrackerFragment"
               android:label="TrackerFragment"/>
+    <fragment android:id="@+id/wikiFragment" android:name="com.sc.overhub.view.fragment.wiki.WikiFragment"
+              android:label="fragment_wiki" tools:layout="@layout/fragment_wiki"/>
 </navigation>
