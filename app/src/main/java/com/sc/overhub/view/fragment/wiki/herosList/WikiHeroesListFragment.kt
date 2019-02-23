@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sc.overhub.R
 import com.sc.overhub.view.fragment.BaseFragment
@@ -19,7 +20,7 @@ class WikiHeroesListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = WikHeroListAdapter()
+        adapter = WikHeroListAdapter(Navigation.findNavController(activity!!, R.id.nav_host_fragment))
         fragment_wiki_list_heroes_recycler.adapter = adapter
         fragment_wiki_list_heroes_recycler.layoutManager = LinearLayoutManager(view.context)
     }

@@ -2,18 +2,20 @@ package com.sc.overhub.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : BaseActivity() {
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         bottom_navigation.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {

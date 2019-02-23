@@ -15,5 +15,11 @@
     </fragment>
     <fragment android:id="@+id/wikiHeroesListFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.WikiHeroesListFragment"
-              android:label="WikiHeroesListFragment"/>
+              android:label="WikiHeroesListFragment">
+        <action android:id="@+id/action_wikiHeroesListFragment_to_wikiHeroFragment"
+                app:destination="@id/wikiHeroFragment"/>
+    </fragment>
+    <fragment android:id="@+id/wikiHeroFragment"
+              android:name="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment"
+              android:label="fragment_view_hero" tools:layout="@layout/fragment_view_hero"/>
 </navigation>

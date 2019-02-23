@@ -3,11 +3,13 @@ package com.sc.overhub.view.fragment.wiki.herosList.hero
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.R
+import kotlinx.android.synthetic.main.item_wiki_heroes_list.view.*
 
 
-class WikHeroListAdapter() : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>() {
+class WikHeroListAdapter(private val navigation: NavController) : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wiki_heroes_list, parent, false))
     }
@@ -15,6 +17,9 @@ class WikHeroListAdapter() : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>
     override fun getItemCount(): Int = 5
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.layout.setOnClickListener {
+            navigation.navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment)
+        }
         /*
         holder.title.text = presenter.getHeroes()[position].name
         holder.image.setImageResource(presenter.getHeroes()[position].logo)
@@ -27,6 +32,6 @@ class WikHeroListAdapter() : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>
         val title = "title"
         val image = "image"
         val color = "color"
-        val card = "card"
+        val layout = itemView.hero_item_layout
     }
 }
