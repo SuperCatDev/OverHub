@@ -2,11 +2,13 @@ package com.sc.overhub.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class HomeActivity : BaseActivity() {
     lateinit var navController: NavController
@@ -16,6 +18,20 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val destId = destination.id
+            if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
+                toolbar.visibility = View.VISIBLE else toolbar.visibility = View.GONE
+        }
+
+        toolbar.visibility = View.GONE
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setNavigationOnClickListener {
+            val destId = navController.currentDestination?.id
+
+            if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
+                navController.popBackStack()
+        }
 
         bottom_navigation.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
