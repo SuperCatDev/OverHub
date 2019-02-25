@@ -6,4 +6,5 @@
     <string name="wiki_heroes_list_name">Name</string>
     <string name="wiki_heroes_list_role">Role</string>
     <string name="wiki_heroes_list_complexity">Complexity</string>
+    <string name="error_loading">ERR Try Again</string>
 </resources>

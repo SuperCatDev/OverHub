@@ -4,29 +4,58 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.sc.overhub.R
+import com.sc.overhub.databinding.FragmentWikiListHeroesBinding
+import com.sc.overhub.model.WikiHeroesListModel
 import com.sc.overhub.view.fragment.BaseFragment
-import com.sc.overhub.view.adapters.WikiHeroListAdapter
-import kotlinx.android.synthetic.main.fragment_wiki_list_heroes.*
+import com.sc.overhub.viewmodel.WikiHeroListViewModel
+import com.sc.overhub.viewmodel.getViewModel
 
 class WikiHeroesListFragment : BaseFragment() {
-    private lateinit var adapter: WikiHeroListAdapter
+    private val viewModel: WikiHeroListViewModel by lazy {
+        getViewModel {
+            WikiHeroListViewModel(
+                WikiHeroesListModel(),
+                R.layout.item_wiki_heroes_list,
+                MutableLiveData(),
+                ObservableInt(View.GONE),
+                ObservableInt(View.GONE),
+                Navigation.findNavController(
+                    activity!!,
+                    R.id.nav_host_fragment
+                )
+            )
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_wiki_list_heroes, container, false)
+        val fragmentBinding: FragmentWikiListHeroesBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_wiki_list_heroes, container, false
+        )
+
+        val view = fragmentBinding.root
+
+        fragmentBinding.model = viewModel
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = WikiHeroListAdapter(
-            Navigation.findNavController(
-                activity!!,
-                R.id.nav_host_fragment
-            )
-        )
-        fragment_wiki_list_heroes_recycler.adapter = adapter
-        fragment_wiki_list_heroes_recycler.layoutManager = LinearLayoutManager(view.context)
+        viewModel.loading.set(View.VISIBLE)
+
+        viewModel.getHeroesList().observe(this, Observer {
+            viewModel.loading.set(View.GONE)
+            if (it.isEmpty()) {
+                viewModel.showEmpty.set(View.VISIBLE)
+            } else {
+                viewModel.showEmpty.set(View.GONE)
+                viewModel.setHeroesInAdapter(it)
+            }
+        })
     }
 }
