@@ -12,6 +12,7 @@
               android:label="fragment_wiki" tools:layout="@layout/fragment_wiki">
         <action android:id="@+id/action_wikiFragment_to_wikiHeroesListFragment"
                 app:destination="@id/wikiHeroesListFragment"/>
+        <action android:id="@+id/action_wikiFragment_to_mapsFragment" app:destination="@id/mapsFragment"/>
     </fragment>
     <fragment android:id="@+id/wikiHeroesListFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.WikiHeroesListFragment"
@@ -22,4 +23,6 @@
     <fragment android:id="@+id/wikiHeroFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment"
               android:label="fragment_view_hero" tools:layout="@layout/fragment_view_hero"/>
+    <fragment android:id="@+id/mapsFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapsFragment"
+              android:label="MapsFragment"/>
 </navigation>
