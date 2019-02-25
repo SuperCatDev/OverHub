@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <data>
+        <variable name="model"
+                  type="com.sc.overhub.viewmodel.WikiHeroListViewModel"/>
+
+    </data>
+
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_wiki_list_heroes_recycler"/>
-</FrameLayout>
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_wiki_list_heroes_recycler"
+                app:setAdapter="@{model.getAdapter()}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:id="@+id/fragment_wiki_loading_bar"
+                android:indeterminate="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:visibility="@{model.loading}"
+                android:layout_gravity="center"
+        />
+
+        <Button
+                android:id="@+id/fragment_wiki_reload_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_loading"
+                android:visibility="@{model.showEmpty}"
+                android:onClick="@{() -> model.ocClickReload()}"
+                android:layout_gravity="center"
+        />
+
+    </FrameLayout>
+</layout>
