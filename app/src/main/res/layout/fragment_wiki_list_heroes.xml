@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="model"
@@ -18,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/fragment_wiki_list_heroes_recycler"
-                app:setAdapter="@{model.getAdapter()}" />
+                app:setAdapter="@{model.adapter}"/>
 
         <androidx.core.widget.ContentLoadingProgressBar
                 style="?android:attr/progressBarStyleLarge"
@@ -36,9 +35,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/error_loading"
                 android:visibility="@{model.showEmpty}"
-                android:onClick="@{() -> model.ocClickReload()}"
+                android:onClick="@{() -> model.onClickReload()}"
                 android:layout_gravity="center"
         />
-
     </FrameLayout>
 </layout>
