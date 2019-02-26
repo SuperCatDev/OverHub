@@ -24,7 +24,7 @@ class HomeActivity : BaseActivity() {
                 toolbar.visibility = View.VISIBLE else toolbar.visibility = View.GONE
         }
 
-        //TODO: ВОЗМОЖНО ПОФИКСИЛ
+        //TODO: ВОЗМОЖНО ПОФИКСИЛ - НЕ ЗНАЮ ЗАЧЁМ ТЫ ЕГО ТУТ СКРЫВАЕШЬ
         //toolbar.visibility = View.GONE
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener {

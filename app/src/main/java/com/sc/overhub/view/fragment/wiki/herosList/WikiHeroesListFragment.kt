@@ -41,6 +41,7 @@ class WikiHeroesListFragment : BaseFragment() {
         val view = fragmentBinding.root
 
         fragmentBinding.model = viewModel
+        fragmentBinding.executePendingBindings()
         return view
     }
 
