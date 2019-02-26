@@ -7,4 +7,9 @@
     <string name="wiki_heroes_list_role">Role</string>
     <string name="wiki_heroes_list_complexity">Complexity</string>
     <string name="error_loading">ERR Try Again</string>
+
+    <string name="wiki_hero_tab_overview">Overview</string>
+    <string name="wiki_hero_tab_skills">Skills</string>
+    <string name="wiki_hero_tab_tips">Tips</string>
+
 </resources>

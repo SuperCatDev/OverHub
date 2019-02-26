@@ -13,11 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             app:tabGravity="fill"
             app:tabIndicatorColor="@android:color/white"
             app:tabIndicatorHeight="4dp"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabMaxWidth="0dp"
             app:tabSelectedTextColor="@android:color/white"/>
 
