@@ -16,7 +16,7 @@ class WikiHeroListViewModel(
     var selected: MutableLiveData<WikiHeroesListEntry>,
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
-    private val navController: NavController
+    private var navController: NavController
 ) : ViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 
@@ -25,6 +25,10 @@ class WikiHeroListViewModel(
     fun setHeroesInAdapter(entryHeroes: List<WikiHeroesListEntry>) {
         adapter.setHeroes(entryHeroes)
         adapter.notifyDataSetChanged()
+    }
+
+    fun reinitController(controller: NavController) {
+        navController = controller
     }
 
     fun onItemClick(index: Int) {
