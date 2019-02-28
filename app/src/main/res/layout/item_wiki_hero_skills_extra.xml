@@ -15,7 +15,7 @@
                                                        android:layout_height="wrap_content">
 
         <TextView
-                android:text="@{viewModel.getExtraSkillAtIndex().extraTitle}"
+                android:text="@{viewModel.getExtraSkillAtIndex(safeUnbox(position)).extraTitle}"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:id="@+id/item_wiki_hero_skills_extra_title"
@@ -26,7 +26,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/item_wiki_hero_skills_extra_description"
                 android:layout_marginEnd="4dp" android:layout_marginStart="8dp"/>
         <TextView
-                android:text="@{viewModel.getExtraSkillAtIndex().extraDescription}"
+                android:text="@{viewModel.getExtraSkillAtIndex(safeUnbox(position)).extraDescription}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_wiki_hero_skills_extra_description"

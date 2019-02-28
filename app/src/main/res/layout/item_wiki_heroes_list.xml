@@ -17,7 +17,7 @@
             android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onItemClick(position)}">
+            android:onClick="@{() -> viewModel.onItemClick(safeUnbox(position))}">
 
         <ImageView
                 android:layout_width="140dp"
@@ -88,7 +88,7 @@
                                                     android:orientation="vertical"
                                                     app:layout_constraintGuide_percent="0.7"/>
         <TextView
-                android:text="@{viewModel.getHeroAtIndex(position).name}"
+                android:text="@{viewModel.getHeroAtIndex(safeUnbox(position)).name}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/item_wiki_heroes_list_name_secondary"
@@ -99,7 +99,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_name_primary"
                 android:textAppearance="@style/TextWikiHeroesListSecondary"/>
         <TextView
-                android:text="@{viewModel.getHeroAtIndex(position).role}"
+                android:text="@{viewModel.getHeroAtIndex(safeUnbox(position)).role}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/item_wiki_heroes_list_role_secondary" app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +121,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/item_wiki_heroes_list_complexity_primary"
                 app:layout_constraintTop_toTopOf="@+id/item_wiki_heroes_list_complexity_primary"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:rating="@{viewModel.getHeroAtIndex(position).complexity}"/>
+                android:rating="@{viewModel.getHeroAtIndex(safeUnbox(position)).complexity}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
