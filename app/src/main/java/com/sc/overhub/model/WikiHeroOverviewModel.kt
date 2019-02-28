@@ -13,6 +13,12 @@ class WikiHeroOverviewModel: BaseObservable() {
     fun getDescriptionList(): MutableLiveData<List<WikiHeroOverviewEntry>> = descriptionList
 
     init {
-        //TODO: ВКИНУТЬ ДАННЫЕ
+        overviewText.value = "ОПИСАНИЕ 123"
+        descriptionList.value = listOf(
+            WikiHeroOverviewEntry("Здоровье", "200"),
+            WikiHeroOverviewEntry("Здоровье", "200"),
+            WikiHeroOverviewEntry("Здоровье", "200"),
+            WikiHeroOverviewEntry("Здоровье", "200"),
+            WikiHeroOverviewEntry("Здоровье", "200"))
     }
 }

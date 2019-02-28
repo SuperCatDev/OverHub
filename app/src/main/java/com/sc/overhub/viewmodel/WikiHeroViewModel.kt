@@ -16,7 +16,7 @@ class WikiHeroViewModel(
     private val overviewModel: WikiHeroOverviewModel,
     private val skillsModel: WikiHeroSkillsModel,
     var loading: ObservableInt,
-    var showempty: ObservableInt
+    var showEmpty: ObservableInt
 ) : ViewModel() {
 
     var overviewAdapter = WikiHeroOverviewAdapter(this)
@@ -70,5 +70,13 @@ class WikiHeroViewModel(
             return (value[index] as WikiHeroSkillExtra)
         }
         return null
+    }
+
+    fun getOverViewTextAt(): String?{
+        val value = getOverviewText().value
+        if (value != null){
+            return value
+        }
+        return ""
     }
 }

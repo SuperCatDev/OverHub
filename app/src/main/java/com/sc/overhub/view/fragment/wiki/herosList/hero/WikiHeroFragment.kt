@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.sc.overhub.R
@@ -53,4 +54,26 @@ open class WikiHeroFragment : BaseFragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.loading.set(View.VISIBLE)
+        viewModel.getDescriptionList().observe(this, Observer {
+            viewModel.loading.set(View.GONE)
+            if (it.isEmpty()){
+                viewModel.showEmpty.set(View.VISIBLE)
+            } else {
+                viewModel.showEmpty.set(View.GONE)
+                viewModel.setOverviewInAdapter(it)
+            }
+        })
+        viewModel.getSkillsList().observe(this, Observer {
+            viewModel.loading.set(View.GONE)
+            if (it.isEmpty()){
+                viewModel.showEmpty.set(View.VISIBLE)
+            } else {
+                viewModel.showEmpty.set(View.GONE)
+                viewModel.setSkillsInAdapter(it)
+            }
+        })
+    }
 }

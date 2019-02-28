@@ -3,6 +3,8 @@ package com.sc.overhub.model
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
 import com.sc.overhub.entry.WikiHeroSkillEntry
+import com.sc.overhub.entry.WikiHeroSkillExtra
+import com.sc.overhub.entry.WikiHeroSkillMainEntry
 
 class WikiHeroSkillsModel: BaseObservable() {
     private var skills: MutableLiveData<List<WikiHeroSkillEntry>> = MutableLiveData()
@@ -10,6 +12,10 @@ class WikiHeroSkillsModel: BaseObservable() {
     fun getSkills(): MutableLiveData<List<WikiHeroSkillEntry>> = skills
 
     init {
-        //TODO: ВКИНУТЬ ДАННЫЕ
+        skills.value = listOf(WikiHeroSkillMainEntry("ДЭШ", "описание"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"))
     }
 }
