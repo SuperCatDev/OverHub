@@ -22,7 +22,7 @@
     </fragment>
     <fragment android:id="@+id/wikiHeroFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment"
-              android:label="fragment_view_hero" tools:layout="@layout/fragment_view_hero"/>
+              android:label="fragment_view_hero" tools:layout="@layout/fragment_wiki_hero"/>
     <fragment android:id="@+id/mapsFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapsFragment"
               android:label="MapsFragment"/>
 </navigation>

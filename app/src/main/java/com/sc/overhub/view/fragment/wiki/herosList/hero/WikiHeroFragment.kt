@@ -9,14 +9,14 @@ import androidx.databinding.ObservableInt
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.sc.overhub.R
-import com.sc.overhub.databinding.FragmentViewHeroBinding
+import com.sc.overhub.databinding.FragmentWikiHeroBinding
 import com.sc.overhub.model.WikiHeroOverviewModel
 import com.sc.overhub.model.WikiHeroSkillsModel
 import com.sc.overhub.view.adapters.WikiHeroTabsAdapter
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.WikiHeroViewModel
 import com.sc.overhub.viewmodel.getViewModel
-import kotlinx.android.synthetic.main.fragment_view_hero.view.*
+import kotlinx.android.synthetic.main.fragment_wiki_hero.view.*
 
 class WikiHeroFragment : BaseFragment() {
 
@@ -40,9 +40,8 @@ class WikiHeroFragment : BaseFragment() {
             val name = arguments!!.getString("ARG_HERO_NAME")
         }
         val fragmentBinding =
-            DataBindingUtil.inflate<FragmentViewHeroBinding>(inflater, R.layout.fragment_view_hero, container, false)
+            DataBindingUtil.inflate<FragmentWikiHeroBinding>(inflater, R.layout.fragment_wiki_hero, container, false)
         val view = fragmentBinding.root
-
         fragmentBinding.viewModel = viewModel
         fragmentBinding.executePendingBindings()
 
