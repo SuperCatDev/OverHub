@@ -18,13 +18,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?actionBarSize"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryGrey"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@android:color/white"
+                app:tabTextColor="@color/colorPrimary"
+                app:tabIndicatorColor="@color/colorPrimary"
                 app:tabIndicatorHeight="4dp"
                 app:tabMode="fixed"
                 app:tabMaxWidth="0dp"
-                app:tabSelectedTextColor="@android:color/white"/>
+                app:tabSelectedTextColor="@color/colorPrimaryWhite"/>
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/wiki_hero_viewpager"
