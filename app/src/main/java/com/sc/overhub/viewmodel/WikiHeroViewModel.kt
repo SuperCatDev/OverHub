@@ -19,9 +19,9 @@ class WikiHeroViewModel(
     var showempty: ObservableInt
 ) : ViewModel() {
 
-    private var overviewAdapter = WikiHeroOverviewAdapter(this)
+    var overviewAdapter = WikiHeroOverviewAdapter(this)
 
-    private var skillsAdapter = WikiHeroSkillsAdapter(this)
+    var skillsAdapter = WikiHeroSkillsAdapter(this)
 
     fun getOverviewText(): MutableLiveData<String> = overviewModel.getOverviewText()
 

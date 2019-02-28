@@ -18,13 +18,13 @@ import com.sc.overhub.viewmodel.WikiHeroViewModel
 import com.sc.overhub.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.fragment_wiki_hero.view.*
 
-class WikiHeroFragment : BaseFragment() {
+open class WikiHeroFragment : BaseFragment() {
 
     private lateinit var wikiHeroTabsAdapter: WikiHeroTabsAdapter
     private lateinit var viewPager: ViewPager
     private lateinit var tabsLayout: TabLayout
 
-    private val viewModel: WikiHeroViewModel by lazy {
+    protected val viewModel: WikiHeroViewModel by lazy {
         getViewModel {
             WikiHeroViewModel(
                 WikiHeroOverviewModel(),
