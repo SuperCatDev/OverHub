@@ -16,6 +16,7 @@ class WikiHeroViewModel(
     private val overviewModel: WikiHeroOverviewModel,
     private val skillsModel: WikiHeroSkillsModel,
     var loading: ObservableInt,
+    
     var showEmpty: ObservableInt
 ) : ViewModel() {
 
