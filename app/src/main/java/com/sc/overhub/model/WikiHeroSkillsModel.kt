@@ -12,7 +12,13 @@ class WikiHeroSkillsModel: BaseObservable() {
     fun getSkills(): MutableLiveData<List<WikiHeroSkillEntry>> = skills
 
     init {
-        skills.value = listOf(WikiHeroSkillMainEntry("ДЭШ", "описание"),
+        skills.value = listOf(
+            WikiHeroSkillMainEntry("ДЭШ", "описание"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillExtra("Здоровье", "200"),
+            WikiHeroSkillMainEntry("ДЭШ", "описание"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
