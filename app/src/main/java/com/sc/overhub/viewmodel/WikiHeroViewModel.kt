@@ -17,7 +17,7 @@ class WikiHeroViewModel(
     private val skillsModel: WikiHeroSkillsModel,
     var loading: ObservableInt,
     var showempty: ObservableInt
-): ViewModel() {
+) : ViewModel() {
 
     private var overviewAdapter = WikiHeroOverviewAdapter(this)
 
@@ -29,34 +29,34 @@ class WikiHeroViewModel(
 
     fun getSkillsList(): MutableLiveData<List<WikiHeroSkillEntry>> = skillsModel.getSkills()
 
-    fun setOverviewInAdapter(descriptionsOverviewList: List<WikiHeroOverviewEntry>){
+    fun setOverviewInAdapter(descriptionsOverviewList: List<WikiHeroOverviewEntry>) {
         overviewAdapter.setListDescription(descriptionsOverviewList)
         overviewAdapter.notifyDataSetChanged()
     }
 
-    fun setSkillsInAdapter(skills: List<WikiHeroSkillEntry>){
+    fun setSkillsInAdapter(skills: List<WikiHeroSkillEntry>) {
         skillsAdapter.setSkills(skills)
         skillsAdapter.notifyDataSetChanged()
 
     }
 
-    fun getOverviewTextAt(): String?{
+    fun getOverviewTextAt(): String? {
         val value = overviewModel.getOverviewText().value
-        if (value != null){
+        if (value != null) {
             return value
         }
         return null
     }
 
-    fun getDescriptionAtIndex(index: Int): WikiHeroOverviewEntry?{
-        val value =overviewModel.getDescriptionList().value
-        if (value != null && value.size > index){
+    fun getDescriptionAtIndex(index: Int): WikiHeroOverviewEntry? {
+        val value = overviewModel.getDescriptionList().value
+        if (value != null && value.size > index) {
             return value[index]
         }
         return null
     }
 
-    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainEntry?{
+    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainEntry? {
         val value = skillsModel.getSkills().value
         if (value != null && value.size > index) {
             return (value[index] as WikiHeroSkillMainEntry)
@@ -64,13 +64,11 @@ class WikiHeroViewModel(
         return null
     }
 
-    fun getExtraSkillAtIndex(index: Int): WikiHeroSkillExtra?{
+    fun getExtraSkillAtIndex(index: Int): WikiHeroSkillExtra? {
         val value = skillsModel.getSkills().value
         if (value != null && value.size > index) {
             return (value[index] as WikiHeroSkillExtra)
         }
         return null
     }
-
-
 }
