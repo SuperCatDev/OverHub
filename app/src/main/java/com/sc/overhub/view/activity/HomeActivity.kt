@@ -31,6 +31,14 @@ class HomeActivity : BaseActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener(vm.bottomNavigationListener)
     }
 
+    override fun onBackPressed() {
+        if (vm.currentController.graph.startDestination == vm.currentController.currentDestination?.id) {
+            super.onBackPressed()
+        } else {
+            vm.currentController.popBackStack()
+        }
+    }
+
     companion object {
         fun getViewModelGetter(activity: Activity) = {
             HomeActivityViewModel(activity).also {
