@@ -55,9 +55,12 @@ dependencies {
     implementation 'com.android.databinding:compiler:3.1.4'
     kapt "com.android.databinding:compiler:3.1.4"
 
+    // Koin
+    implementation 'org.koin:koin-android:1.0.2'
+
     // Architecture components
     implementation "android.arch.lifecycle:extensions:1.1.1"
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-rc01'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-rc02'
 
     // MaterialDesign
     implementation 'com.google.android.material:material:1.0.0'
