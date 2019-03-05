@@ -18,7 +18,7 @@ class WikiHeroViewModel(
     var loading: ObservableInt,
     
     var showEmpty: ObservableInt
-) : ViewModel() {
+) : ScopedViewModel() {
 
     var overviewAdapter = WikiHeroOverviewAdapter(this)
 

@@ -1,38 +1,36 @@
 package com.sc.overhub.view.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR.mapName
 import androidx.recyclerview.widget.RecyclerView
+import com.sc.overhub.BR.viewSourceId
 import com.sc.overhub.R
-import kotlinx.android.synthetic.main.item_wiki_heroes_list.view.*
+import com.sc.overhub.model.GameMap
 
-class MapsListAdapter : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
+class MapsListAdapter(private val maps: List<GameMap>) : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_wiki_map,
-                parent,
-                false
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_wiki_map, parent, false
             )
         )
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = maps.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        /*
-        holder.title.text = presenter.getHeroes()[position].name
-        holder.image.setImageResource(presenter.getHeroes()[position].logo)
-        holder.color.setHexColor(presenter.getHeroes()[position].borderColor, presenter.getHeroes()[position].mainColor)
-        holder.card.setOnClickListener { presenter.onClick() }*/
-
+        holder.bind(maps, position)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title = "title"
-        val image = "image"
-        val color = "color"
-        val layout = itemView.maps_item_layout
+    class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(maps: List<GameMap>, position: Int) {
+            binding.setVariable(viewSourceId, maps[position].imageId)
+            binding.setVariable(mapName, maps[position].name)
+            binding.executePendingBindings()
+        }
     }
 }

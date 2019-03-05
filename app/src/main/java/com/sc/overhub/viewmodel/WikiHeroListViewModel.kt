@@ -17,7 +17,7 @@ class WikiHeroListViewModel(
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
     private var navController: NavController
-) : ViewModel() {
+) : ScopedViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 
     fun getHeroesList(): MutableLiveData<List<WikiHeroesListEntry>> = heroes.getHeroes()

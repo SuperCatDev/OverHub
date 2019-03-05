@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
 
-class HomeActivityViewModel(activity: Activity) : ViewModel() {
+class HomeActivityViewModel(activity: Activity) : ScopedViewModel() {
     var navControllers: List<NavController> = mutableListOf(
         Navigation.findNavController(activity, R.id.statistic_host_fragment),
         Navigation.findNavController(activity, R.id.tracker_host_fragment),
