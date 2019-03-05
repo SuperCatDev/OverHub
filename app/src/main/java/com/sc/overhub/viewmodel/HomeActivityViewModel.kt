@@ -44,6 +44,8 @@ class HomeActivityViewModel(activity: Activity) : ViewModel() {
             handleToolbarHiding(destination.id)
         }
 
+    private var oldTabId = R.id.menu_wiki
+
     fun onToolbarBackPressed() {
         val destId = currentController.currentDestination?.id
 
@@ -87,11 +89,15 @@ class HomeActivityViewModel(activity: Activity) : ViewModel() {
                 navControllerId = 2
             }
         }
-
         if (navControllerId != null) {
             currentController = navControllers[navControllerId]
         }
 
+        if(itemId == oldTabId) {
+            currentController.popBackStack(currentController.graph.startDestination, false)
+        }
+
+        oldTabId = itemId
         handleToolbarHiding(currentController.currentDestination?.id)
     }
 }
