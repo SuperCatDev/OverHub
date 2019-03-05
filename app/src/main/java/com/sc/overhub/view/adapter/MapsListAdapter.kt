@@ -1,4 +1,4 @@
-package com.sc.overhub.view.adapters
+package com.sc.overhub.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

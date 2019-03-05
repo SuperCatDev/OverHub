@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiMapsBinding
-import com.sc.overhub.view.adapters.MapsListAdapter
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.MapsViewModel
 import com.sc.overhub.viewmodel.getViewModel
