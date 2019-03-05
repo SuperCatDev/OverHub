@@ -3,12 +3,11 @@ package com.sc.overhub.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.R
 import kotlinx.android.synthetic.main.item_wiki_heroes_list.view.*
 
-class MapsListAdapter(private val navigation: NavController) : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
+class MapsListAdapter : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -34,6 +33,6 @@ class MapsListAdapter(private val navigation: NavController) : RecyclerView.Adap
         val title = "title"
         val image = "image"
         val color = "color"
-        val layout = itemView.hero_item_layout
+        val layout = itemView.maps_item_layout
     }
 }
