@@ -23,7 +23,7 @@ class MapsFragment : BaseFragment() {
         adapter = MapsListAdapter(
             Navigation.findNavController(
                 activity!!,
-                R.id.nav_host_fragment
+                R.id.wiki_host_fragment
             )
         )
 

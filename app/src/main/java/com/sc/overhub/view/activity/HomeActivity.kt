@@ -21,7 +21,11 @@ class HomeActivity : BaseActivity() {
             viewModel = vm
         }
 
-        vm.navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        vm.navControllers = listOf(
+            Navigation.findNavController(this, R.id.statistic_host_fragment),
+            Navigation.findNavController(this, R.id.tracker_host_fragment),
+            Navigation.findNavController(this, R.id.wiki_host_fragment)
+        )
 
         toolbar.setNavigationOnClickListener { vm.onToolbarBackPressed() }
         bottom_navigation.setOnNavigationItemSelectedListener(vm.bottomNavigationListener)
@@ -30,7 +34,11 @@ class HomeActivity : BaseActivity() {
     companion object {
         fun getViewModelGetter(activity: Activity) = {
             HomeActivityViewModel(activity).also {
-                it.navController = Navigation.findNavController(activity, R.id.nav_host_fragment)
+                it.navControllers = listOf(
+                    Navigation.findNavController(activity, R.id.statistic_host_fragment),
+                    Navigation.findNavController(activity, R.id.tracker_host_fragment),
+                    Navigation.findNavController(activity, R.id.wiki_host_fragment)
+                )
             }
         }
     }

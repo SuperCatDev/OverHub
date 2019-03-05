@@ -4,10 +4,6 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_graph"
             app:startDestination="@id/wikiFragment">
 
-    <fragment android:id="@+id/statisticsFragment" android:name="com.sc.overhub.view.fragment.StatisticsFragment"
-              android:label="StatisticsFragment"/>
-    <fragment android:id="@+id/trackerFragment" android:name="com.sc.overhub.view.fragment.TrackerFragment"
-              android:label="TrackerFragment"/>
     <fragment android:id="@+id/wikiFragment" android:name="com.sc.overhub.view.fragment.wiki.WikiFragment"
               android:label="fragment_wiki" tools:layout="@layout/fragment_wiki">
         <action android:id="@+id/action_wikiFragment_to_wikiHeroesListFragment"

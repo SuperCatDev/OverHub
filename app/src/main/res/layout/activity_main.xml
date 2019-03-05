@@ -1,4 +1,4 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
                 name="viewModel"
@@ -7,7 +7,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -23,29 +22,54 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-        <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:fillViewport="true"
-                android:layout_height="0dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" android:id="@+id/nestedScrollView"
-                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <FrameLayout
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.visibleStatistic}"
+                android:id="@+id/statistic_container"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation">
+            <fragment
+                    android:id="@+id/statistic_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/main_container">
-                <fragment
-                        android:id="@+id/nav_host_fragment"
-                        android:name="androidx.navigation.fragment.NavHostFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:defaultNavHost="true"
-                        app:navGraph="@navigation/main_graph"/>
-            </FrameLayout>
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/statistic_graph"/>
+        </FrameLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.visibleTracker}"
+                android:id="@+id/tracker_container"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation">
+            <fragment
+                    android:id="@+id/tracker_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/tracker_graph"/>
+        </FrameLayout>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.visibleWiki}"
+                android:id="@+id/wiki_container"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+            <fragment
+                    android:id="@+id/wiki_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/wiki_graph"/>
+        </FrameLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"

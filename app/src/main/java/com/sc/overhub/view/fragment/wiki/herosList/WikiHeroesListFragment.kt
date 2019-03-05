@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiListHeroesBinding
 import com.sc.overhub.model.WikiHeroesListModel
@@ -25,9 +26,7 @@ class WikiHeroesListFragment : BaseFragment() {
                 MutableLiveData(),
                 ObservableInt(View.GONE),
                 ObservableInt(View.GONE),
-                with(activity!!) {
-                    getViewModel(HomeActivity.getViewModelGetter(this))
-                }.navController
+                Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
             )
         }
     }
@@ -37,9 +36,7 @@ class WikiHeroesListFragment : BaseFragment() {
             inflater, R.layout.fragment_wiki_list_heroes, container, false
         )
 
-        viewModel.reinitController(with(activity!!) {
-            getViewModel(HomeActivity.getViewModelGetter(this))
-        }.navController)
+        viewModel.reinitController(Navigation.findNavController(activity!!, R.id.wiki_host_fragment))
 
         val view = fragmentBinding.root
 

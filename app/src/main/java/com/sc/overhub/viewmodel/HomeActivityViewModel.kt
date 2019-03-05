@@ -1,104 +1,97 @@
 package com.sc.overhub.viewmodel
 
 import android.app.Activity
-import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
 
 class HomeActivityViewModel(activity: Activity) : ViewModel() {
-    var navController: NavController = NavController(activity)
-        set(controller) {
-            field = controller
-            field.addOnDestinationChangedListener(destinationChangedListener)
+    var navControllers: List<NavController> = mutableListOf(
+        Navigation.findNavController(activity, R.id.statistic_host_fragment),
+        Navigation.findNavController(activity, R.id.tracker_host_fragment),
+        Navigation.findNavController(activity, R.id.wiki_host_fragment)
+    )
+        set(value) {
+            field = value
+            field.forEach { it.addOnDestinationChangedListener(destinationChangedListener) }
         }
 
+    var currentController: NavController = navControllers[2]
+        private set
+
     var visibleToolbar = ObservableInt(View.GONE)
+
+    var visibleStatistic = ObservableInt(View.GONE)
+    var visibleTracker = ObservableInt(View.GONE)
+    var visibleWiki = ObservableInt(View.VISIBLE)
 
     val bottomNavigationListener = object :
         BottomNavigationView.OnNavigationItemSelectedListener {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.menu_statistic -> handleTabClick(item.itemId, R.id.statisticsFragment)
-                R.id.menu_tracker -> handleTabClick(item.itemId, R.id.trackerFragment)
-                R.id.menu_wiki -> handleTabClick(item.itemId, R.id.wikiFragment)
-                else -> return false
-            }
+            handleTab(item.itemId)
 
             return true
         }
     }
 
-    private var destinationsHistory = HashMap<Int, Bundle>()
-
-    init {
-        destinationsHistory[R.id.menu_statistic] = Bundle()
-        destinationsHistory[R.id.menu_tracker] = Bundle()
-        destinationsHistory[R.id.menu_wiki] = Bundle()
-    }
-
-    private var currentTabId = R.id.menu_wiki
-
     private val destinationChangedListener: NavController.OnDestinationChangedListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
-            val oldDestId = destination.id
-            if (oldDestId != R.id.wikiFragment &&
-                oldDestId != R.id.statisticsFragment &&
-                oldDestId != R.id.trackerFragment
-            ) {
-                visibleToolbar.set(View.VISIBLE)
-            } else {
-                visibleToolbar.set(View.GONE)
-            }
+            handleToolbarHiding(destination.id)
         }
 
     fun onToolbarBackPressed() {
-        val destId = navController.currentDestination?.id
+        val destId = currentController.currentDestination?.id
 
         if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
-            navController.popBackStack()
+            currentController.navigateUp()
     }
 
-    private fun handleTabClick(tabId: Int, hostFragmentId: Int) {
-        if(currentTabId != tabId) {
-            destinationsHistory[currentTabId] = navController.saveState() ?: Bundle()
-
-            navController.restoreState(destinationsHistory[tabId] ?: Bundle())
-            //todo some shit
-            navController.navigateUp()
-        }else {
-            destinationsHistory[tabId] = Bundle()
-            if (navController.currentDestination?.id != hostFragmentId) {
-                navController.navigate(hostFragmentId)
-            }
-        }
-        /*
-        if(currentTabId != tabId) {
-            if(navController.currentDestination?.id != hostFragmentId) {
-                destinationsHistory[currentTabId] = navController.saveState() ?: Bundle()
-            } else {
-                destinationsHistory[currentTabId] = Bundle()
-            }
-
-            val bundle = destinationsHistory[tabId] ?: Bundle()
-
-            if(!bundle.isEmpty) {
-                navController.restoreState(bundle)
-                navController.setGraph(R.navigation.main_graph)
-            } else {
-                navController.navigate(hostFragmentId)
-            }
+    private fun handleToolbarHiding(destId: Int?) {
+        if (destId != R.id.wikiFragment &&
+            destId != R.id.statisticsFragment &&
+            destId != R.id.trackerFragment
+        ) {
+            visibleToolbar.set(View.VISIBLE)
         } else {
-            destinationsHistory[tabId] = Bundle()
-            if (navController.currentDestination?.id != hostFragmentId) {
-                navController.navigate(hostFragmentId)
+            visibleToolbar.set(View.GONE)
+        }
+    }
+
+    private fun handleTab(itemId: Int) {
+        var navControllerId: Int? = null
+        when (itemId) {
+            R.id.menu_statistic -> {
+                visibleStatistic.set(View.VISIBLE)
+                visibleTracker.set(View.GONE)
+                visibleWiki.set(View.GONE)
+
+                navControllerId = 0
+            }
+            R.id.menu_tracker -> {
+                visibleStatistic.set(View.GONE)
+                visibleStatistic.set(View.VISIBLE)
+                visibleWiki.set(View.GONE)
+
+                navControllerId = 1
+            }
+            R.id.menu_wiki -> {
+                visibleStatistic.set(View.GONE)
+                visibleTracker.set(View.GONE)
+                visibleWiki.set(View.VISIBLE)
+
+                navControllerId = 2
             }
         }
-*/
-        currentTabId = tabId
+
+        if (navControllerId != null) {
+            currentController = navControllers[navControllerId]
+        }
+
+        handleToolbarHiding(currentController.currentDestination?.id)
     }
 }
