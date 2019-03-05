@@ -6,7 +6,6 @@
                                                    android:layout_height="match_parent"
                                                    tools:context=".view.fragment.wiki.WikiFragment">
     <ImageView
-            android:src="@drawable/wiki_heroes"
             android:layout_width="0dp"
             android:id="@+id/fragment_wiki_heroes_image"
             android:clickable="true"
@@ -19,7 +18,6 @@
             android:scaleType="centerCrop"
             android:focusable="true"/>
     <ImageView
-            android:src="@drawable/wiki_maps"
             android:layout_width="0dp"
             android:id="@+id/fragment_wiki_maps_image" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +25,6 @@
             app:layout_constraintBottom_toTopOf="@+id/fragment_wiki_update_image" android:layout_height="0dp"
             android:scaleType="centerCrop"/>
     <ImageView
-            android:src="@drawable/wiki_updates"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/fragment_wiki_update_image" app:layout_constraintStart_toStartOf="parent"

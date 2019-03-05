@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR.mapName
 import androidx.recyclerview.widget.RecyclerView
-import com.sc.overhub.BR.viewSourceId
+import com.bumptech.glide.Glide
 import com.sc.overhub.R
 import com.sc.overhub.model.GameMap
 
@@ -28,7 +28,12 @@ class MapsListAdapter(private val maps: List<GameMap>) : RecyclerView.Adapter<Ma
 
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(maps: List<GameMap>, position: Int) {
-            binding.setVariable(viewSourceId, maps[position].imageId)
+            Glide.with(binding.root)
+                .load(maps[position].imageId)
+                .fitCenter()
+                .into(binding.root.findViewById(R.id.map_image))
+
+            binding.root
             binding.setVariable(mapName, maps[position].name)
             binding.executePendingBindings()
         }

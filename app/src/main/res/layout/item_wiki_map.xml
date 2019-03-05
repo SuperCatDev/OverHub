@@ -2,9 +2,6 @@
 
 <layout>
     <data>
-        <variable name="viewSourceId"
-                  type="java.lang.Integer"/>
-
         <variable name="mapName"
                   type="java.lang.String"/>
     </data>
@@ -16,7 +13,6 @@
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@{viewSourceId}"
                 android:id="@+id/map_image"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
