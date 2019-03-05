@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="position"
+                  type="java.lang.Integer"/>
+
+        <variable name="viewModel"
+                  type="com.sc.overhub.viewmodel.WikiHeroViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                       xmlns:tools="http://schemas.android.com/tools"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="wrap_content">
+
+        <TextView
+                android:text="@{viewModel.getExtraSkillAtIndex(safeUnbox(position)).extraTitle}"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/item_wiki_hero_skills_extra_title"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/item_wiki_hero_skills_extra_description"
+                android:layout_marginEnd="4dp" android:layout_marginStart="8dp"/>
+        <TextView
+                android:text="@{viewModel.getExtraSkillAtIndex(safeUnbox(position)).extraDescription}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_wiki_hero_skills_extra_description"
+                android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/item_wiki_hero_skills_extra_title"
+                android:layout_marginStart="4dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

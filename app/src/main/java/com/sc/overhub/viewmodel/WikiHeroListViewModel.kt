@@ -1,5 +1,6 @@
 package com.sc.overhub.viewmodel
 
+import android.os.Bundle
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,7 @@ class WikiHeroListViewModel(
     var selected: MutableLiveData<WikiHeroesListEntry>,
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
-    private val navController: NavController
+    private var navController: NavController
 ) : ViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 
@@ -26,10 +27,19 @@ class WikiHeroListViewModel(
         adapter.notifyDataSetChanged()
     }
 
+    fun reinitController(controller: NavController) {
+        navController = controller
+    }
+
     fun onItemClick(index: Int) {
         val hero = getHeroAtIndex(index)
         selected.value = hero
-        navController.navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment)
+        val arg = Bundle()
+        if (hero != null) {
+            arg.putLong("ARG_HERO_ID", hero.id)
+            arg.putString("ARG_HERO_NAME", hero.name)
+        }
+        navController.navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment, arg)
     }
 
     fun onClickReload() {

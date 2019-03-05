@@ -27,7 +27,6 @@ class WikHeroListAdapter(
                 R.layout.item_wiki_heroes_list, parent, false
             )
         )
-
     }
 
     override fun getItemCount(): Int = heroes.size

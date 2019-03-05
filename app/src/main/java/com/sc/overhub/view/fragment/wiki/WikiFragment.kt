@@ -1,6 +1,5 @@
 package com.sc.overhub.view.fragment.wiki
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,16 +19,14 @@ class WikiFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navigationController =
-            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+            Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
 
         fragment_wiki_heroes_image.setOnClickListener {
-            navigationController
-                .navigate(R.id.action_wikiFragment_to_wikiHeroesListFragment)
+            navigationController.navigate(R.id.action_wikiFragment_to_wikiHeroesListFragment)
         }
 
         fragment_wiki_maps_image.setOnClickListener {
-            navigationController
-                .navigate(R.id.action_wikiFragment_to_mapsFragment)
+            navigationController.navigate(R.id.action_wikiFragment_to_mapsFragment)
         }
     }
 }

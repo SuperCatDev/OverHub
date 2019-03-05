@@ -1,53 +1,45 @@
 package com.sc.overhub.view.activity
 
+import android.app.Activity
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import androidx.navigation.NavController
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
+import com.sc.overhub.databinding.ActivityMainBinding
+import com.sc.overhub.viewmodel.HomeActivityViewModel
+import com.sc.overhub.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class HomeActivity : BaseActivity() {
-    lateinit var navController: NavController
+    private val vm: HomeActivityViewModel by lazy {
+        getViewModel(getViewModelGetter(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            val destId = destination.id
-            if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
-                toolbar.visibility = View.VISIBLE else toolbar.visibility = View.GONE
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
+            viewModel = vm
         }
 
-        toolbar.visibility = View.GONE
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
-        toolbar.setNavigationOnClickListener {
-            val destId = navController.currentDestination?.id
+        vm.navControllers = listOf(
+            Navigation.findNavController(this, R.id.statistic_host_fragment),
+            Navigation.findNavController(this, R.id.tracker_host_fragment),
+            Navigation.findNavController(this, R.id.wiki_host_fragment)
+        )
 
-            if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
-                navController.popBackStack()
-        }
+        toolbar.setNavigationOnClickListener { vm.onToolbarBackPressed() }
+        bottom_navigation.setOnNavigationItemSelectedListener(vm.bottomNavigationListener)
+    }
 
-        bottom_navigation.setOnNavigationItemSelectedListener(object :
-            BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                if (item.itemId == bottom_navigation.selectedItemId) {
-                    return false
-                }
-
-                when (item.itemId) {
-                    R.id.menu_statistic -> navController.navigate(R.id.statisticsFragment)
-                    R.id.menu_tracker -> navController.navigate(R.id.trackerFragment)
-                    R.id.menu_wiki -> navController.navigate(R.id.wikiFragment)
-                }
-
-                return true
+    companion object {
+        fun getViewModelGetter(activity: Activity) = {
+            HomeActivityViewModel(activity).also {
+                it.navControllers = listOf(
+                    Navigation.findNavController(activity, R.id.statistic_host_fragment),
+                    Navigation.findNavController(activity, R.id.tracker_host_fragment),
+                    Navigation.findNavController(activity, R.id.wiki_host_fragment)
+                )
             }
-        })
+        }
     }
 }
