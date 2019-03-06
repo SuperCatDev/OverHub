@@ -1,4 +1,4 @@
-package com.sc.overhub.view.adapters
+package com.sc.overhub.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,6 +29,7 @@ class MapsListAdapter(private val maps: List<GameMap>) : RecyclerView.Adapter<Ma
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(maps: List<GameMap>, position: Int) {
             binding.setVariable(viewSourceId, maps[position].imageId)
+            binding.root
             binding.setVariable(mapName, maps[position].name)
             binding.executePendingBindings()
         }

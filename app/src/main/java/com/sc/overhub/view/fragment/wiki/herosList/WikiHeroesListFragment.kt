@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiListHeroesBinding
 import com.sc.overhub.model.WikiHeroesListModel
-import com.sc.overhub.view.activity.HomeActivity
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.WikiHeroListViewModel
 import com.sc.overhub.viewmodel.getViewModel
@@ -26,17 +25,20 @@ class WikiHeroesListFragment : BaseFragment() {
                 MutableLiveData(),
                 ObservableInt(View.GONE),
                 ObservableInt(View.GONE),
-                Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
+                navigate
             )
         }
+    }
+
+    private val navigate: (Bundle) -> Unit = {
+        Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
+            .navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment, it)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentBinding: FragmentWikiListHeroesBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_wiki_list_heroes, container, false
         )
-
-        viewModel.reinitController(Navigation.findNavController(activity!!, R.id.wiki_host_fragment))
 
         val view = fragmentBinding.root
 

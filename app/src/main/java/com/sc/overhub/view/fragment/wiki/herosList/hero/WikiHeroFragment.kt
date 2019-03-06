@@ -13,7 +13,7 @@ import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiHeroBinding
 import com.sc.overhub.model.WikiHeroOverviewModel
 import com.sc.overhub.model.WikiHeroSkillsModel
-import com.sc.overhub.view.adapters.WikiHeroTabsAdapter
+import com.sc.overhub.view.adapter.WikiHeroTabsAdapter
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.WikiHeroViewModel
 import com.sc.overhub.viewmodel.getViewModel
