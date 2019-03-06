@@ -56,6 +56,7 @@ class HomeActivity : BaseActivity() {
                 controller.navigateUp()
         }
 
+        bottom_navigation.selectedItemId = R.id.menu_wiki
         bottom_navigation.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -93,8 +94,14 @@ class HomeActivity : BaseActivity() {
         return Navigation.findNavController(this, navId)
     }
 
-
     private fun handleTab(itemId: Int) {
+        val controller = getAttachedController()
+
+        if(vm.oldTabId == itemId) {
+            controller.navigate(controller.graph.startDestination)
+            return
+        }
+
         when (itemId) {
             R.id.menu_statistic -> {
                 vm.visibleStatistic.set(View.VISIBLE)
@@ -114,6 +121,7 @@ class HomeActivity : BaseActivity() {
         }
 
         vm.oldTabId = itemId
+
         handleToolbarHiding(getAttachedController(), getAttachedController().currentDestination?.id)
     }
 
