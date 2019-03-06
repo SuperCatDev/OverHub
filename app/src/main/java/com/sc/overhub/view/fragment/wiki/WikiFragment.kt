@@ -28,15 +28,12 @@ class WikiFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navigationController =
-            Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
-
         fragment_wiki_heroes_image.setOnClickListener {
-            navigationController.navigate(R.id.action_wikiFragment_to_wikiHeroesListFragment)
+            Navigation.findNavController(activity!!, R.id.wiki_host_fragment).navigate(R.id.action_wikiFragment_to_wikiHeroesListFragment)
         }
 
         fragment_wiki_maps_image.setOnClickListener {
-            navigationController.navigate(R.id.action_wikiFragment_to_mapsFragment)
+            Navigation.findNavController(activity!!, R.id.wiki_host_fragment).navigate(R.id.action_wikiFragment_to_mapsFragment)
         }
     }
 }

@@ -3,9 +3,7 @@ package com.sc.overhub.viewmodel
 import android.os.Bundle
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.sc.overhub.R
 import com.sc.overhub.entry.WikiHeroesListEntry
 import com.sc.overhub.model.WikiHeroesListModel
 import com.sc.overhub.view.adapter.WikHeroListAdapter
@@ -16,7 +14,7 @@ class WikiHeroListViewModel(
     var selected: MutableLiveData<WikiHeroesListEntry>,
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
-    private var navController: NavController
+    private var navigate: (Bundle) -> Unit
 ) : ScopedViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 
@@ -27,10 +25,6 @@ class WikiHeroListViewModel(
         adapter.notifyDataSetChanged()
     }
 
-    fun reinitController(controller: NavController) {
-        navController = controller
-    }
-
     fun onItemClick(index: Int) {
         val hero = getHeroAtIndex(index)
         selected.value = hero
@@ -39,7 +33,7 @@ class WikiHeroListViewModel(
             arg.putLong("ARG_HERO_ID", hero.id)
             arg.putString("ARG_HERO_NAME", hero.name)
         }
-        navController.navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment, arg)
+        navigate(arg)
     }
 
     fun onClickReload() {
