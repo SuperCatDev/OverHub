@@ -10,9 +10,9 @@
                 app:destination="@id/wikiHeroesListFragment"
         />
         <action android:id="@+id/action_wikiFragment_to_mapsFragment" app:destination="@id/mapsFragment"
-                app:enterAnim="@anim/slide_from_top"
-                app:popEnterAnim="@anim/slide_from_buttom" app:exitAnim="@anim/slide_to_buttom"
-                app:popExitAnim="@anim/slide_to_top"/>
+                app:enterAnim="@anim/slide_from_buttom"
+                app:popEnterAnim="@anim/slide_from_top" app:exitAnim="@anim/slide_to_top"
+                app:popExitAnim="@anim/slide_to_buttom"/>
     </fragment>
     <fragment android:id="@+id/wikiHeroesListFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.WikiHeroesListFragment"

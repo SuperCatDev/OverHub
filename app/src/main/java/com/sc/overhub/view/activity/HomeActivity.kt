@@ -126,7 +126,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun handleToolbarHiding(controller: NavController, destId: Int?) {
-        if (destId != controller.graph.startDestination
+        if (destId != controller.graph.startDestination && destId != R.id.mapsFragment
         ) {
             vm.visibleToolbar.set(View.VISIBLE)
         } else {
