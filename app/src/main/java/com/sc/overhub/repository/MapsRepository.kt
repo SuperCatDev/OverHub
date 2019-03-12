@@ -3,12 +3,15 @@ package com.sc.overhub.repository
 import com.sc.overhub.R
 import com.sc.overhub.model.GameMap
 import com.sc.overhub.model.MapType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 interface MapsRepository {
     // Suspend modifier guarantees that this methods
     // will be called from coroutine and was be controlled
     // by invoker coroutine scope
     suspend fun getMaps(): List<GameMap>
+
     suspend fun getIds(): List<Int>
     suspend fun getMapInfo(id: Int): GameMap
 }
@@ -36,10 +39,13 @@ class MapsRepositoryImpl : MapsRepository {
         Pair(19, GameMap("Numbani", R.drawable.blizzard_world, MapType.HYBRID))
     )
 
-    override suspend fun getMaps(): List<GameMap> = maps.values.toList()
+    override suspend fun getMaps(): List<GameMap> = withContext(Dispatchers.IO) {
+        maps.values.toList()
+    }
 
-    override suspend fun getIds(): List<Int> =
+    override suspend fun getIds(): List<Int> = withContext(Dispatchers.IO) {
         maps.keys.toList()
+    }
 
     override suspend fun getMapInfo(id: Int): GameMap =
         maps[id] ?: GameMap("Temple of Anubis", R.drawable.blizzard_world, MapType.ASSAULT)

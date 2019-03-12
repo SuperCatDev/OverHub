@@ -24,7 +24,7 @@ class MapsViewModel : ScopedViewModel(), KoinComponent {
         repo.getIds()
     }
 
-    fun getMapInfo(position: Int): GameMap = runBlocking(Dispatchers.IO) {
+    fun getMapInfo(position: Int): GameMap = runBlocking {
         repo.getMapInfo(idsAsync.await()[position])
     }
 
