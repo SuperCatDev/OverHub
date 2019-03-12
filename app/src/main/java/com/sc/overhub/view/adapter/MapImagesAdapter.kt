@@ -4,14 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.databinding.library.baseAdapters.BR.mapName
 import androidx.recyclerview.widget.RecyclerView
-import com.sc.overhub.BR.viewSourceId
+import com.sc.overhub.BR
 import com.sc.overhub.R
-import com.sc.overhub.model.GameMap
-import com.sc.overhub.viewmodel.MapsViewModel
 
-class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
+class MapImagesAdapter(private val imagesList: List<Int>) : RecyclerView.Adapter<MapImagesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             DataBindingUtil.inflate(
@@ -21,19 +18,15 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
         )
     }
 
-    override fun getItemCount(): Int = viewModel.size
+    override fun getItemCount(): Int = imagesList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel.maps, position, viewModel.navigate)
+        holder.bind(imagesList, position)
     }
 
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(maps: List<GameMap>, position: Int, navigate: (Int) -> Unit) {
-            binding.setVariable(viewSourceId, maps[position].imageId)
-            binding.root.setOnClickListener {
-                navigate(position)
-            }
-            binding.setVariable(mapName, maps[position].name)
+        fun bind(imagesList: List<Int>, position: Int) {
+            binding.setVariable(BR.viewSourceId, imagesList[position])
             binding.executePendingBindings()
         }
     }

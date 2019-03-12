@@ -14,7 +14,7 @@ class WikiHeroListViewModel(
     var selected: MutableLiveData<WikiHeroesListEntry>,
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
-    private var navigate: (Bundle) -> Unit
+    var navigate: (Bundle) -> Unit
 ) : ScopedViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 

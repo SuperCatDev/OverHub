@@ -42,6 +42,7 @@ class WikiHeroesListFragment : BaseFragment() {
 
         val view = fragmentBinding.root
 
+        viewModel.navigate = navigate
         fragmentBinding.model = viewModel
         fragmentBinding.executePendingBindings()
         return view

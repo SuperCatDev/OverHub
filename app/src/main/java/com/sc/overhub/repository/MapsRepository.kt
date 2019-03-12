@@ -14,6 +14,8 @@ interface MapsRepository {
 
     suspend fun getIds(): List<Int>
     suspend fun getMapInfo(id: Int): GameMap
+    suspend fun getMapImages(id: Int): List<Int>
+    suspend fun getMapDescription(id: Int): Pair<String, String>
 }
 
 class MapsRepositoryImpl : MapsRepository {
@@ -47,6 +49,26 @@ class MapsRepositoryImpl : MapsRepository {
         maps.keys.toList()
     }
 
-    override suspend fun getMapInfo(id: Int): GameMap =
+    override suspend fun getMapInfo(id: Int): GameMap = withContext(Dispatchers.IO) {
         maps[id] ?: GameMap("Temple of Anubis", R.drawable.blizzard_world, MapType.ASSAULT)
+    }
+
+    override suspend fun getMapImages(id: Int): List<Int> = withContext(Dispatchers.IO) {
+        listOf(R.drawable.blizzard_world, R.drawable.blizzard_world)
+    }
+
+    override suspend fun getMapDescription(id: Int): Pair<String, String> = withContext(Dispatchers.IO) {
+        Pair(
+            "Paris",
+            "Overwatch test servers released an update, along with which a new map appeared.\n" +
+                    "This time the players will go to Paris. Narrow streets, cabaret Luna and the Eiffel Tower in the background -\n" +
+                    "Blizzard tried to convey the atmosphere of the city of love as much as possible.\n" +
+                    "Perhaps the map will appear on the official servers for Valentine\\'s Day.\n" +
+                    "Many players have already found some similarities between the new map and locations from Bioshock Infinite.\n" +
+                    "On the map \"Paris\" you can find a piano. Players are already competing in their musical abilities.\n" +
+                    "Accompanied on the piano will be omnica singer, which entertains players attack before the start of the game.\n" +
+                    "\"Paris\" is designed for \"capture points\".\n" +
+                    "The official release date of the card on the main servers of the game yet."
+        )
+    }
 }
