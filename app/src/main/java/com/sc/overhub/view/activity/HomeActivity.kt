@@ -17,43 +17,10 @@ class HomeActivity : BaseActivity() {
         HomeActivityViewModel(R.id.menu_wiki)
     }
 
-    private val destinationChangedListener: NavController.OnDestinationChangedListener =
-        NavController.OnDestinationChangedListener { controller, destination, _ ->
-            handleToolbarHiding(controller, destination.id)
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             viewModel = vm
-        }
-
-        Navigation.findNavController(this, R.id.statistic_host_fragment)
-            .addOnDestinationChangedListener(destinationChangedListener)
-        Navigation.findNavController(this, R.id.tracker_host_fragment)
-            .addOnDestinationChangedListener(destinationChangedListener)
-        Navigation.findNavController(this, R.id.wiki_host_fragment)
-            .addOnDestinationChangedListener(destinationChangedListener)
-
-        toolbar.setNavigationOnClickListener {
-            val navId = when (vm.oldTabId) {
-                R.id.menu_statistic -> {
-                    R.id.statistic_host_fragment
-                }
-                R.id.menu_tracker -> {
-                    R.id.tracker_host_fragment
-                }
-                R.id.menu_wiki -> {
-                    R.id.wiki_host_fragment
-                }
-                else -> R.id.wiki_host_fragment
-            }
-
-            val controller = Navigation.findNavController(this, navId)
-            val destId = controller.currentDestination?.id
-
-            if (destId != R.id.wikiFragment && destId != R.id.statisticsFragment && destId != R.id.trackerFragment)
-                controller.navigateUp()
         }
 
         bottom_navigation.selectedItemId = R.id.menu_wiki
@@ -97,8 +64,8 @@ class HomeActivity : BaseActivity() {
     private fun handleTab(itemId: Int) {
         val controller = getAttachedController()
 
-        if(vm.oldTabId == itemId) {
-            controller.navigate(controller.graph.startDestination)
+        if (vm.oldTabId == itemId) {
+            controller.popBackStack(controller.graph.startDestination, false)
             return
         }
 
@@ -121,17 +88,5 @@ class HomeActivity : BaseActivity() {
         }
 
         vm.oldTabId = itemId
-
-        handleToolbarHiding(getAttachedController(), getAttachedController().currentDestination?.id)
     }
-
-    private fun handleToolbarHiding(controller: NavController, destId: Int?) {
-        if (destId != controller.graph.startDestination
-        ) {
-            vm.visibleToolbar.set(View.VISIBLE)
-        } else {
-            vm.visibleToolbar.set(View.GONE)
-        }
-    }
-
 }

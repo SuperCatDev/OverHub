@@ -7,18 +7,29 @@
     <fragment android:id="@+id/wikiFragment" android:name="com.sc.overhub.view.fragment.wiki.WikiFragment"
               android:label="fragment_wiki" tools:layout="@layout/fragment_wiki">
         <action android:id="@+id/action_wikiFragment_to_wikiHeroesListFragment"
-                app:destination="@id/wikiHeroesListFragment"/>
-        <action android:id="@+id/action_wikiFragment_to_mapsFragment" app:destination="@id/mapsFragment"/>
+                app:destination="@id/wikiHeroesListFragment"
+        />
+        <action android:id="@+id/action_wikiFragment_to_mapsFragment" app:destination="@id/mapsFragment"
+                app:enterAnim="@anim/slide_from_buttom"
+                app:popEnterAnim="@anim/slide_from_top" app:exitAnim="@anim/slide_to_top"
+                app:popExitAnim="@anim/slide_to_buttom"/>
     </fragment>
     <fragment android:id="@+id/wikiHeroesListFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.WikiHeroesListFragment"
               android:label="WikiHeroesListFragment">
         <action android:id="@+id/action_wikiHeroesListFragment_to_wikiHeroFragment"
-                app:destination="@id/wikiHeroFragment"/>
+                app:destination="@id/wikiHeroFragment"
+        />
     </fragment>
     <fragment android:id="@+id/wikiHeroFragment"
               android:name="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment"
               android:label="fragment_view_hero" tools:layout="@layout/fragment_wiki_hero"/>
     <fragment android:id="@+id/mapsFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapsFragment"
-              android:label="MapsFragment"/>
+              android:label="MapsFragment">
+        <action android:id="@+id/action_mapsFragment_to_mapFragment" app:destination="@id/mapFragment"
+                app:exitAnim="@anim/slide_to_top" app:popEnterAnim="@anim/slide_from_top"
+                app:popExitAnim="@anim/slide_to_buttom" app:enterAnim="@anim/slide_from_buttom"/>
+    </fragment>
+    <fragment android:id="@+id/mapFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapFragment"
+              android:label="MapFragment"/>
 </navigation>
