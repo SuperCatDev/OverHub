@@ -25,5 +25,11 @@
               android:name="com.sc.overhub.view.fragment.wiki.herosList.hero.WikiHeroFragment"
               android:label="fragment_view_hero" tools:layout="@layout/fragment_wiki_hero"/>
     <fragment android:id="@+id/mapsFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapsFragment"
-              android:label="MapsFragment"/>
+              android:label="MapsFragment">
+        <action android:id="@+id/action_mapsFragment_to_mapFragment" app:destination="@id/mapFragment"
+                app:exitAnim="@anim/slide_to_top" app:popEnterAnim="@anim/slide_from_top"
+                app:popExitAnim="@anim/slide_to_buttom" app:enterAnim="@anim/slide_from_buttom"/>
+    </fragment>
+    <fragment android:id="@+id/mapFragment" android:name="com.sc.overhub.view.fragment.wiki.maps.MapFragment"
+              android:label="MapFragment"/>
 </navigation>

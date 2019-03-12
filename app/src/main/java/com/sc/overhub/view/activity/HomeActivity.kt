@@ -98,7 +98,7 @@ class HomeActivity : BaseActivity() {
         val controller = getAttachedController()
 
         if(vm.oldTabId == itemId) {
-            controller.navigate(controller.graph.startDestination)
+            controller.popBackStack(controller.graph.startDestination, false)
             return
         }
 
