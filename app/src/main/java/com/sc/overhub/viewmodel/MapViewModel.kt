@@ -8,25 +8,29 @@ import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class MapViewModel(private val mapId: Int) : ScopedViewModel(), KoinComponent {
+class MapViewModel(private val mapId: Long) : ScopedViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()
 
     private val mapImagesIdAsync = async {
-        repo.getMapImages(mapId)
+        repo.getMapInfo(mapId).imagesId
     }
 
     private val mapDescriptionAsync = async {
-        repo.getMapDescription(mapId)
+        repo.getMapInfo(mapId).description
+    }
+
+    private val mapTitleAsync = async {
+        repo.getMapInfo(mapId).name
     }
 
     val adapter: MapImagesAdapter =
         MapImagesAdapter(runBlocking { mapImagesIdAsync.await() })
 
     val title: ObservableField<String> by lazy {
-        ObservableField<String>(runBlocking { mapDescriptionAsync.await().first })
+        ObservableField<String>(runBlocking { mapTitleAsync.await() })
     }
 
     val description: ObservableField<String> by lazy {
-        ObservableField<String>(runBlocking { mapDescriptionAsync.await().second })
+        ObservableField<String>(runBlocking { mapDescriptionAsync.await() })
     }
 }
