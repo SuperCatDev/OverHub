@@ -32,6 +32,8 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
         fun bind(maps: List<GameMapForListModel>, position: Int, navigate: (Int) -> Unit) {
             binding.setVariable(viewSourceId, maps[position].titleImageID)
             binding.root.setOnClickListener {
+                //TODO: ПЕРЕДАВТЬ ID карты maps[position].id И LONG вместо INT
+
                 navigate(position)
             }
             binding.setVariable(mapName, maps[position].name)
