@@ -11,5 +11,16 @@
     <string name="wiki_hero_tab_overview">Overview</string>
     <string name="wiki_hero_tab_skills">Skills</string>
     <string name="wiki_hero_tab_tips">Tips</string>
-
+    <string name="map_default_description">
+        Overwatch test servers released an update, along with which a new map appeared.
+        This time the players will go to Paris. Narrow streets, cabaret Luna and the Eiffel Tower in the background -
+        Blizzard tried to convey the atmosphere of the city of love as much as possible.
+        Perhaps the map will appear on the official servers for Valentine\'s Day.
+        Many players have already found some similarities between the new map and locations from Bioshock Infinite.
+        On the map "Paris" you can find a piano. Players are already competing in their musical abilities.
+        Accompanied on the piano will be omnica singer, which entertains players attack before the start of the game.
+        "Paris" is designed for "capture points".
+        The official release date of the card on the main servers of the game yet.
+    </string>
+    <string name="map_title_default">PARIS</string>
 </resources>

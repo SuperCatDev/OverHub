@@ -1,24 +1,41 @@
 package com.sc.overhub.repository
 
-import com.sc.overhub.R
+import com.sc.overhub.data.WikiMapDao
+import com.sc.overhub.mapper.MapMapper
 import com.sc.overhub.model.GameMap
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import com.sc.overhub.model.GameMapForListModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 interface MapsRepository {
-    suspend fun getMapsAsync(): Deferred<List<GameMap>>
+    // Suspend modifier guarantees that this methods
+    // will be called from coroutine and was be controlled
+    // by invoker coroutine scope
+    suspend fun getMapsForList(): List<GameMapForListModel>
+
+    suspend fun getMapInfo(id: Long): GameMap
 }
 
-class MapsRepositoryImpl : MapsRepository {
-    override suspend fun getMapsAsync(): Deferred<List<GameMap>> = coroutineScope {
-        async {
-            listOf(GameMap("BLIZZARD WORLD", R.drawable.blizzard_world),
-                GameMap("NUMBANI", R.drawable.blizzard_world),
-                GameMap("ROAD 66", R.drawable.blizzard_world),
-                GameMap("LEIGHTZAN TOWER", R.drawable.blizzard_world),
-                GameMap("HOLLYWOOD", R.drawable.blizzard_world),
-                GameMap("ILIOS", R.drawable.blizzard_world))
-        }
+
+class MapsRepositoryImpl(private val wikiMapDao: WikiMapDao, private val mapper: MapMapper) : MapsRepository {
+
+    override suspend fun getMapsForList(): List<GameMapForListModel> = withContext(Dispatchers.IO) {
+        // wikiMapDao.insertMapImage(PREPOPULATE_DATA_IMAGE)
+        // wikiMapDao.insertTypeMap(PREPOPULATE_DATA_TYPE)
+        // wikiMapDao.insertStatistics(PREPOPULATE_DATA_STATS)
+        // wikiMapDao.insert(PREPOPULATE_DATA)
+        wikiMapDao.getMapsForList()
+    }
+
+    override suspend fun getMapInfo(id: Long): GameMap = withContext(Dispatchers.IO) {
+        val map = wikiMapDao.getById(id)
+
+        return@withContext mapper.mapTo(
+            map,
+            wikiMapDao.getTitleImageById(id),
+            wikiMapDao.getImagesById(id),
+            wikiMapDao.getStatisticsById(id),
+            wikiMapDao.getTypeMap(map.mapTypeId)
+        )
     }
 }

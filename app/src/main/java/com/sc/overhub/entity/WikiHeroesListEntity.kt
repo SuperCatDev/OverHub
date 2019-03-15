@@ -1,6 +1,6 @@
-package com.sc.overhub.entry
+package com.sc.overhub.entity
 
-data class WikiHeroesListEntry(
+data class WikiHeroesListEntity(
     val id: Long = 0,
     val name: String,
     val role: String,
