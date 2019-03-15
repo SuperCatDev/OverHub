@@ -12,7 +12,6 @@ class LaunchActivity : BaseActivity() {
         setContentView(R.layout.launch_screen)
 
         launch {
-            //delay(5000)
             RepositoryFactory.getMapRepo(applicationContext)
             startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
             finish()
