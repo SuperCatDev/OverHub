@@ -84,12 +84,6 @@ abstract class AppDataBase : RoomDatabase() {
                             getInstance(context).wikiMapsDao().I_insert(PREPOPULATE_DATA)
                         }
                     }
-
-                    override fun onOpen(db: SupportSQLiteDatabase) {
-                        super.onOpen(db)
-                        ioThread {
-                        }
-                    }
                 }).build()
     }
 }
