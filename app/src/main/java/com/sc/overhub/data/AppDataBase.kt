@@ -1,7 +1,6 @@
 package com.sc.overhub.data
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -14,7 +13,6 @@ import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 
 @Database(
     entities = [
