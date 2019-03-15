@@ -4,15 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sc.overhub.R
 import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.data.wiki.map.WikiMapImageEntity
 import com.sc.overhub.data.wiki.map.WikiMapStatisticEntity
 import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @Database(
     entities = [
@@ -70,18 +66,6 @@ abstract class AppDataBase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDataBase::class.java, "test_db_over.db"
-            )
-                .addCallback(object : Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-
-                        GlobalScope.launch(IO) {
-                            getInstance(context).wikiMapsDao().I_insertMapImage(PREPOPULATE_DATA_IMAGE)
-                            getInstance(context).wikiMapsDao().I_insertTypeMap(PREPOPULATE_DATA_TYPE)
-                            getInstance(context).wikiMapsDao().I_insertStatistics(PREPOPULATE_DATA_STATS)
-                            getInstance(context).wikiMapsDao().I_insert(PREPOPULATE_DATA)
-                        }
-                    }
-                }).build()
+            ).build()
     }
 }

@@ -44,7 +44,6 @@ class WikiHeroesListFragment : BaseFragment() {
 
         viewModel.navigate = navigate
         fragmentBinding.model = viewModel
-        fragmentBinding.executePendingBindings()
         return view
     }
 

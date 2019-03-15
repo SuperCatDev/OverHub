@@ -8,6 +8,8 @@
               android:label="fragment_wiki" tools:layout="@layout/fragment_wiki">
         <action android:id="@+id/action_wikiFragment_to_wikiHeroesListFragment"
                 app:destination="@id/wikiHeroesListFragment"
+                app:exitAnim="@anim/slide_to_top" app:popEnterAnim="@anim/slide_from_top"
+                app:popExitAnim="@anim/slide_to_buttom" app:enterAnim="@anim/slide_from_buttom"
         />
         <action android:id="@+id/action_wikiFragment_to_mapsFragment" app:destination="@id/mapsFragment"
                 app:enterAnim="@anim/slide_from_buttom"
@@ -19,6 +21,8 @@
               android:label="WikiHeroesListFragment">
         <action android:id="@+id/action_wikiHeroesListFragment_to_wikiHeroFragment"
                 app:destination="@id/wikiHeroFragment"
+                app:exitAnim="@anim/slide_to_top" app:popEnterAnim="@anim/slide_from_top"
+                app:popExitAnim="@anim/slide_to_buttom" app:enterAnim="@anim/slide_from_buttom"
         />
     </fragment>
     <fragment android:id="@+id/wikiHeroFragment"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:title="Статистика"
+            android:title="Statistic"
             android:id="@+id/menu_statistic"
             android:icon="@drawable/ic_dahaze_black"/>
     <item
-            android:title="Трекер"
+            android:title="Tracker"
             android:id="@+id/menu_tracker"
             android:icon="@drawable/ic_dahaze_black"/>
     <item

@@ -1,5 +1,6 @@
 package com.sc.overhub.repository
 
+import com.sc.overhub.data.AppDataBase
 import com.sc.overhub.data.WikiMapDao
 import com.sc.overhub.mapper.MapMapper
 import com.sc.overhub.model.GameMap
@@ -18,6 +19,13 @@ interface MapsRepository {
 
 
 class MapsRepositoryImpl(private val wikiMapDao: WikiMapDao, private val mapper: MapMapper) : MapsRepository {
+
+    suspend fun initDefault() = withContext(Dispatchers.IO) {
+        wikiMapDao.I_insertMapImage(AppDataBase.PREPOPULATE_DATA_IMAGE)
+        wikiMapDao.I_insertTypeMap(AppDataBase.PREPOPULATE_DATA_TYPE)
+        wikiMapDao.I_insertStatistics(AppDataBase.PREPOPULATE_DATA_STATS)
+        wikiMapDao.I_insert(AppDataBase.PREPOPULATE_DATA)
+    }
 
     override suspend fun getMapsForList(): List<GameMapForListModel> = withContext(Dispatchers.IO) {
         // wikiMapDao.insertMapImage(PREPOPULATE_DATA_IMAGE)
