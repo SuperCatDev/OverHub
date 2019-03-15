@@ -8,7 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR
 import com.sc.overhub.R
-import com.sc.overhub.entry.WikiHeroesListEntry
+import com.sc.overhub.entity.WikiHeroesListEntity
 import com.sc.overhub.viewmodel.WikiHeroListViewModel
 
 
@@ -16,7 +16,7 @@ class WikHeroListAdapter(
                          @LayoutRes val layoutID: Int,
                          private val viewModel: WikiHeroListViewModel) : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>() {
 
-    private var heroes: List<WikiHeroesListEntry> = listOf()
+    private var heroes: List<WikiHeroesListEntity> = listOf()
 
     private fun getLayoutIdForPosition(position: Int) = layoutID
 
@@ -31,7 +31,7 @@ class WikHeroListAdapter(
 
     override fun getItemCount(): Int = heroes.size
 
-    fun setHeroes(heroes: List<WikiHeroesListEntry>){
+    fun setHeroes(heroes: List<WikiHeroesListEntity>){
         this.heroes = heroes
     }
 

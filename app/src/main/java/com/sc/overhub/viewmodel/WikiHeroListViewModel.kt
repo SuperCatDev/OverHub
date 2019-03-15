@@ -3,25 +3,24 @@ package com.sc.overhub.viewmodel
 import android.os.Bundle
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.NavController
-import com.sc.overhub.entry.WikiHeroesListEntry
+import com.sc.overhub.entity.WikiHeroesListEntity
 import com.sc.overhub.model.WikiHeroesListModel
 import com.sc.overhub.view.adapter.WikHeroListAdapter
 
 class WikiHeroListViewModel(
     private val heroes: WikiHeroesListModel,
     layoutId: Int,
-    var selected: MutableLiveData<WikiHeroesListEntry>,
+    var selected: MutableLiveData<WikiHeroesListEntity>,
     var loading: ObservableInt,
     var showEmpty: ObservableInt,
     var navigate: (Bundle) -> Unit
 ) : ScopedViewModel() {
     var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
 
-    fun getHeroesList(): MutableLiveData<List<WikiHeroesListEntry>> = heroes.getHeroes()
+    fun getHeroesList(): MutableLiveData<List<WikiHeroesListEntity>> = heroes.getHeroes()
 
-    fun setHeroesInAdapter(entryHeroes: List<WikiHeroesListEntry>) {
-        adapter.setHeroes(entryHeroes)
+    fun setHeroesInAdapter(entityHeroes: List<WikiHeroesListEntity>) {
+        adapter.setHeroes(entityHeroes)
         adapter.notifyDataSetChanged()
     }
 
@@ -39,7 +38,7 @@ class WikiHeroListViewModel(
     fun onClickReload() {
     }
 
-    fun getHeroAtIndex(index: Int): WikiHeroesListEntry? {
+    fun getHeroAtIndex(index: Int): WikiHeroesListEntity? {
         if (heroes.getHeroes().value != null) {
             if (heroes.getHeroes().value!!.size > index) {
                 return heroes.getHeroes().value!![index]

@@ -1,11 +1,11 @@
 package com.sc.overhub.mapper
 
-import com.sc.overhub.data.wiki.map.WikiMapEntry
+import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.model.GameMap
 
 class MapMapper{
     fun mapTo(
-        type: WikiMapEntry,
+        type: WikiMapEntity,
         titleImage: Int,
         images: List<Int>,
         statistics: List<String>,

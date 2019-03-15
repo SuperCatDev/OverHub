@@ -1,11 +1,13 @@
 package com.sc.overhub
 
 import android.app.Application
-import androidx.room.Room
 import com.sc.overhub.data.AppDataBase
 import com.sc.overhub.mapper.MapMapper
 import com.sc.overhub.repository.MapsRepository
 import com.sc.overhub.repository.MapsRepositoryImpl
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module.module
@@ -18,5 +20,15 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin(this, listOf(appModule))
+
+        GlobalScope.launch {
+            initRepo()
+        }
+    }
+
+    private suspend fun initRepo() {
+        //todo сделать что-то адекватное
+        val repo: MapsRepository by inject()
+        repo.getMapsForList()
     }
 }

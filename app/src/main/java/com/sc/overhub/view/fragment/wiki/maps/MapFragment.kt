@@ -14,8 +14,7 @@ import com.sc.overhub.viewmodel.getViewModel
 class MapFragment : BaseFragment() {
     private val viewModel: MapViewModel by lazy {
         getViewModel {
-            ////TODO: ПРИНЯТ ID КАРТЫ я просто не нашёл куда он из навигатора подаётся :D
-            MapViewModel(543)
+            MapViewModel(arguments?.getLong("map_id") ?: 0L)
         }
     }
 

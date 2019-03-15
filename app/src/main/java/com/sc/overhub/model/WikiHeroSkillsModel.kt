@@ -2,23 +2,23 @@ package com.sc.overhub.model
 
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
-import com.sc.overhub.entry.WikiHeroSkillEntry
-import com.sc.overhub.entry.WikiHeroSkillExtra
-import com.sc.overhub.entry.WikiHeroSkillMainEntry
+import com.sc.overhub.entity.WikiHeroSkillEntity
+import com.sc.overhub.entity.WikiHeroSkillExtra
+import com.sc.overhub.entity.WikiHeroSkillMainEntity
 
 class WikiHeroSkillsModel: BaseObservable() {
-    private var skills: MutableLiveData<List<WikiHeroSkillEntry>> = MutableLiveData()
+    private var skills: MutableLiveData<List<WikiHeroSkillEntity>> = MutableLiveData()
 
-    fun getSkills(): MutableLiveData<List<WikiHeroSkillEntry>> = skills
+    fun getSkills(): MutableLiveData<List<WikiHeroSkillEntity>> = skills
 
     init {
         skills.value = listOf(
-            WikiHeroSkillMainEntry("ДЭШ", "описание"),
+            WikiHeroSkillMainEntity("ДЭШ", "описание"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
-            WikiHeroSkillMainEntry("ДЭШ", "описание"),
+            WikiHeroSkillMainEntity("ДЭШ", "описание"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),
             WikiHeroSkillExtra("Здоровье", "200"),

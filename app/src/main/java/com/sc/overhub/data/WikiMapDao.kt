@@ -3,10 +3,10 @@ package com.sc.overhub.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.sc.overhub.data.wiki.map.WikiMapEntry
-import com.sc.overhub.data.wiki.map.WikiMapImageEntry
-import com.sc.overhub.data.wiki.map.WikiMapStatisticEntry
-import com.sc.overhub.data.wiki.map.WikiMapTypeEntry
+import com.sc.overhub.data.wiki.map.WikiMapEntity
+import com.sc.overhub.data.wiki.map.WikiMapImageEntity
+import com.sc.overhub.data.wiki.map.WikiMapStatisticEntity
+import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
 import com.sc.overhub.model.GameMapForListModel
 
 @Dao
@@ -16,7 +16,7 @@ interface WikiMapDao {
     suspend fun getMapsForList(): List<GameMapForListModel>
 
     @Query("SELECT * from wiki_map WHERE id = :mapId")
-    suspend fun getById(mapId: Long): WikiMapEntry
+    suspend fun getById(mapId: Long): WikiMapEntity
 
     @Query("SELECT res_uri from wiki_map_image WHERE map_id = :mapId")
     suspend fun getImagesById(mapId: Long): List<Int>
@@ -31,28 +31,28 @@ interface WikiMapDao {
     suspend fun getTypeMap(typeID: Long): String
 
     @Insert
-    suspend fun insert(data: List<WikiMapEntry>)
+    suspend fun insert(data: List<WikiMapEntity>)
 
     @Insert
-    suspend fun insertTypeMap(data: List<WikiMapTypeEntry>)
+    suspend fun insertTypeMap(data: List<WikiMapTypeEntity>)
 
     @Insert
-    suspend fun insertMapImage(data: List<WikiMapImageEntry>)
+    suspend fun insertMapImage(data: List<WikiMapImageEntity>)
 
     @Insert
-    suspend fun insertStatistics(data: List<WikiMapStatisticEntry>)
+    suspend fun insertStatistics(data: List<WikiMapStatisticEntity>)
 
     @Insert
-    fun I_insert(data: List<WikiMapEntry>)
+    fun I_insert(data: List<WikiMapEntity>)
 
     @Insert
-    fun I_insertTypeMap(data: List<WikiMapTypeEntry>)
+    fun I_insertTypeMap(data: List<WikiMapTypeEntity>)
 
     @Insert
-    fun I_insertMapImage(data: List<WikiMapImageEntry>)
+    fun I_insertMapImage(data: List<WikiMapImageEntity>)
 
     @Insert
-    fun I_insertStatistics(data: List<WikiMapStatisticEntry>)
+    fun I_insertStatistics(data: List<WikiMapStatisticEntity>)
 
     @Query("DELETE FROM wiki_map")
     suspend fun deleteAll()

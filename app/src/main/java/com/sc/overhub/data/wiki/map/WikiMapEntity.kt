@@ -6,8 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "wiki_map")
-@ForeignKey(entity = WikiMapTypeEntry::class, parentColumns = ["id"], childColumns = ["id_map_type"], onDelete = ForeignKey.CASCADE)
-data class WikiMapEntry(
+@ForeignKey(entity = WikiMapTypeEntity::class, parentColumns = ["id"], childColumns = ["id_map_type"], onDelete = ForeignKey.CASCADE)
+data class WikiMapEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long?,

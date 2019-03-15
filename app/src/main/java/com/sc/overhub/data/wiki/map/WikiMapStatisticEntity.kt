@@ -7,8 +7,8 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "wiki_map_statistic")
-@ForeignKey(entity = WikiMapEntry::class, parentColumns = ["id"], childColumns = ["map_id"], onDelete = CASCADE)
-data class WikiMapStatisticEntry(
+@ForeignKey(entity = WikiMapEntity::class, parentColumns = ["id"], childColumns = ["map_id"], onDelete = CASCADE)
+data class WikiMapStatisticEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

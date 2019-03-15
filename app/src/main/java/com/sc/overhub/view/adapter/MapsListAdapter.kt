@@ -29,12 +29,10 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
     }
 
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(maps: List<GameMapForListModel>, position: Int, navigate: (Int) -> Unit) {
+        fun bind(maps: List<GameMapForListModel>, position: Int, navigate: (Long) -> Unit) {
             binding.setVariable(viewSourceId, maps[position].titleImageID)
             binding.root.setOnClickListener {
-                //TODO: ПЕРЕДАВТЬ ID карты maps[position].id И LONG вместо INT
-
-                navigate(position)
+                navigate(maps[position].id)
             }
             binding.setVariable(mapName, maps[position].name)
             binding.executePendingBindings()

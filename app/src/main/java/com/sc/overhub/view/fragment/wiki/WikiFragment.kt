@@ -9,9 +9,11 @@ import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiBinding
 import com.sc.overhub.view.fragment.BaseFragment
+import com.sc.overhub.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.fragment_wiki.*
 
 class WikiFragment : BaseFragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

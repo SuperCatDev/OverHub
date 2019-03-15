@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "wiki_map_type")
-data class WikiMapTypeEntry (
+data class WikiMapTypeEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long?,

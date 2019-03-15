@@ -19,9 +19,11 @@ class MapsFragment : BaseFragment() {
         }
     }
 
-    private val navigate: (Int) -> Unit = {
+    private val navigate: (Long) -> Unit = {
+        val args = Bundle()
+        args.putLong("map_id", it)
         Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
-            .navigate(R.id.action_mapsFragment_to_mapFragment)
+            .navigate(R.id.action_mapsFragment_to_mapFragment, args)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

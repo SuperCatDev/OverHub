@@ -1,6 +1,5 @@
 package com.sc.overhub.viewmodel
 
-import com.sc.overhub.model.GameMap
 import com.sc.overhub.model.GameMapForListModel
 import com.sc.overhub.repository.MapsRepository
 import com.sc.overhub.view.adapter.MapsListAdapter
@@ -9,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class MapsViewModel(var navigate: (Int) -> Unit) : ScopedViewModel(), KoinComponent {
+class MapsViewModel(var navigate: (Long) -> Unit) : ScopedViewModel(), KoinComponent {
     val size: Int by lazy { runBlocking { mapsAsync.await().size } }
     val maps: List<GameMapForListModel> by lazy { runBlocking { mapsAsync.await() } }
 

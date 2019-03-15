@@ -7,13 +7,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR
 import com.sc.overhub.R
-import com.sc.overhub.entry.WikiHeroOverviewEntry
+import com.sc.overhub.entity.WikiHeroOverviewEntity
 import com.sc.overhub.viewmodel.WikiHeroViewModel
 
 class WikiHeroOverviewAdapter(
     private val viewModel: WikiHeroViewModel): RecyclerView.Adapter<WikiHeroOverviewAdapter.ViewHolder>() {
 
-    private var listDescription: List<WikiHeroOverviewEntry> = listOf()
+    private var listDescription: List<WikiHeroOverviewEntity> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,7 +28,7 @@ class WikiHeroOverviewAdapter(
         return listDescription.size
     }
 
-    fun setListDescription( listDescription: List<WikiHeroOverviewEntry>){
+    fun setListDescription( listDescription: List<WikiHeroOverviewEntity>){
         this.listDescription = listDescription
     }
 

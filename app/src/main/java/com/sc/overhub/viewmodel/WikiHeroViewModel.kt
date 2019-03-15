@@ -2,11 +2,10 @@ package com.sc.overhub.viewmodel
 
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.sc.overhub.entry.WikiHeroOverviewEntry
-import com.sc.overhub.entry.WikiHeroSkillEntry
-import com.sc.overhub.entry.WikiHeroSkillExtra
-import com.sc.overhub.entry.WikiHeroSkillMainEntry
+import com.sc.overhub.entity.WikiHeroOverviewEntity
+import com.sc.overhub.entity.WikiHeroSkillEntity
+import com.sc.overhub.entity.WikiHeroSkillExtra
+import com.sc.overhub.entity.WikiHeroSkillMainEntity
 import com.sc.overhub.model.WikiHeroOverviewModel
 import com.sc.overhub.model.WikiHeroSkillsModel
 import com.sc.overhub.view.adapter.WikiHeroOverviewAdapter
@@ -26,16 +25,16 @@ class WikiHeroViewModel(
 
     fun getOverviewText(): MutableLiveData<String> = overviewModel.getOverviewText()
 
-    fun getDescriptionList(): MutableLiveData<List<WikiHeroOverviewEntry>> = overviewModel.getDescriptionList()
+    fun getDescriptionList(): MutableLiveData<List<WikiHeroOverviewEntity>> = overviewModel.getDescriptionList()
 
-    fun getSkillsList(): MutableLiveData<List<WikiHeroSkillEntry>> = skillsModel.getSkills()
+    fun getSkillsList(): MutableLiveData<List<WikiHeroSkillEntity>> = skillsModel.getSkills()
 
-    fun setOverviewInAdapter(descriptionsOverviewList: List<WikiHeroOverviewEntry>) {
+    fun setOverviewInAdapter(descriptionsOverviewList: List<WikiHeroOverviewEntity>) {
         overviewAdapter.setListDescription(descriptionsOverviewList)
         overviewAdapter.notifyDataSetChanged()
     }
 
-    fun setSkillsInAdapter(skills: List<WikiHeroSkillEntry>) {
+    fun setSkillsInAdapter(skills: List<WikiHeroSkillEntity>) {
         skillsAdapter.setSkills(skills)
         skillsAdapter.notifyDataSetChanged()
 
@@ -49,7 +48,7 @@ class WikiHeroViewModel(
         return null
     }
 
-    fun getDescriptionAtIndex(index: Int): WikiHeroOverviewEntry? {
+    fun getDescriptionAtIndex(index: Int): WikiHeroOverviewEntity? {
         val value = overviewModel.getDescriptionList().value
         if (value != null && value.size > index) {
             return value[index]
@@ -57,10 +56,10 @@ class WikiHeroViewModel(
         return null
     }
 
-    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainEntry? {
+    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainEntity? {
         val value = skillsModel.getSkills().value
         if (value != null && value.size > index) {
-            return (value[index] as WikiHeroSkillMainEntry)
+            return (value[index] as WikiHeroSkillMainEntity)
         }
         return null
     }

@@ -7,8 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR
 import com.sc.overhub.R
-import com.sc.overhub.entry.WikiHeroSkillEntry
-import com.sc.overhub.entry.WikiHeroSkillMainEntry
+import com.sc.overhub.entity.WikiHeroSkillEntity
 import com.sc.overhub.viewmodel.WikiHeroViewModel
 
 interface WikiHeroSkillsHolder{
@@ -23,15 +22,15 @@ class WikiHeroSkillsAdapter(
         const val TYPE_EXTRA  = 1
     }
 
-    private var skills: List<WikiHeroSkillEntry> = listOf()
+    private var skills: List<WikiHeroSkillEntity> = listOf()
 
-    fun setSkills(skills: List<WikiHeroSkillEntry>){
+    fun setSkills(skills: List<WikiHeroSkillEntity>){
         this.skills = skills
     }
 
     override fun getItemViewType(position: Int): Int = when (skills[position].type) {
-        WikiHeroSkillEntry.TYPE.MAIN -> TYPE_MAIN
-        WikiHeroSkillEntry.TYPE.EXTRA -> TYPE_EXTRA
+        WikiHeroSkillEntity.TYPE.MAIN -> TYPE_MAIN
+        WikiHeroSkillEntity.TYPE.EXTRA -> TYPE_EXTRA
         else -> TYPE_MAIN
     }
 
