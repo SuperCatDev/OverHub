@@ -23,8 +23,13 @@ class DatabaseTest {
     private lateinit var dao: WikiMapDao
     private lateinit var db: AppDataBase
 
+    private var typeMap = listOf<WikiMapTypeEntity>()
+    private var images = listOf<WikiMapImageEntity>()
+    private var stats = listOf<WikiMapStatisticEntity>()
+    private var maps = listOf<WikiMapEntity>()
+
     @Before
-    fun createDB(){
+    fun createDB() {
         db = Room.inMemoryDatabaseBuilder(
             InstrumentationRegistry.getContext(),
             AppDataBase::class.java
@@ -32,6 +37,27 @@ class DatabaseTest {
             .allowMainThreadQueries()
             .build()
         dao = db.wikiMapsDao()
+
+        typeMap = listOf(
+            WikiMapTypeEntity(246, "ESCORT"),
+            WikiMapTypeEntity(5432, "ESCORT")
+        )
+
+        images = listOf(
+            WikiMapImageEntity(null, 1, R.drawable.wiki_maps, true),
+            WikiMapImageEntity(null, 2, R.drawable.wiki_maps, false),
+            WikiMapImageEntity(null, 2, R.drawable.wiki_maps, true)
+        )
+
+        stats = listOf(
+            WikiMapStatisticEntity(null, 1, "Example1"),
+            WikiMapStatisticEntity(null, 2, "Example2"),
+            WikiMapStatisticEntity(null, 1, "Example3")
+        )
+        maps = listOf(
+            WikiMapEntity(1, "Map1", "Descrition1", 246 ),
+            WikiMapEntity(2, "Map2", "Descrition2", 246 )
+        )
     }
 
     @After
@@ -43,22 +69,18 @@ class DatabaseTest {
     @Test
     @Throws(Exception::class)
     fun onAddingTypeMap() = runBlocking {
-        val typeMap = WikiMapTypeEntity(246, "ESCORT")
-        val typeMap2 = WikiMapTypeEntity(5432, "ESCORT")
 
-        dao.insertTypeMap(listOf(typeMap, typeMap2))
+        dao.insertTypeMap(typeMap)
 
-        val q = dao.getTypeMap(246)
-        assertEquals("ESCORT", q)
+        val result = dao.getTypeMap(246)
+        assertEquals("ESCORT", result)
     }
 
     @Test
     @Throws(Exception::class)
     fun onAddingMapImage() = runBlocking {
-        val image = WikiMapImageEntity(null, 1, R.drawable.wiki_maps, true)
-        val image2 = WikiMapImageEntity(null, 2, R.drawable.wiki_maps, false)
-        val image3 = WikiMapImageEntity(null, 2, R.drawable.wiki_maps, true)
-        dao.insertMapImage(listOf(image, image2, image3))
+
+        dao.insertMapImage(images)
 
         assertEquals(listOf(R.drawable.wiki_maps, R.drawable.wiki_maps), dao.getImagesById(2))
         assertEquals(R.drawable.wiki_maps, dao.getTitleImageById(2))
@@ -67,36 +89,21 @@ class DatabaseTest {
     @Test
     @Throws(Exception::class)
     fun onAddingMapStatistic() = runBlocking {
-        val stat = WikiMapStatisticEntity(null, 1, "Example1")
-        val stat2 = WikiMapStatisticEntity(null, 2, "Example2")
-        val stat3 = WikiMapStatisticEntity(null, 1, "Example3")
 
-        dao.insertStatistics(listOf(stat, stat2, stat3))
-
-        assertEquals(listOf(stat.text, stat3.text) ,dao.getStatisticsById(1))
+        dao.insertStatistics(stats)
+        assertEquals(listOf(stats[0].text, stats[2].text) ,dao.getStatisticsById(1))
     }
 
     @Test
     @Throws(Exception::class)
     fun onAddingMap() = runBlocking {
-        val typeMap: WikiMapTypeEntity = WikiMapTypeEntity(246, "ESCORT")
-        dao.insertTypeMap(listOf(typeMap))
 
-        val image = WikiMapImageEntity(null, 1, R.drawable.wiki_maps, true)
-        val image2 = WikiMapImageEntity(null, 2, R.drawable.wiki_maps, false)
-        val image3 = WikiMapImageEntity(null, 2, R.drawable.wiki_maps, true)
-        dao.insertMapImage(listOf(image, image2, image3))
+        dao.insertTypeMap(typeMap)
+        dao.insertMapImage(images)
+        dao.insertStatistics(stats)
+        dao.insert(maps)
 
-        val stat = WikiMapStatisticEntity(null, 1, "Example1")
-        val stat2 = WikiMapStatisticEntity(null, 2, "Example2")
-        val stat3 = WikiMapStatisticEntity(null, 1, "Example3")
-        dao.insertStatistics(listOf(stat, stat2, stat3))
-
-        val map = WikiMapEntity(1, "Map1", "Descrition1", 246 )
-        val map2 = WikiMapEntity(2, "Map2", "Descrition2", 246 )
-        dao.insert(listOf(map, map2))
-
-        assertEquals(map, dao.getById(1))
+        assertEquals(maps[0], dao.getById(1))
         assertEquals(null, dao.getById(125))
 
         val req = GameMapForListModel(1, "Map1", R.drawable.wiki_maps, "ESCORT" )
