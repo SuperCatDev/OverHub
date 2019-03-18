@@ -1,11 +1,9 @@
 package com.sc.overhub.data
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
-import com.sc.overhub.data.wiki.hero.WikiHeroEntity
-import com.sc.overhub.data.wiki.hero.WikiHeroSkillEntity
-import com.sc.overhub.data.wiki.hero.WikiHeroSkillExtraEntity
-import com.sc.overhub.data.wiki.hero.WikiHeroTipEntity
+import com.sc.overhub.data.wiki.hero.*
 import com.sc.overhub.model.WikiHeroForList
 
 @Dao
@@ -25,5 +23,20 @@ interface WikiHeroDao {
 
     @Query("SELECT * from wiki_hero_tip WHERE hero_id= :heroID")
     suspend fun getHeroTipsById(heroID: Long): List<WikiHeroTipEntity>
+
+    @Insert
+    fun I_insertHero(data: List<WikiHeroEntity>)
+
+    @Insert
+    fun I_insertHeroRole(data: List<WikiHeroRoleEntity>)
+
+    @Insert
+    fun I_insertSkill(data: List<WikiHeroSkillEntity>)
+
+    @Insert
+    fun I_insertSkillExtra(data: List<WikiHeroSkillExtraEntity>)
+
+    @Insert
+    fun I_insertTip(data: List<WikiHeroTipEntity>)
 
 }

@@ -6,7 +6,8 @@ import org.koin.android.ext.android.startKoin
 import org.koin.dsl.module.module
 
 val appModule = module {
-    single { RepositoryFactory.reposImpl }
+    single { RepositoryFactory.mapsReposImpl }
+    single { RepositoryFactory.mapsReposImpl }
 }
 
 class App : Application() {
