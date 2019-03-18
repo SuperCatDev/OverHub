@@ -3,7 +3,7 @@ package com.sc.overhub.repository
 import com.sc.overhub.data.AppDataBase
 import com.sc.overhub.data.WikiMapDao
 import com.sc.overhub.mapper.MapMapper
-import com.sc.overhub.model.GameMap
+import com.sc.overhub.model.GameMapModel
 import com.sc.overhub.model.GameMapForListModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,7 +14,7 @@ interface MapsRepository {
     // by invoker coroutine scope
     suspend fun getMapsForList(): List<GameMapForListModel>
 
-    suspend fun getMapInfo(id: Long): GameMap
+    suspend fun getMapInfo(id: Long): GameMapModel
 }
 
 
@@ -35,7 +35,7 @@ class MapsRepositoryImpl(private val wikiMapDao: WikiMapDao, private val mapper:
         wikiMapDao.getMapsForList()
     }
 
-    override suspend fun getMapInfo(id: Long): GameMap = withContext(Dispatchers.IO) {
+    override suspend fun getMapInfo(id: Long): GameMapModel = withContext(Dispatchers.IO) {
         val map = wikiMapDao.getById(id)
 
         return@withContext mapper.mapTo(

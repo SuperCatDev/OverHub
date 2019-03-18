@@ -8,7 +8,6 @@ import androidx.databinding.library.baseAdapters.BR.mapName
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR.viewSourceId
 import com.sc.overhub.R
-import com.sc.overhub.model.GameMap
 import com.sc.overhub.model.GameMapForListModel
 import com.sc.overhub.viewmodel.MapsViewModel
 
