@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "wiki_hero_skill_extra")
 @ForeignKey(entity = WikiHeroSkillEntity::class, parentColumns = ["id"], childColumns = ["id_skills"], onDelete = ForeignKey.CASCADE)
-data class WikiHeroSkillExtra (
+data class WikiHeroSkillExtraEntity (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

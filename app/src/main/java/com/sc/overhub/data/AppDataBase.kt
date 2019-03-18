@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sc.overhub.R
+import com.sc.overhub.data.wiki.hero.*
 import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.data.wiki.map.WikiMapImageEntity
 import com.sc.overhub.data.wiki.map.WikiMapStatisticEntity
@@ -15,12 +16,19 @@ import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
         WikiMapEntity::class,
         WikiMapImageEntity::class,
         WikiMapStatisticEntity::class,
-        WikiMapTypeEntity::class],
+        WikiMapTypeEntity::class,
+        WikiHeroEntity::class,
+        WikiHeroRoleEntity::class,
+        WikiHeroSkillEntity::class,
+        WikiHeroSkillExtraEntity::class,
+        WikiHeroTipEntity::class],
     version = 1, exportSchema = false
 )
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun wikiMapsDao(): WikiMapDao
+
+    abstract fun wikiHeroDao(): WikiHeroDao
 
     companion object {
         val PREPOPULATE_DATA_TYPE = listOf(
