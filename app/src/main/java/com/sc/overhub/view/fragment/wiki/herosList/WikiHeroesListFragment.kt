@@ -19,20 +19,15 @@ import com.sc.overhub.viewmodel.getViewModel
 class WikiHeroesListFragment : BaseFragment() {
     private val viewModel: WikiHeroListViewModel by lazy {
         getViewModel {
-            WikiHeroListViewModel(
-                WikiHeroesListModel(),
-                R.layout.item_wiki_heroes_list,
-                MutableLiveData(),
-                ObservableInt(View.GONE),
-                ObservableInt(View.GONE),
-                navigate
-            )
+            WikiHeroListViewModel(navigate)
         }
     }
 
-    private val navigate: (Bundle) -> Unit = {
+    private val navigate: (Long) -> Unit = {
+        val args = Bundle()
+        args.putLong("hero_id", it)
         Navigation.findNavController(activity!!, R.id.wiki_host_fragment)
-            .navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment, it)
+            .navigate(R.id.action_wikiHeroesListFragment_to_wikiHeroFragment, args)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,25 +35,8 @@ class WikiHeroesListFragment : BaseFragment() {
             inflater, R.layout.fragment_wiki_list_heroes, container, false
         )
 
-        val view = fragmentBinding.root
-
         viewModel.navigate = navigate
         fragmentBinding.model = viewModel
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.loading.set(View.VISIBLE)
-
-        viewModel.getHeroesList().observe(this, Observer {
-            viewModel.loading.set(View.GONE)
-            if (it.isEmpty()) {
-                viewModel.showEmpty.set(View.VISIBLE)
-            } else {
-                viewModel.showEmpty.set(View.GONE)
-                viewModel.setHeroesInAdapter(it)
-            }
-        })
+        return fragmentBinding.root
     }
 }

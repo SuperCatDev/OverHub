@@ -13,6 +13,7 @@ class LaunchActivity : BaseActivity() {
 
         launch {
             RepositoryFactory.getMapRepo(applicationContext)
+            RepositoryFactory.getHeroRepo(applicationContext)
             startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
             finish()
         }

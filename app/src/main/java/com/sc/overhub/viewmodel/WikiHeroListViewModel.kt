@@ -1,49 +1,37 @@
 package com.sc.overhub.viewmodel
 
-import android.os.Bundle
+import android.view.View
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.MutableLiveData
-import com.sc.overhub.entity.WikiHeroesListEntity
-import com.sc.overhub.model.WikiHeroesListModel
+import com.sc.overhub.model.WikiHeroForList
+import com.sc.overhub.repository.HeroesRepository
 import com.sc.overhub.view.adapter.WikHeroListAdapter
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
 class WikiHeroListViewModel(
-    private val heroes: WikiHeroesListModel,
-    layoutId: Int,
-    var selected: MutableLiveData<WikiHeroesListEntity>,
-    var loading: ObservableInt,
-    var showEmpty: ObservableInt,
-    var navigate: (Bundle) -> Unit
-) : ScopedViewModel() {
-    var adapter: WikHeroListAdapter = WikHeroListAdapter(layoutId, this)
+    var navigate: (Long) -> Unit) : ScopedViewModel(), KoinComponent {
 
-    fun getHeroesList(): MutableLiveData<List<WikiHeroesListEntity>> = heroes.getHeroes()
+    private val repo: HeroesRepository by inject()
 
-    fun setHeroesInAdapter(entityHeroes: List<WikiHeroesListEntity>) {
-        adapter.setHeroes(entityHeroes)
-        adapter.notifyDataSetChanged()
+    var loading: ObservableInt = ObservableInt(View.GONE)
+    var showEmpty: ObservableInt = ObservableInt(View.GONE)
+    private val heroes: List<WikiHeroForList> by lazy { runBlocking { heroesAsync.await() } }
+
+    private val heroesAsync = async { repo.getHeroesForList() }
+
+    var adapter: WikHeroListAdapter = WikHeroListAdapter(this)
+
+    fun getHeroAtIndex(position: Int): WikiHeroForList = heroes[position]
+
+    fun onItemClick(position: Int){
+        navigate(heroes[position].id)
     }
 
-    fun onItemClick(index: Int) {
-        val hero = getHeroAtIndex(index)
-        selected.value = hero
-        val arg = Bundle()
-        if (hero != null) {
-            arg.putLong("ARG_HERO_ID", hero.id)
-            arg.putString("ARG_HERO_NAME", hero.name)
-        }
-        navigate(arg)
-    }
+    fun getSize(): Int = heroes.size
 
-    fun onClickReload() {
-    }
+    fun onClickReload(){
 
-    fun getHeroAtIndex(index: Int): WikiHeroesListEntity? {
-        if (heroes.getHeroes().value != null) {
-            if (heroes.getHeroes().value!!.size > index) {
-                return heroes.getHeroes().value!![index]
-            }
-        }
-        return null
     }
 }

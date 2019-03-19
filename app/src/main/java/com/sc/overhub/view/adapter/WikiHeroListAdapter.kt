@@ -12,13 +12,7 @@ import com.sc.overhub.entity.WikiHeroesListEntity
 import com.sc.overhub.viewmodel.WikiHeroListViewModel
 
 
-class WikHeroListAdapter(
-                         @LayoutRes val layoutID: Int,
-                         private val viewModel: WikiHeroListViewModel) : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>() {
-
-    private var heroes: List<WikiHeroesListEntity> = listOf()
-
-    private fun getLayoutIdForPosition(position: Int) = layoutID
+class WikHeroListAdapter(private val viewModel: WikiHeroListViewModel) : RecyclerView.Adapter<WikHeroListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,11 +23,7 @@ class WikHeroListAdapter(
         )
     }
 
-    override fun getItemCount(): Int = heroes.size
-
-    fun setHeroes(heroes: List<WikiHeroesListEntity>){
-        this.heroes = heroes
-    }
+    override fun getItemCount(): Int = viewModel.getSize()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(viewModel, position)
