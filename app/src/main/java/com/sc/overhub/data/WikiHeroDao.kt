@@ -9,7 +9,7 @@ import com.sc.overhub.model.WikiHeroForList
 @Dao
 interface WikiHeroDao {
 
-    @Query("SELECT wiki_hero.id, wiki_hero.name, wiki_hero_role.role, wiki_hero.complexity FROM wiki_hero INNER JOIN wiki_hero_role ON wiki_hero.id_role = wiki_hero_role.id")
+    @Query("SELECT wiki_hero.id, wiki_hero.name, wiki_hero_role.role, wiki_hero.complexity, wiki_hero.res_uri FROM wiki_hero INNER JOIN wiki_hero_role ON wiki_hero.id_role = wiki_hero_role.id")
     suspend fun getHeroesForList(): List<WikiHeroForList>
 
     @Query("SELECT * from wiki_hero WHERE id = :heroID ")

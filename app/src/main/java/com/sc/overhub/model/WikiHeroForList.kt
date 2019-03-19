@@ -14,5 +14,8 @@ data class WikiHeroForList(
     val role: String,
 
     @ColumnInfo(name = "complexity")
-    val complexity: Int
+    val complexity: Int,
+
+    @ColumnInfo(name = "res_uri")
+    val image: Int
 )

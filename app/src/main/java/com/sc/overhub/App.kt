@@ -7,7 +7,7 @@ import org.koin.dsl.module.module
 
 val appModule = module {
     single { RepositoryFactory.mapsReposImpl }
-    single { RepositoryFactory.mapsReposImpl }
+    single { RepositoryFactory.heroesReposImp }
 }
 
 class App : Application() {
