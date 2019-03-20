@@ -2,7 +2,7 @@ package com.sc.overhub.viewmodel
 
 import android.view.View
 import androidx.databinding.ObservableInt
-import com.sc.overhub.model.WikiHeroForList
+import com.sc.overhub.model.WikiHeroListModel
 import com.sc.overhub.repository.HeroesRepository
 import com.sc.overhub.view.adapter.WikHeroListAdapter
 import kotlinx.coroutines.async
@@ -17,13 +17,13 @@ class WikiHeroListViewModel(
 
     var loading: ObservableInt = ObservableInt(View.GONE)
     var showEmpty: ObservableInt = ObservableInt(View.GONE)
-    private val heroes: List<WikiHeroForList> by lazy { runBlocking { heroesAsync.await() } }
+    private val heroes: List<WikiHeroListModel> by lazy { runBlocking { heroesAsync.await() } }
 
     private val heroesAsync = async { repo.getHeroesForList() }
 
     var adapter: WikHeroListAdapter = WikHeroListAdapter(this)
 
-    fun getHeroAtIndex(position: Int): WikiHeroForList = heroes[position]
+    fun getHeroAtIndex(position: Int): WikiHeroListModel = heroes[position]
 
     fun onItemClick(position: Int){
         navigate(heroes[position].id)

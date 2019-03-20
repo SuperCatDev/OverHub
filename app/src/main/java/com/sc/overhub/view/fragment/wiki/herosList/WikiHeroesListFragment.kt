@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiListHeroesBinding
-import com.sc.overhub.model.WikiHeroesListModel
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.WikiHeroListViewModel
 import com.sc.overhub.viewmodel.getViewModel

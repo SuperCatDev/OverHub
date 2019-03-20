@@ -3,17 +3,19 @@ package com.sc.overhub.repository
 import com.sc.overhub.R
 import com.sc.overhub.data.WikiHeroDao
 import com.sc.overhub.data.wiki.hero.*
-import com.sc.overhub.model.WikiHeroForList
+import com.sc.overhub.data.wiki.WikiHeroForList
+import com.sc.overhub.mapper.HeroMapper
+import com.sc.overhub.model.WikiHeroListModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 interface HeroesRepository {
 
-    suspend fun getHeroesForList(): List<WikiHeroForList>
+    suspend fun getHeroesForList(): List<WikiHeroListModel>
 
 }
 
-class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao): HeroesRepository {
+class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapper: HeroMapper): HeroesRepository {
 
     suspend fun initDefault() = withContext(Dispatchers.IO) {
         val hero = listOf(
@@ -49,8 +51,8 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao): HeroesRepositor
         wikiHeroDao.I_insertTip(heroTip)
     }
 
-    override suspend fun getHeroesForList(): List<WikiHeroForList> = withContext(Dispatchers.IO) {
-        wikiHeroDao.getHeroesForList()
+    override suspend fun getHeroesForList(): List<WikiHeroListModel> = withContext(Dispatchers.IO) {
+        wikiHeroDao.getHeroesForList().map { mapper.mapTo(it) }
     }
 
 }

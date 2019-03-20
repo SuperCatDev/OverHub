@@ -7,13 +7,13 @@ import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.data.wiki.map.WikiMapImageEntity
 import com.sc.overhub.data.wiki.map.WikiMapStatisticEntity
 import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
-import com.sc.overhub.model.GameMapForListModel
+import com.sc.overhub.data.wiki.GameMapForList
 
 @Dao
 interface WikiMapDao {
 
     @Query("SELECT wiki_map.id, wiki_map.name, wiki_map_image.res_uri, wiki_map_type.type FROM wiki_map INNER JOIN wiki_map_image ON wiki_map.id = wiki_map_image.map_id AND wiki_map_image.is_title = 1 INNER JOIN wiki_map_type ON wiki_map.id_map_type = wiki_map_type.id")
-    suspend fun getMapsForList(): List<GameMapForListModel>
+    suspend fun getMapsForList(): List<GameMapForList>
 
     @Query("SELECT * from wiki_map WHERE id = :mapId")
     suspend fun getById(mapId: Long): WikiMapEntity

@@ -1,8 +1,8 @@
-package com.sc.overhub.model
+package com.sc.overhub.data.wiki
 
 import androidx.room.ColumnInfo
 
-data class GameMapForListModel(
+data class GameMapForList(
     @ColumnInfo(name = "id")
     val id: Long = 0,
     @ColumnInfo(name = "name")

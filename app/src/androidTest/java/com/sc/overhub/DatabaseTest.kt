@@ -14,8 +14,8 @@ import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.data.wiki.map.WikiMapImageEntity
 import com.sc.overhub.data.wiki.map.WikiMapStatisticEntity
 import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
-import com.sc.overhub.model.GameMapForListModel
-import com.sc.overhub.model.WikiHeroForList
+import com.sc.overhub.data.wiki.GameMapForList
+import com.sc.overhub.data.wiki.WikiHeroForList
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -120,8 +120,8 @@ class DatabaseTest {
         assertEquals(maps[0], mapDao.getById(1))
         assertEquals(null, mapDao.getById(125))
 
-        val req = GameMapForListModel(1, "Map1", R.drawable.wiki_maps, "ESCORT" )
-        val req2 = GameMapForListModel(2, "Map2", R.drawable.wiki_maps, "ESCORT" )
+        val req = GameMapForList(1, "Map1", R.drawable.wiki_maps, "ESCORT")
+        val req2 = GameMapForList(2, "Map2", R.drawable.wiki_maps, "ESCORT")
         assertEquals(listOf(req, req2), mapDao.getMapsForList())
     }
 
@@ -134,7 +134,8 @@ class DatabaseTest {
 
         val result = listOf(
             WikiHeroForList(11, "Таран", "Танк", 3, R.drawable.hero_portrait_hum),
-            WikiHeroForList(12, "Мерси", "Поддержка", 1, R.drawable.hero_portrait_hum))
+            WikiHeroForList(12, "Мерси", "Поддержка", 1, R.drawable.hero_portrait_hum)
+        )
 
         assertEquals(result, heroDao.getHeroesForList())
     }

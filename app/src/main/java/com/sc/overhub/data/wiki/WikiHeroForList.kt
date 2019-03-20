@@ -1,4 +1,4 @@
-package com.sc.overhub.model
+package com.sc.overhub.data.wiki
 
 import androidx.room.ColumnInfo
 

@@ -8,7 +8,8 @@ import androidx.databinding.library.baseAdapters.BR.mapName
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR.viewSourceId
 import com.sc.overhub.R
-import com.sc.overhub.model.GameMapForListModel
+import com.sc.overhub.data.wiki.GameMapForList
+import com.sc.overhub.model.GameMapListModel
 import com.sc.overhub.viewmodel.MapsViewModel
 
 class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapter<MapsListAdapter.ViewHolder>() {
@@ -28,7 +29,7 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
     }
 
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(maps: List<GameMapForListModel>, position: Int, navigate: (Long) -> Unit) {
+        fun bind(maps: List<GameMapListModel>, position: Int, navigate: (Long) -> Unit) {
             binding.setVariable(viewSourceId, maps[position].titleImageID)
             binding.root.setOnClickListener {
                 navigate(maps[position].id)

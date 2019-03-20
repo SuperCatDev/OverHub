@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.sc.overhub.data.wiki.hero.*
-import com.sc.overhub.model.WikiHeroForList
+import com.sc.overhub.data.wiki.WikiHeroForList
 
 @Dao
 interface WikiHeroDao {
