@@ -13,8 +13,6 @@ import com.sc.overhub.viewmodel.WikiHeroViewModel
 class WikiHeroOverviewAdapter(
     private val viewModel: WikiHeroViewModel): RecyclerView.Adapter<WikiHeroOverviewAdapter.ViewHolder>() {
 
-    private var listDescription: List<WikiHeroOverviewEntity> = listOf()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             DataBindingUtil.inflate(
@@ -25,11 +23,7 @@ class WikiHeroOverviewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listDescription.size
-    }
-
-    fun setListDescription( listDescription: List<WikiHeroOverviewEntity>){
-        this.listDescription = listDescription
+      return viewModel.getOverview().size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

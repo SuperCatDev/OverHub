@@ -2,13 +2,11 @@ package com.sc.overhub.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.overhub.BR
 import com.sc.overhub.R
-import com.sc.overhub.entity.WikiHeroesListEntity
 import com.sc.overhub.viewmodel.WikiHeroListViewModel
 
 

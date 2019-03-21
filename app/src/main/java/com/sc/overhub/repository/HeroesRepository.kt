@@ -3,15 +3,22 @@ package com.sc.overhub.repository
 import com.sc.overhub.R
 import com.sc.overhub.data.WikiHeroDao
 import com.sc.overhub.data.wiki.hero.*
-import com.sc.overhub.data.wiki.WikiHeroForList
+import com.sc.overhub.entity.WikiHeroSkillModel
 import com.sc.overhub.mapper.HeroMapper
 import com.sc.overhub.model.WikiHeroListModel
+import com.sc.overhub.model.WikiHeroModel
+import com.sc.overhub.model.WikiHeroOverViewModel
+import com.sc.overhub.model.WikiHeroTipModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 interface HeroesRepository {
 
     suspend fun getHeroesForList(): List<WikiHeroListModel>
+    suspend fun getHeroById(heroID: Long): WikiHeroModel
+    suspend fun getHeroTips(heroId: Long): List<WikiHeroTipModel>
+    suspend fun getHeroSkills(heroID: Long): List<WikiHeroSkillModel>
+    suspend fun getHeroOverview(heroID: Long): List<WikiHeroOverViewModel>
 
 }
 
@@ -22,6 +29,12 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapp
             WikiHeroEntity(11, "Таран", "", R.drawable.hero_portrait_hum, 3, 21),
             WikiHeroEntity(12, "Мерси", "", R.drawable.hero_portrait_hum, 1, 22)
         )
+
+        val overview = listOf(
+            WikiHeroOverviewEntity(500, 11, "121432", "4234234"),
+            WikiHeroOverviewEntity(501, 11, "121432", "4234234"),
+            WikiHeroOverviewEntity(502, 11, "121432", "4234234"))
+
         val heroRole = listOf(
             WikiHeroRoleEntity(21, "Танк"),
             WikiHeroRoleEntity(22, "Поддержка")
@@ -46,6 +59,7 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapp
 
         wikiHeroDao.I_insertHero(hero)
         wikiHeroDao.I_insertHeroRole(heroRole)
+        wikiHeroDao.I_insertHeroOverview(overview)
         wikiHeroDao.I_insertSkill(heroSkill)
         wikiHeroDao.I_insertSkillExtra(heroSkillExtra)
         wikiHeroDao.I_insertTip(heroTip)
@@ -55,4 +69,28 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapp
         wikiHeroDao.getHeroesForList().map { mapper.mapTo(it) }
     }
 
+   override suspend fun getHeroById(heroID: Long): WikiHeroModel  = withContext(Dispatchers.IO) {
+       WikiHeroModel()
+       //mapper.mapTo(wikiHeroDao.getHeroById(heroID))
+   }
+
+    override suspend fun getHeroTips(heroId: Long): List<WikiHeroTipModel> = withContext(Dispatchers.IO) {
+        wikiHeroDao.getHeroTipsById(heroId).map { mapper.mapTo(it) }
+    }
+
+    override suspend fun getHeroSkills(heroID: Long): List<WikiHeroSkillModel> = withContext(Dispatchers.IO) {
+        var result = mutableListOf<WikiHeroSkillModel>()
+
+        val skills = wikiHeroDao.getHeroSkillsById(heroID)
+        for (skill in skills){
+            result.add(mapper.mapTo(skill))
+            val extra = wikiHeroDao.getHeroSkillsExtraById(skill.id!!)
+            result.addAll(extra.map { mapper.mapTo(it) })
+        }
+        return@withContext result
+    }
+
+    override suspend fun getHeroOverview(heroID: Long): List<WikiHeroOverViewModel> = withContext(Dispatchers.IO) {
+        wikiHeroDao.getHeroOverView(heroID).map { mapper.mapTo(it) }
+    }
 }

@@ -11,8 +11,6 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.sc.overhub.R
 import com.sc.overhub.databinding.FragmentWikiHeroBinding
-import com.sc.overhub.model.WikiHeroOverviewModel
-import com.sc.overhub.model.WikiHeroSkillsModel
 import com.sc.overhub.view.adapter.WikiHeroTabsAdapter
 import com.sc.overhub.view.fragment.BaseFragment
 import com.sc.overhub.viewmodel.WikiHeroViewModel
@@ -27,12 +25,7 @@ open class WikiHeroFragment : BaseFragment() {
 
     protected val viewModel: WikiHeroViewModel by lazy {
         getViewModel {
-            WikiHeroViewModel(
-                WikiHeroOverviewModel(),
-                WikiHeroSkillsModel(),
-                ObservableInt(View.GONE),
-                ObservableInt(View.GONE)
-            )
+            WikiHeroViewModel(0)
         }
     }
 
@@ -52,28 +45,5 @@ open class WikiHeroFragment : BaseFragment() {
         viewPager.adapter = wikiHeroTabsAdapter
         tabsLayout.setupWithViewPager(viewPager)
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.loading.set(View.VISIBLE)
-        viewModel.getDescriptionList().observe(this, Observer {
-            viewModel.loading.set(View.GONE)
-            if (it.isEmpty()){
-                viewModel.showEmpty.set(View.VISIBLE)
-            } else {
-                viewModel.showEmpty.set(View.GONE)
-                viewModel.setOverviewInAdapter(it)
-            }
-        })
-        viewModel.getSkillsList().observe(this, Observer {
-            viewModel.loading.set(View.GONE)
-            if (it.isEmpty()){
-                viewModel.showEmpty.set(View.VISIBLE)
-            } else {
-                viewModel.showEmpty.set(View.GONE)
-                viewModel.setSkillsInAdapter(it)
-            }
-        })
     }
 }

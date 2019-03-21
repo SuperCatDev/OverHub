@@ -1,6 +1,6 @@
 package com.sc.overhub.entity
 
-abstract class WikiHeroSkillEntity(
+abstract class WikiHeroSkillModel(
     val type: String) {
 
     class TYPE {
@@ -11,13 +11,13 @@ abstract class WikiHeroSkillEntity(
     }
 
 }
-data class WikiHeroSkillMainEntity(
+data class WikiHeroSkillMainModel(
     val title: String = "",
     val description: String = "",
-    val image: String = ""
-): WikiHeroSkillEntity(type = TYPE.MAIN)
+    val image: Int = 0
+): WikiHeroSkillModel(type = TYPE.MAIN)
 
-data class WikiHeroSkillExtra(
+data class WikiHeroSkillExtraModel(
     val extraTitle: String = "",
     val extraDescription: String = ""
-) : WikiHeroSkillEntity(type = TYPE.EXTRA)
+) : WikiHeroSkillModel(type = TYPE.EXTRA)

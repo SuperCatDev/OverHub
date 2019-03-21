@@ -1,82 +1,96 @@
 package com.sc.overhub.viewmodel
 
+import android.view.View
+import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.MutableLiveData
-import com.sc.overhub.entity.WikiHeroOverviewEntity
-import com.sc.overhub.entity.WikiHeroSkillEntity
-import com.sc.overhub.entity.WikiHeroSkillExtra
-import com.sc.overhub.entity.WikiHeroSkillMainEntity
-import com.sc.overhub.model.WikiHeroOverviewModel
-import com.sc.overhub.model.WikiHeroSkillsModel
+import com.sc.overhub.entity.WikiHeroSkillExtraModel
+import com.sc.overhub.entity.WikiHeroSkillMainModel
+import com.sc.overhub.entity.WikiHeroSkillModel
+import com.sc.overhub.model.WikiHeroModel
+import com.sc.overhub.model.WikiHeroOverViewModel
+import com.sc.overhub.model.WikiHeroTipModel
+import com.sc.overhub.repository.HeroesRepository
 import com.sc.overhub.view.adapter.WikiHeroOverviewAdapter
 import com.sc.overhub.view.adapter.WikiHeroSkillsAdapter
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
-class WikiHeroViewModel(
-    private val overviewModel: WikiHeroOverviewModel,
-    private val skillsModel: WikiHeroSkillsModel,
-    var loading: ObservableInt,
-    
-    var showEmpty: ObservableInt
-) : ScopedViewModel() {
+class WikiHeroViewModel(private val heroId: Long) : ScopedViewModel(), KoinComponent {
 
-    var overviewAdapter = WikiHeroOverviewAdapter(this)
+    private val repo: HeroesRepository by inject()
 
-    var skillsAdapter = WikiHeroSkillsAdapter(this)
+    var loading: ObservableInt = ObservableInt(View.GONE)
+    var showEmpty: ObservableInt = ObservableInt(View.GONE)
 
-    fun getOverviewText(): MutableLiveData<String> = overviewModel.getOverviewText()
 
-    fun getDescriptionList(): MutableLiveData<List<WikiHeroOverviewEntity>> = overviewModel.getDescriptionList()
-
-    fun getSkillsList(): MutableLiveData<List<WikiHeroSkillEntity>> = skillsModel.getSkills()
-
-    fun setOverviewInAdapter(descriptionsOverviewList: List<WikiHeroOverviewEntity>) {
-        overviewAdapter.setListDescription(descriptionsOverviewList)
-        overviewAdapter.notifyDataSetChanged()
+    private val hero: ObservableField<WikiHeroModel> by lazy {
+        ObservableField<WikiHeroModel>(runBlocking { heroAsync.await() })
     }
 
-    fun setSkillsInAdapter(skills: List<WikiHeroSkillEntity>) {
-        skillsAdapter.setSkills(skills)
-        skillsAdapter.notifyDataSetChanged()
-
+    private val overview: ObservableField<List<WikiHeroOverViewModel>> by lazy {
+        ObservableField<List<WikiHeroOverViewModel>>(runBlocking { overviewAsync.await() })
     }
 
-    fun getOverviewTextAt(): String? {
-        val value = overviewModel.getOverviewText().value
-        if (value != null) {
-            return value
+    private val skills: ObservableField<List<WikiHeroSkillModel>> by lazy {
+        ObservableField<List<WikiHeroSkillModel>>(runBlocking { skillsAsync.await() })
+    }
+
+    private val tips: ObservableField<List<WikiHeroTipModel>> by lazy {
+        ObservableField<List<WikiHeroTipModel>>(runBlocking { tipsAsync.await() })
+    }
+
+    val overviewAdapter = WikiHeroOverviewAdapter(this)
+
+    val skillsAdapter = WikiHeroSkillsAdapter(this)
+
+
+
+    private val heroAsync = async {
+        repo.getHeroById(heroId)
+    }
+
+    private val overviewAsync = async {
+        repo.getHeroOverview(heroId)
+    }
+
+    private val skillsAsync = async {
+        repo.getHeroSkills(heroId)
+    }
+
+    private val tipsAsync = async {
+        repo.getHeroTips(heroId)
+    }
+
+    fun getSkills(): List<WikiHeroSkillModel> = skills.get()!!
+
+    fun getOverview(): List<WikiHeroOverViewModel> = overview.get()!!
+
+    fun getDescriptionAtIndex(index: Int) = overview.get()!![index]
+
+    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainModel? {
+        val value = skills.get()
+        if (value != null && value.size > index){
+            return (value[index] as WikiHeroSkillMainModel)
         }
         return null
     }
 
-    fun getDescriptionAtIndex(index: Int): WikiHeroOverviewEntity? {
-        val value = overviewModel.getDescriptionList().value
-        if (value != null && value.size > index) {
-            return value[index]
+    fun getExtraSkillAtIndex(index: Int): WikiHeroSkillExtraModel? {
+        val value = skills.get()
+        if (value != null && value.size > index){
+            return (value[index] as WikiHeroSkillExtraModel)
         }
         return null
     }
 
-    fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainEntity? {
-        val value = skillsModel.getSkills().value
-        if (value != null && value.size > index) {
-            return (value[index] as WikiHeroSkillMainEntity)
-        }
-        return null
-    }
-
-    fun getExtraSkillAtIndex(index: Int): WikiHeroSkillExtra? {
-        val value = skillsModel.getSkills().value
-        if (value != null && value.size > index) {
-            return (value[index] as WikiHeroSkillExtra)
-        }
-        return null
-    }
-
-    fun getOverViewTextAt(): String?{
-        val value = getOverviewText().value
+    fun getOverViewTextAt(): String? {
+        val value = hero.get()
         if (value != null){
-            return value
+            return value.name
         }
-        return ""
+        return null
     }
+
 }

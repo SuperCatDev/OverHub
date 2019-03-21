@@ -21,7 +21,8 @@ import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
         WikiHeroRoleEntity::class,
         WikiHeroSkillEntity::class,
         WikiHeroSkillExtraEntity::class,
-        WikiHeroTipEntity::class],
+        WikiHeroTipEntity::class,
+        WikiHeroOverviewEntity::class],
     version = 1, exportSchema = false
 )
 abstract class AppDataBase : RoomDatabase() {
