@@ -70,8 +70,7 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapp
     }
 
    override suspend fun getHeroById(heroID: Long): WikiHeroModel  = withContext(Dispatchers.IO) {
-       WikiHeroModel()
-       //mapper.mapTo(wikiHeroDao.getHeroById(heroID))
+       mapper.mapTo(wikiHeroDao.getHeroById(heroID))
    }
 
     override suspend fun getHeroTips(heroId: Long): List<WikiHeroTipModel> = withContext(Dispatchers.IO) {

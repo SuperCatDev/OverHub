@@ -25,7 +25,7 @@ open class WikiHeroFragment : BaseFragment() {
 
     protected val viewModel: WikiHeroViewModel by lazy {
         getViewModel {
-            WikiHeroViewModel(0)
+            WikiHeroViewModel(11)
         }
     }
 
