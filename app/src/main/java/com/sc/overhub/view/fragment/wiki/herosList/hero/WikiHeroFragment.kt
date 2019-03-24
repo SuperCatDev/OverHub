@@ -1,6 +1,7 @@
 package com.sc.overhub.view.fragment.wiki.herosList.hero
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,19 +18,20 @@ import com.sc.overhub.viewmodel.WikiHeroViewModel
 import com.sc.overhub.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.fragment_wiki_hero.view.*
 
-open class WikiHeroFragment : BaseFragment() {
+class WikiHeroFragment : BaseFragment() {
 
     private lateinit var wikiHeroTabsAdapter: WikiHeroTabsAdapter
     private lateinit var viewPager: ViewPager
     private lateinit var tabsLayout: TabLayout
 
-    protected val viewModel: WikiHeroViewModel by lazy {
+    private val viewModel: WikiHeroViewModel by lazy {
         getViewModel {
             WikiHeroViewModel(11)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        instance = this
         if (arguments != null) {
             val name = arguments!!.getString("ARG_HERO_NAME")
         }
@@ -45,5 +47,19 @@ open class WikiHeroFragment : BaseFragment() {
         viewPager.adapter = wikiHeroTabsAdapter
         tabsLayout.setupWithViewPager(viewPager)
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        instance = null
+    }
+
+    interface WikiHeroFragmentTab {
+        fun getHostedViewModel() : WikiHeroViewModel? =
+            instance?.viewModel
+    }
+
+    companion object {
+        private var instance : WikiHeroFragment? = null
     }
 }
