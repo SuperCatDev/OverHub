@@ -13,4 +13,7 @@ interface ArcadeDao {
 
     @Query("SELECT * FROM arcade_today")
     suspend fun getTodayArcade(): ArcadeTodayEntity
+
+    @Query("SELECT arcade_today.update_date FROM arcade_today")
+    suspend fun getLastUpdateTime(): String
 }

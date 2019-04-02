@@ -49,8 +49,8 @@ class HomeActivity : BaseActivity() {
             R.id.menu_statistic -> {
                 R.id.statistic_host_fragment
             }
-            R.id.menu_tracker -> {
-                R.id.tracker_host_fragment
+            R.id.menu_arcade -> {
+                R.id.arcade_host_fragment
             }
             R.id.menu_wiki -> {
                 R.id.wiki_host_fragment
@@ -72,17 +72,17 @@ class HomeActivity : BaseActivity() {
         when (itemId) {
             R.id.menu_statistic -> {
                 vm.visibleStatistic.set(View.VISIBLE)
-                vm.visibleTracker.set(View.GONE)
+                vm.visibleArcade.set(View.GONE)
                 vm.visibleWiki.set(View.GONE)
             }
-            R.id.menu_tracker -> {
+            R.id.menu_arcade -> {
                 vm.visibleStatistic.set(View.GONE)
                 vm.visibleStatistic.set(View.VISIBLE)
                 vm.visibleWiki.set(View.GONE)
             }
             R.id.menu_wiki -> {
                 vm.visibleStatistic.set(View.GONE)
-                vm.visibleTracker.set(View.GONE)
+                vm.visibleArcade.set(View.GONE)
                 vm.visibleWiki.set(View.VISIBLE)
             }
         }

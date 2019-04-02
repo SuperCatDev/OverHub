@@ -5,8 +5,8 @@
             android:id="@+id/menu_statistic"
             android:icon="@drawable/ic_dahaze_black"/>
     <item
-            android:title="Tracker"
-            android:id="@+id/menu_tracker"
+            android:title="Arcade"
+            android:id="@+id/menu_arcade"
             android:icon="@drawable/ic_dahaze_black"/>
     <item
             android:title="Wiki"
