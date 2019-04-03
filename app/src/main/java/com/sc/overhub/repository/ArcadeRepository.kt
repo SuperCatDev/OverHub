@@ -5,6 +5,7 @@ import com.sc.overhub.data.arcade.ArcadeModeEntity
 import com.sc.overhub.data.arcade.ArcadeTodayEntity
 import com.sc.overhub.mapper.ArcadeMapper
 import com.sc.overhub.model.ArcadeModel
+import com.sc.overhub.model.ChangeTypeEnum
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -69,11 +70,11 @@ class ArcadeRepositoryImp(private val arcadeDao: ArcadeDao, private val mapper: 
             }
 
             listArcade = listOf(
-                mapper.mapTo(largeArcade, ArcadeModel.TITLE.LARGE),
-                mapper.mapTo(weeklyArcade1, ArcadeModel.TITLE.WEEKLY),
-                mapper.mapTo(weeklyArcade2, ArcadeModel.TITLE.WEEKLY),
-                mapper.mapTo(dailyArcade, ArcadeModel.TITLE.DAILY),
-                mapper.mapTo(permanentlyArcade, ArcadeModel.TITLE.PERMANENT)
+                mapper.mapTo(largeArcade, ChangeTypeEnum.LARGE),
+                mapper.mapTo(weeklyArcade1, ChangeTypeEnum.WEEKLY),
+                mapper.mapTo(weeklyArcade2, ChangeTypeEnum.WEEKLY),
+                mapper.mapTo(dailyArcade, ChangeTypeEnum.DAILY),
+                mapper.mapTo(permanentlyArcade, ChangeTypeEnum.PERMANENT)
             )
         }
         return@withContext listArcade
