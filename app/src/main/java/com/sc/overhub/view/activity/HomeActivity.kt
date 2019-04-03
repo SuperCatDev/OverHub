@@ -77,7 +77,7 @@ class HomeActivity : BaseActivity() {
             }
             R.id.menu_arcade -> {
                 vm.visibleStatistic.set(View.GONE)
-                vm.visibleStatistic.set(View.VISIBLE)
+                vm.visibleArcade.set(View.VISIBLE)
                 vm.visibleWiki.set(View.GONE)
             }
             R.id.menu_wiki -> {
