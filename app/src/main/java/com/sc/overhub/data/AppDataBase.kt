@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sc.overhub.R
+import com.sc.overhub.data.arcade.ArcadeModeEntity
+import com.sc.overhub.data.arcade.ArcadeTodayEntity
 import com.sc.overhub.data.wiki.hero.*
 import com.sc.overhub.data.wiki.map.WikiMapEntity
 import com.sc.overhub.data.wiki.map.WikiMapImageEntity
@@ -22,14 +24,18 @@ import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
         WikiHeroSkillEntity::class,
         WikiHeroSkillExtraEntity::class,
         WikiHeroTipEntity::class,
-        WikiHeroOverviewEntity::class],
-    version = 1, exportSchema = false
+        WikiHeroOverviewEntity::class,
+        ArcadeModeEntity::class,
+        ArcadeTodayEntity::class],
+    version = 2, exportSchema = false
 )
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun wikiMapsDao(): WikiMapDao
 
     abstract fun wikiHeroDao(): WikiHeroDao
+
+    abstract fun arcadeDao(): ArcadeDao
 
     companion object {
         val PREPOPULATE_DATA_TYPE = listOf(
@@ -75,6 +81,6 @@ abstract class AppDataBase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDataBase::class.java, "test_db_over.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }

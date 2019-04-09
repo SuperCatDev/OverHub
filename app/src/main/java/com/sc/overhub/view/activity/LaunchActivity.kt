@@ -14,6 +14,7 @@ class LaunchActivity : BaseActivity() {
         launch {
             RepositoryFactory.getMapRepo(applicationContext)
             RepositoryFactory.getHeroRepo(applicationContext)
+            RepositoryFactory.getArcadeRepo(applicationContext)
             startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
             finish()
         }

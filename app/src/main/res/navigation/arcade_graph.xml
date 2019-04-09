@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/arcade_graph" app:startDestination="@+id/arcadeFragment">
+
+    <fragment android:id="@+id/arcadeFragment" android:name="com.sc.overhub.view.fragment.ArcadeFragment"
+              android:label="ArcadeFragment"/>
+</navigation>
