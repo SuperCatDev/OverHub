@@ -27,7 +27,7 @@ import com.sc.overhub.data.wiki.map.WikiMapTypeEntity
         WikiHeroOverviewEntity::class,
         ArcadeModeEntity::class,
         ArcadeTodayEntity::class],
-    version = 1, exportSchema = false
+    version = 2, exportSchema = false
 )
 abstract class AppDataBase : RoomDatabase() {
 
@@ -81,6 +81,6 @@ abstract class AppDataBase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDataBase::class.java, "test_db_over.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }
