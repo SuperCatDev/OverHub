@@ -1,6 +1,7 @@
 package com.sc.overhub.repository
 
 import android.content.Context
+import com.sc.overhub.api.ApiFactory
 import com.sc.overhub.data.AppDataBase
 import com.sc.overhub.mapper.ArcadeMapper
 import com.sc.overhub.mapper.HeroMapper
@@ -31,8 +32,8 @@ object RepositoryFactory {
     }
 
     fun getArcadeRepo(context: Context) = runBlocking {
-        arcadeReposImp = ArcadeRepositoryImp(AppDataBase.getInstance(context).arcadeDao(), ArcadeMapper())
-        val data = arcadeReposImp.getArcadeList()
+        arcadeReposImp = ArcadeRepositoryImp(AppDataBase.getInstance(context).arcadeDao(), ArcadeMapper(), ApiFactory.arcadeApi)
+        val data = arcadeReposImp.getArcadeListByCache()
         if (data.isEmpty()) {
             (arcadeReposImp as ArcadeRepositoryImp).initDefault()
         }
