@@ -16,7 +16,7 @@ object ApiFactory{
 
     fun retrofit() : Retrofit = Retrofit.Builder()
         .client(arcadeClient)
-        .baseUrl("https://overwatcharcade.today/api")
+        .baseUrl("https://overwatcharcade.today/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
