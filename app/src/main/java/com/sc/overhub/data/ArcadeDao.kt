@@ -3,6 +3,7 @@ package com.sc.overhub.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.sc.overhub.data.arcade.ArcadeModeEntity
 import com.sc.overhub.data.arcade.ArcadeTodayEntity
 
@@ -17,6 +18,15 @@ interface ArcadeDao {
 
     @Query("SELECT arcade_today.update_date FROM arcade_today")
     suspend fun getLastUpdateTime(): String?
+
+    @Update
+    suspend fun updateTodayArcade(arcade: ArcadeTodayEntity)
+
+    @Update
+    suspend fun updateArcadeMode(arcadeMode: ArcadeModeEntity)
+
+    @Insert
+    suspend fun insertArcadeMode(arcadeMode: ArcadeModeEntity)
 
     @Insert
     fun I_insertTodayArcade(data: ArcadeTodayEntity)
