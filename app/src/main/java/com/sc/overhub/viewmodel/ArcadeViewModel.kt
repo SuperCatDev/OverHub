@@ -1,5 +1,6 @@
 package com.sc.overhub.viewmodel
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.databinding.ObservableInt
 import com.sc.overhub.model.ArcadeModel
@@ -9,6 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
+import java.text.SimpleDateFormat
 
 class ArcadeViewModel : ScopedViewModel(), KoinComponent {
 
@@ -21,7 +23,19 @@ class ArcadeViewModel : ScopedViewModel(), KoinComponent {
 
     private val size: Int by lazy {  runBlocking { arcadeAsync.await().size } }
 
-    private val arcadeAsync = async { repo.getArcadeList() }
+    @SuppressLint("SimpleDateFormat")
+    private val arcadeAsync = async {
+        val cacheUpdate =  SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(repo.getLastUpdateByCache())
+        val remoteUpdate =  SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(repo.getLastUpdateByRemote())
+        if (remoteUpdate.after(cacheUpdate)){
+            val newArcades = repo.getTodayArcadeByRemote()
+            if (newArcades != null) {
+                repo.getArcadeModeByRemote()?.let { repo.updateArcadesModeCache(it) }
+                repo.updateTodayArcadeCache(newArcades)
+            }
+        }
+        return@async repo.getArcadeListByCache()
+    }
 
     var arcadeAdapter: ArcadeAdapter =
         ArcadeAdapter(this)
