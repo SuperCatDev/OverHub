@@ -28,6 +28,31 @@ data class ArcadeResponse(
     val user: ArcadeUser
 )
 
+data class ArcadeModeResponse(
+    @SerializedName("id")
+    val id: Long,
+
+    @SerializedName("name")
+    val name: String,
+
+    @SerializedName("players")
+    val players: String,
+
+    @SerializedName("code")
+    val code: String,
+
+    @SerializedName("image")
+    val image: ArcadeImage
+)
+
+data class ArcadeImage(
+    @SerializedName("large")
+    val large: String,
+
+    @SerializedName("normal")
+    val normal: String
+)
+
 data class ArcadeUser(
     val id: Long,
     val battletag: String,
@@ -44,4 +69,7 @@ data class ArcadeBaseInfo(
 interface ArcadeApi {
     @GET("today")
     fun getTodayArcade(): Deferred<Response<ArcadeResponse>>
+
+    @GET("gamemodes")
+    fun getArcadeModes(): Deferred<Response<List<ArcadeModeResponse>>>
 }
