@@ -23,7 +23,7 @@ class HomeActivity : BaseActivity() {
             viewModel = vm
         }
 
-        bottom_navigation.selectedItemId = R.id.menu_wiki
+        bottom_navigation.selectedItemId = R.id.menu_statistic
         bottom_navigation.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {

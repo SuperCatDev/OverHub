@@ -3,13 +3,13 @@
     <item
             android:title="Statistic"
             android:id="@+id/menu_statistic"
-            android:icon="@drawable/ic_dahaze_black"/>
+            android:icon="@drawable/ic_info_black_24dp"/>
     <item
             android:title="Arcade"
             android:id="@+id/menu_arcade"
-            android:icon="@drawable/ic_dahaze_black"/>
+            android:icon="@drawable/ic_pets_black_24dp"/>
     <item
             android:title="Wiki"
             android:id="@+id/menu_wiki"
-            android:icon="@drawable/ic_dahaze_black"/>
+            android:icon="@drawable/ic_library_books_black_24dp"/>
 </menu>

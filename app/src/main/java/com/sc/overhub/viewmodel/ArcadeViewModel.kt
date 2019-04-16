@@ -11,7 +11,6 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
 class ArcadeViewModel : ScopedViewModel(), KoinComponent {
-
     private val repo: ArcadeRepository by inject()
 
     var loading: ObservableInt = ObservableInt(View.GONE)
@@ -31,8 +30,5 @@ class ArcadeViewModel : ScopedViewModel(), KoinComponent {
     fun getArcadesSize() = size
 
     fun onClickReload() {
-
     }
-
-
 }
