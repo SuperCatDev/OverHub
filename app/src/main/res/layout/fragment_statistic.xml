@@ -3,7 +3,6 @@
 <layout>
     <data>
         <import type="android.text.TextUtils"/>
-        <import type="java.lang.Integer" />
         <variable name="viewModel"
                   type="com.sc.overhub.viewmodel.StatisticViewModel"/>
     </data>

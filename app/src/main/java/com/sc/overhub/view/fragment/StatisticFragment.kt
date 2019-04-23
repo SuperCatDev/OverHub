@@ -18,7 +18,6 @@ class StatisticFragment : BaseFragment() {
         }
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentBinding: FragmentStatisticBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_statistic, container, false
