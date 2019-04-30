@@ -24,14 +24,11 @@ class HomeActivity : BaseActivity() {
         }
 
         bottom_navigation.selectedItemId = R.id.menu_statistic
-        bottom_navigation.setOnNavigationItemSelectedListener(object :
-            BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                handleTab(item.itemId)
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            handleTab(item.itemId)
 
-                return true
-            }
-        })
+            true
+        }
     }
 
     override fun onBackPressed() {
