@@ -15,8 +15,8 @@
                 android:layout_height="0dp"
                 android:visibility="@{viewModel.visibleStatistic}"
                 android:id="@+id/statistic_container"
-                app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
             <fragment
                     android:id="@+id/statistic_host_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,8 +31,8 @@
                 android:layout_height="0dp"
                 android:visibility="@{viewModel.visibleArcade}"
                 android:id="@+id/arcade_container"
-                app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
             <fragment
                     android:id="@+id/arcade_host_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"

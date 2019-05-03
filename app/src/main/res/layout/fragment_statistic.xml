@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.text.TextUtils"/>
+        <variable name="viewModel"
+                  type="com.sc.overhub.viewmodel.StatisticViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp" app:srcCompat="@drawable/diamond"
+                        android:id="@+id/tier_image" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="ContentDescription" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/statistic_nickname"
+                        app:layout_constraintVertical_bias="0.32"/>
+                <TextView
+                        android:text="@string/statistic_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:id="@+id/statistic_title" app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="50dp" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="30sp" android:fontFamily="@font/racing_sans_one"/>
+                <TextView
+                        android:text="@{TextUtils.isEmpty(viewModel.nickname) ? @string/statistic_default_nickname : viewModel.nickname}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:id="@+id/statistic_nickname" android:layout_marginTop="32dp"
+                        app:layout_constraintTop_toBottomOf="@+id/statistic_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="24sp" android:fontFamily="@font/racing_sans_one"/>
+                <TextView
+                        android:text="@{Integer.toString(viewModel.score)}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:id="@+id/statistic_score" android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tier_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" android:textSize="24sp" android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintVertical_bias="0.0"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

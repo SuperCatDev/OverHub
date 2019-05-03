@@ -4,7 +4,7 @@ import android.view.View
 import androidx.databinding.ObservableInt
 
 class HomeActivityViewModel(var oldTabId: Int) : ScopedViewModel() {
-    var visibleStatistic = ObservableInt(View.GONE)
+    var visibleStatistic = ObservableInt(View.VISIBLE)
     var visibleArcade = ObservableInt(View.GONE)
-    var visibleWiki = ObservableInt(View.VISIBLE)
+    var visibleWiki = ObservableInt(View.GONE)
 }
