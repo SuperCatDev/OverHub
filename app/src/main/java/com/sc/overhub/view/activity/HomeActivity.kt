@@ -1,20 +1,20 @@
 package com.sc.overhub.view.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sc.overhub.R
 import com.sc.overhub.databinding.ActivityMainBinding
 import com.sc.overhub.viewmodel.HomeActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : BaseActivity() {
+    private val startTabId = R.id.menu_statistic
+
     private val vm: HomeActivityViewModel by lazy {
-        HomeActivityViewModel(R.id.menu_wiki)
+        HomeActivityViewModel(startTabId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,7 @@ class HomeActivity : BaseActivity() {
             R.id.menu_wiki -> {
                 R.id.wiki_host_fragment
             }
-            else -> R.id.wiki_host_fragment
+            else -> startTabId
         }
 
         return Navigation.findNavController(this, navId)
