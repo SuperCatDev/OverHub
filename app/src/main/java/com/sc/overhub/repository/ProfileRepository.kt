@@ -1,6 +1,7 @@
 package com.sc.overhub.repository
 
 import android.content.Context
+import android.util.Log
 
 class ProfileRepository(context: Context) {
     private val sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
@@ -8,6 +9,7 @@ class ProfileRepository(context: Context) {
     fun getBattleTag(): String? = sharedPreferences.getString(battleTagKey, "")
 
     fun setBattleTag(battleTag: String): Boolean {
+        Log.e("ProfileRepository", "Setting a battle tag : $battleTag")
         if (!validateTag(battleTag)) return false
 
         sharedPreferences.edit().putString(battleTagKey, battleTag).apply()
