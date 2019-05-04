@@ -35,6 +35,6 @@ class HeroMapper {
     }
 
     fun mapTo(data: WikiHero): WikiHeroModel{
-        return WikiHeroModel(data.id!!, data.name, data.description, data.image, data.role, data.complexity)
+        return WikiHeroModel(data.id, data.name, data.description, data.image, data.role, data.complexity)
     }
 }
