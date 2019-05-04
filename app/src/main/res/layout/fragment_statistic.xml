@@ -54,7 +54,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:textSize="24sp" android:fontFamily="@font/racing_sans_one"/>
                 <TextView
-                        android:text="@{Integer.toString(viewModel.score)}"
+                        android:text="@{TextUtils.isEmpty(viewModel.score) ? @string/statistic_default_pt : viewModel.score}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimaryWhite"

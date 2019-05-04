@@ -19,10 +19,9 @@ class ProfileRepository(context: Context) {
     private val sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
     private val httpClient = StatisticHttpClient()
 
-    fun getBattleTag(): String? = sharedPreferences.getString(battleTagKey, "")
+    fun getBattleTag(): String = sharedPreferences.getString(battleTagKey, "") ?: ""
 
     fun setBattleTag(battleTag: String): Boolean {
-        Log.e("ProfileRepository", "Setting a battle tag : $battleTag")
         if (!validateTag(battleTag)) return false
 
         sharedPreferences.edit().putString(battleTagKey, battleTag).apply()
@@ -30,16 +29,32 @@ class ProfileRepository(context: Context) {
         return true
     }
 
-    suspend fun getPlayerStats(): Stats? = httpClient.getPlayerStats(getBattleTag() ?: "")
+    fun getCashedScore(): String =
+        sharedPreferences.getString(cashedScoreKey, "") ?: ""
+
+    suspend fun getPlayerScore(): String {
+        val score: String =
+            (httpClient.getPlayerStats(getBattleTag())?.competitive?.overall_stats?.comprank ?: "").toString()
+
+        saveScoreToCash(score)
+
+        return score
+    }
+
     suspend fun getHeroesStats(): HeroesStats? = httpClient.getHeroesStats(getBattleTag() ?: "")
     suspend fun getAchievementsStats(): Achievements? = httpClient.getAchievementsStats(getBattleTag() ?: "")
 
     // don't remove maybe it's be useful later
     suspend fun getAllStats(): FullStatistic? = httpClient.getAllStats(getBattleTag() ?: "")
 
+    private fun saveScoreToCash(score: String) {
+        sharedPreferences.edit().putString(cashedScoreKey, score).apply()
+    }
+
     companion object {
-        const val prefName = "ProfileSetup"
+        const val prefName = "ProfileInfo"
         const val battleTagKey = "BattleTag"
+        const val cashedScoreKey = "CashedScore"
 
         fun validateTag(battleTag: String): Boolean =
             battleTag.matches(Regex(".+#\\d+"))

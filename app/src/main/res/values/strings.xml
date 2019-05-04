@@ -25,5 +25,5 @@
     <string name="map_title_default">PARIS</string>
     <string name="statistic_title">Your current rating</string>
     <string name="statistic_default_nickname">NickName</string>
-    <string name="statistic_default_pt">0</string>
+    <string name="statistic_default_pt">downloading…</string>
 </resources>
