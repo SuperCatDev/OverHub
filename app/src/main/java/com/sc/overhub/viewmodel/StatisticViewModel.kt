@@ -3,6 +3,7 @@ package com.sc.overhub.viewmodel
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import com.sc.overhub.repository.ProfileRepository
+import kotlinx.coroutines.launch
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -11,4 +12,11 @@ class StatisticViewModel : ScopedViewModel(), KoinComponent {
 
     var score: ObservableInt = ObservableInt(0)
     var nickname: ObservableField<String> = ObservableField(repo.getBattleTag() ?: "")
+
+    init {
+        launch {
+            // Replace for set
+            repo.getMainStats()
+        }
+    }
 }
