@@ -16,7 +16,10 @@ class StatisticViewModel : ScopedViewModel(), KoinComponent {
     init {
         launch {
             // Replace for set
-            repo.getMainStats()
+            repo.getPlayerStats()
+            repo.getHeroesStats()
+            repo.getAchievementsStats()
+            repo.getAllStats()
         }
     }
 }
