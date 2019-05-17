@@ -14,7 +14,7 @@ class HomeActivity : BaseActivity() {
     private val startTabId = R.id.menu_statistic
 
     private val vm: HomeActivityViewModel by lazy {
-        HomeActivityViewModel(startTabId)
+        HomeActivityViewModel().apply { currentTabId = startTabId }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun getAttachedController(): NavController {
-        val navId = when (vm.oldTabId) {
+        val navId = when (vm.currentTabId) {
             R.id.menu_statistic -> {
                 R.id.statistic_host_fragment
             }
@@ -61,8 +61,8 @@ class HomeActivity : BaseActivity() {
     private fun handleTab(itemId: Int) {
         val controller = getAttachedController()
 
-        if (vm.oldTabId == itemId) {
-            controller.popBackStack(controller.graph.startDestination, false)
+        if (vm.currentTabId == itemId) {
+            getAttachedController().popBackStack(controller.graph.startDestination, false)
             return
         }
 
@@ -84,6 +84,6 @@ class HomeActivity : BaseActivity() {
             }
         }
 
-        vm.oldTabId = itemId
+        vm.currentTabId = itemId
     }
 }
