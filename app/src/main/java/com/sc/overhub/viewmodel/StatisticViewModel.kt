@@ -1,35 +1,37 @@
 package com.sc.overhub.viewmodel
 
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sc.overhub.R
 import com.sc.overhub.repository.ProfileRepository
 import kotlinx.coroutines.launch
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class StatisticViewModel : ScopedViewModel(), KoinComponent {
+class StatisticViewModel : ViewModel(), KoinComponent {
     private val repo: ProfileRepository by inject()
 
-    var score: ObservableField<String>
-    var nickname: ObservableField<String> = ObservableField(repo.getBattleTag())
-    var imageSrcId: ObservableInt
+    var score = MutableLiveData<String>()
+    var nickname = MutableLiveData<String>().apply { value = repo.getBattleTag() }
+    var imageSrcId = MutableLiveData<Int>()
 
     init {
         val cashedScore = repo.getCashedScore()
-        score = ObservableField(cashedScore)
-        imageSrcId = ObservableInt(if (cashedScore.isNotEmpty()) getRankIdDependsOnScore(cashedScore) else R.drawable.gm)
+        score.value = cashedScore
+        imageSrcId.value = if (cashedScore.isNotEmpty()) getRankIdDependsOnScore(cashedScore) else R.drawable.gm
 
-        launch {
-            val scoreStr = repo.getPlayerScore()
+        initScore()
+    }
 
-            if (scoreStr.isEmpty())
-                return@launch
+    private fun initScore() = viewModelScope.launch {
+        val scoreStr = repo.getPlayerScore()
+        if (scoreStr.isEmpty())
+            return@launch
 
-            score.set(scoreStr)
+        score.value = scoreStr
 
-            imageSrcId.set(getRankIdDependsOnScore(scoreStr))
-        }
+        imageSrcId.value = getRankIdDependsOnScore(scoreStr)
     }
 
     /** [score] must be int value */

@@ -23,6 +23,7 @@ class StatisticFragment : BaseFragment() {
             inflater, R.layout.fragment_statistic, container, false
         )
 
+        fragmentBinding.setLifecycleOwner { lifecycle }
         fragmentBinding.viewModel = viewModel
 
         return fragmentBinding.root

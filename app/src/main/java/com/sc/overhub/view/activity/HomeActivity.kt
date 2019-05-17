@@ -1,6 +1,7 @@
 package com.sc.overhub.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -14,7 +15,7 @@ class HomeActivity : BaseActivity() {
     private val startTabId = R.id.menu_statistic
 
     private val vm: HomeActivityViewModel by lazy {
-        HomeActivityViewModel(startTabId)
+        HomeActivityViewModel().apply { currentTabId = startTabId }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,8 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        Log.e(TAG, "[onBackPressed]")
+
         val controller = getAttachedController()
 
         if (controller.graph.startDestination == controller.currentDestination?.id) {
@@ -42,14 +45,20 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun getAttachedController(): NavController {
-        val navId = when (vm.oldTabId) {
+        val navId = when (vm.currentTabId) {
             R.id.menu_statistic -> {
+
+                Log.e(TAG, "[getAttachedController] id for statistic")
                 R.id.statistic_host_fragment
             }
             R.id.menu_arcade -> {
+
+                Log.e(TAG, "[getAttachedController] id for arcade")
                 R.id.arcade_host_fragment
             }
             R.id.menu_wiki -> {
+
+                Log.e(TAG, "[getAttachedController] id for wiki")
                 R.id.wiki_host_fragment
             }
             else -> startTabId
@@ -59,10 +68,12 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun handleTab(itemId: Int) {
+        Log.e(TAG, "[handleTab]")
+
         val controller = getAttachedController()
 
-        if (vm.oldTabId == itemId) {
-            controller.popBackStack(controller.graph.startDestination, false)
+        if (vm.currentTabId == itemId) {
+            getAttachedController().popBackStack(controller.graph.startDestination, false)
             return
         }
 
@@ -84,6 +95,10 @@ class HomeActivity : BaseActivity() {
             }
         }
 
-        vm.oldTabId = itemId
+        vm.currentTabId = itemId
+    }
+
+    companion object {
+        const val TAG = "HomeActivity"
     }
 }

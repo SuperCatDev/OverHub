@@ -9,7 +9,9 @@ import com.sc.overhub.model.statistics.achivments.Achievements
 import com.sc.overhub.model.statistics.heroes.HeroesStats
 import com.sc.overhub.model.statistics.stats.Stats
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -32,13 +34,13 @@ class ProfileRepository(context: Context) {
     fun getCashedScore(): String =
         sharedPreferences.getString(cashedScoreKey, "") ?: ""
 
-    suspend fun getPlayerScore(): String {
+    suspend fun getPlayerScore(): String = withContext(Dispatchers.IO) {
         val score: String =
             (httpClient.getPlayerStats(getBattleTag())?.competitive?.overall_stats?.comprank ?: "").toString()
 
         saveScoreToCash(score)
 
-        return score
+        score
     }
 
     suspend fun getHeroesStats(): HeroesStats? = httpClient.getHeroesStats(getBattleTag() ?: "")
