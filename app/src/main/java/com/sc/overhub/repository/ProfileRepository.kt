@@ -100,8 +100,9 @@ class StatisticHttpClient {
 
         var data: FullPlayerStatisticsPackage? = null
 
+        var counter = 1L
         // try 3 time to download data
-        for (i in 0..2) {
+        while (true) {
             try {
                 data = when (requestType) {
                     RequestType.Player -> client.getPlayerStatsAsync(refactoredBattleTag).await()
@@ -118,7 +119,8 @@ class StatisticHttpClient {
                 Log.e(TAG, "[getData] Request failed for: $refactoredBattleTag type: $requestType : $th")
             }
 
-            delay(1000)
+            delay(1000 * counter)
+            counter++
         }
 
         return data
