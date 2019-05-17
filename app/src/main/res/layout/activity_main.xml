@@ -2,7 +2,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.sc.overhub.viewmodel.HomeActivityViewModel"/>
+                type="com.sc.overhub.presentation.viewmodel.HomeActivityViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

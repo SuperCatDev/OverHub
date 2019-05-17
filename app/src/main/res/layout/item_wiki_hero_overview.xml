@@ -7,7 +7,7 @@
                   type="java.lang.Integer"/>
 
         <variable name="viewModel"
-                  type="com.sc.overhub.viewmodel.WikiHeroViewModel"/>
+                  type="com.sc.overhub.presentation.viewmodel.WikiHeroViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

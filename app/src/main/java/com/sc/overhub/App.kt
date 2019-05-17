@@ -1,8 +1,8 @@
 package com.sc.overhub
 
 import android.app.Application
-import com.sc.overhub.repository.ProfileRepository
-import com.sc.overhub.repository.RepositoryFactory
+import com.sc.overhub.data.repository.ProfileRepository
+import com.sc.overhub.data.repository.RepositoryFactory
 import org.koin.android.ext.android.startKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module.module

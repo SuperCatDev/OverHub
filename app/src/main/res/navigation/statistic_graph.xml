@@ -3,6 +3,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/statistic_graph" app:startDestination="@id/statisticsFragment">
 
-    <fragment android:id="@+id/statisticsFragment" android:name="com.sc.overhub.view.fragment.StatisticFragment"
+    <fragment android:id="@+id/statisticsFragment" android:name="com.sc.overhub.presentation.view.fragment.StatisticFragment"
               android:label="StatisticsFragment"/>
 </navigation>

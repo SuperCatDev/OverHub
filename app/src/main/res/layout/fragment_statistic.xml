@@ -4,7 +4,7 @@
     <data>
         <import type="android.text.TextUtils"/>
         <variable name="viewModel"
-                  type="com.sc.overhub.viewmodel.StatisticViewModel"/>
+                  type="com.sc.overhub.presentation.viewmodel.StatisticViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:tools="http://schemas.android.com/tools"

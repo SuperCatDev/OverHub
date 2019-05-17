@@ -1,6 +1,6 @@
 package com.sc.overhub
 
-import com.sc.overhub.repository.ProfileRepository
+import com.sc.overhub.data.repository.ProfileRepository
 import org.junit.Assert
 import org.junit.Test
 

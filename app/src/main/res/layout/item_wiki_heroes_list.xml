@@ -8,7 +8,7 @@
                   type="java.lang.Integer"/>
 
         <variable name="viewModel"
-                  type="com.sc.overhub.viewmodel.WikiHeroListViewModel"/>
+                  type="com.sc.overhub.presentation.viewmodel.WikiHeroListViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.0" android:scaleType="centerCrop"
                 tools:ignore="ContentDescription"/>
-        <com.sc.overhub.view.custom.WikiListHeroesItemView
+        <com.sc.overhub.presentation.view.custom.WikiListHeroesItemView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/item_wiki_heroes_list_color"
