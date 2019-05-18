@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sc.overhub.R
 import com.sc.overhub.data.repository.ProfileRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -13,18 +14,18 @@ class StatisticViewModel : ViewModel(), KoinComponent {
     private val repo: ProfileRepository by inject()
 
     var score = MutableLiveData<String>()
-    var nickname = MutableLiveData<String>().apply { value = repo.getBattleTag() }
+    var nickname = MutableLiveData<String>().apply { runBlocking { value = repo.getBattleTag() } }
     var imageSrcId = MutableLiveData<Int>()
 
     init {
-        val cashedScore = repo.getCashedScore()
-        score.value = cashedScore
-        imageSrcId.value = if (cashedScore.isNotEmpty()) getRankIdDependsOnScore(cashedScore) else R.drawable.gm
-
         initScore()
     }
 
     private fun initScore() = viewModelScope.launch {
+        val cashedScore = repo.getCashedScore()
+        score.value = cashedScore
+        imageSrcId.value = if (cashedScore.isNotEmpty()) getRankIdDependsOnScore(cashedScore) else R.drawable.gm
+
         val scoreStr = repo.getPlayerScore()
         if (scoreStr.isEmpty())
             return@launch

@@ -5,16 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.android.tools.build.jetifier.core.utils.Log
 import com.sc.overhub.R
 import com.sc.overhub.data.repository.ProfileRepository
-import com.sc.overhub.data.repository.RepositoryFactory
+import com.sc.overhub.data.repository.DbRepositoryFactory
+import kotlinx.android.synthetic.main.battle_tag_dialog_layout.view.*
 import kotlinx.android.synthetic.main.launch_screen.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class LaunchActivity : BaseActivity() {
@@ -24,7 +23,6 @@ class LaunchActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.launch_screen)
-
         checkStart()
     }
 
@@ -51,7 +49,7 @@ class LaunchActivity : BaseActivity() {
         }.show()
 
         dialog!!.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            if (repo.setBattleTag(hostView.findViewById<EditText>(R.id.battleTag_et).text.toString())) {
+            if (repo.setBattleTag(hostView.battleTag_et.text.toString())) {
                 dialog!!.cancel()
                 startApp()
             } else {
@@ -66,12 +64,7 @@ class LaunchActivity : BaseActivity() {
         progressBar.visibility = View.VISIBLE
 
         launch {
-            withContext(Dispatchers.IO) {
-                RepositoryFactory.getMapRepo(applicationContext)
-                RepositoryFactory.getHeroRepo(applicationContext)
-                RepositoryFactory.getArcadeRepo(applicationContext)
-            }
-
+            DbRepositoryFactory.initAllRepo(applicationContext)
             startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
             finish()
         }

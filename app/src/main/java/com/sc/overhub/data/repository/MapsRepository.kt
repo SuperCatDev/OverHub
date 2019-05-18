@@ -17,7 +17,6 @@ interface MapsRepository {
     suspend fun getMapInfo(id: Long): GameMapModel
 }
 
-
 class MapsRepositoryImpl(private val wikiMapDao: WikiMapDao, private val mapper: MapMapper) : MapsRepository {
 
     suspend fun initDefault() = withContext(Dispatchers.IO) {

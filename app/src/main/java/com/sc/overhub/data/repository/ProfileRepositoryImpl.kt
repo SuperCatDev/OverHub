@@ -17,13 +17,25 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-class ProfileRepository(context: Context) {
+interface ProfileRepository {
+    fun getBattleTag(): String
+    fun setBattleTag(battleTag: String): Boolean
+    fun getCashedScore(): String
+    suspend fun getPlayerScore(): String
+    suspend fun getHeroesStats(): HeroesStats?
+    suspend fun getAchievementsStats(): Achievements?
+    suspend fun getAllStats(): FullStatistic?
+}
+
+class ProfileRepositoryImpl(context: Context) : ProfileRepository {
     private val sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
     private val httpClient = StatisticHttpClient()
 
-    fun getBattleTag(): String = sharedPreferences.getString(battleTagKey, "") ?: ""
+    override fun getBattleTag(): String {
+        return sharedPreferences.getString(battleTagKey, "") ?: ""
+    }
 
-    fun setBattleTag(battleTag: String): Boolean {
+    override fun setBattleTag(battleTag: String): Boolean {
         if (!validateTag(battleTag)) return false
 
         sharedPreferences.edit().putString(battleTagKey, battleTag).apply()
@@ -31,10 +43,11 @@ class ProfileRepository(context: Context) {
         return true
     }
 
-    fun getCashedScore(): String =
-        sharedPreferences.getString(cashedScoreKey, "") ?: ""
+    override fun getCashedScore(): String {
+        return sharedPreferences.getString(cashedScoreKey, "") ?: ""
+    }
 
-    suspend fun getPlayerScore(): String = withContext(Dispatchers.IO) {
+    override suspend fun getPlayerScore(): String = withContext(Dispatchers.IO) {
         val score: String =
             (httpClient.getPlayerStats(getBattleTag())?.competitive?.overall_stats?.comprank ?: "").toString()
 
@@ -43,11 +56,11 @@ class ProfileRepository(context: Context) {
         score
     }
 
-    suspend fun getHeroesStats(): HeroesStats? = httpClient.getHeroesStats(getBattleTag())
-    suspend fun getAchievementsStats(): Achievements? = httpClient.getAchievementsStats(getBattleTag())
+    override suspend fun getHeroesStats(): HeroesStats? = httpClient.getHeroesStats(getBattleTag())
+    override suspend fun getAchievementsStats(): Achievements? = httpClient.getAchievementsStats(getBattleTag())
 
     // don't remove maybe it's be useful later
-    suspend fun getAllStats(): FullStatistic? = httpClient.getAllStats(getBattleTag())
+    override suspend fun getAllStats(): FullStatistic? = httpClient.getAllStats(getBattleTag())
 
     private fun saveScoreToCash(score: String) {
         sharedPreferences.edit().putString(cashedScoreKey, score).apply()
@@ -63,7 +76,7 @@ class ProfileRepository(context: Context) {
     }
 }
 
-class StatisticHttpClient {
+private class StatisticHttpClient {
     private val client = Retrofit.Builder()
         .baseUrl("https://owapi.net/")
         .addConverterFactory(GsonConverterFactory.create())
