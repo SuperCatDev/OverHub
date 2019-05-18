@@ -12,6 +12,7 @@ import com.sc.overhub.data.repository.DbRepositoryFactory
 import com.sc.overhub.data.repository.ProfileRepository
 import kotlinx.android.synthetic.main.battle_tag_dialog_layout.view.*
 import kotlinx.android.synthetic.main.launch_screen.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
