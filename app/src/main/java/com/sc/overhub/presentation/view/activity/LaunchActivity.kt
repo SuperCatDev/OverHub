@@ -7,10 +7,9 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.android.tools.build.jetifier.core.utils.Log
 import com.sc.overhub.R
-import com.sc.overhub.data.repository.ProfileRepository
 import com.sc.overhub.data.repository.DbRepositoryFactory
+import com.sc.overhub.data.repository.ProfileRepository
 import kotlinx.android.synthetic.main.battle_tag_dialog_layout.view.*
 import kotlinx.android.synthetic.main.launch_screen.*
 import kotlinx.coroutines.launch
@@ -51,7 +50,7 @@ class LaunchActivity : BaseActivity() {
         dialog!!.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             if (repo.setBattleTag(hostView.battleTag_et.text.toString())) {
                 dialog!!.cancel()
-                startApp()
+                launch { startApp() }
             } else {
                 Toast.makeText(this, "You Battle Tag is not valid", Toast.LENGTH_SHORT).show()
             }
@@ -60,13 +59,11 @@ class LaunchActivity : BaseActivity() {
         progressBar.visibility = View.GONE
     }
 
-    private fun startApp() {
+    private suspend fun startApp() {
         progressBar.visibility = View.VISIBLE
 
-        launch {
-            DbRepositoryFactory.initAllRepo(applicationContext)
-            startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
-            finish()
-        }
+        DbRepositoryFactory.initAllRepo(applicationContext)
+        startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
+        finish()
     }
 }
