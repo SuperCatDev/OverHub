@@ -7,9 +7,11 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import com.sc.overhub.R
 import com.sc.overhub.data.repository.DbRepositoryFactory
 import com.sc.overhub.data.repository.ProfileRepository
+import com.sc.overhub.databinding.LaunchScreenBinding
 import kotlinx.android.synthetic.main.battle_tag_dialog_layout.view.*
 import kotlinx.android.synthetic.main.launch_screen.*
 import kotlinx.coroutines.delay
@@ -22,7 +24,9 @@ class LaunchActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.launch_screen)
+        val binding = DataBindingUtil.setContentView<LaunchScreenBinding>(this, R.layout.launch_screen)
+        binding.logoId = R.drawable.launch_logo
+        binding.titleId = R.drawable.launch_title
         checkStart()
     }
 
