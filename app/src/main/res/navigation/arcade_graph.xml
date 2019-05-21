@@ -3,6 +3,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/arcade_graph" app:startDestination="@+id/arcadeFragment">
 
-    <fragment android:id="@+id/arcadeFragment" android:name="com.sc.overhub.view.fragment.ArcadeFragment"
+    <fragment android:id="@+id/arcadeFragment" android:name="com.sc.overhub.presentation.view.fragment.ArcadeFragment"
               android:label="ArcadeFragment"/>
 </navigation>

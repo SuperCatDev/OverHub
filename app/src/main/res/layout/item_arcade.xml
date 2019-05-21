@@ -8,7 +8,7 @@
                   type="java.lang.Integer"/>
 
         <variable name="viewModel"
-                  type="com.sc.overhub.viewmodel.ArcadeViewModel"/>
+                  type="com.sc.overhub.presentation.viewmodel.ArcadeViewModel"/>
     </data>
 
 

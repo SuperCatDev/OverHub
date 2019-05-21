@@ -3,7 +3,7 @@
 <layout>
     <data>
         <variable name="viewModel"
-                  type="com.sc.overhub.viewmodel.MapViewModel"/>
+                  type="com.sc.overhub.presentation.viewmodel.MapViewModel"/>
     </data>
 
     <ScrollView
