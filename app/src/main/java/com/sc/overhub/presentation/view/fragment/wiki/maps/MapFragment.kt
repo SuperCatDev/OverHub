@@ -23,6 +23,7 @@ class MapFragment : BaseFragment() {
             inflater, R.layout.fragment_map, container, false
         )
 
+        fragmentBinding.lifecycleOwner = viewLifecycleOwner
         fragmentBinding.viewModel = viewModel
 
         return fragmentBinding.root

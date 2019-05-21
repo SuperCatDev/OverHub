@@ -3,6 +3,8 @@ package com.sc.overhub.presentation.viewmodel
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.model.WikiHeroSkillExtraModel
 import com.sc.overhub.data.model.WikiHeroSkillMainModel
 import com.sc.overhub.data.model.WikiHeroSkillModel
@@ -12,18 +14,17 @@ import com.sc.overhub.domain.model.WikiHeroTipModel
 import com.sc.overhub.data.repository.HeroesRepository
 import com.sc.overhub.presentation.view.adapter.WikiHeroOverviewAdapter
 import com.sc.overhub.presentation.view.adapter.WikiHeroSkillsAdapter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class WikiHeroViewModel(private val heroId: Long) : ScopedViewModel(), KoinComponent {
-
+class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
     private val repo: HeroesRepository by inject()
 
     var loading: ObservableInt = ObservableInt(View.GONE)
     var showEmpty: ObservableInt = ObservableInt(View.GONE)
-
 
     private val hero: ObservableField<WikiHeroModel> by lazy {
         ObservableField<WikiHeroModel>(runBlocking { heroAsync.await() })
@@ -42,24 +43,21 @@ class WikiHeroViewModel(private val heroId: Long) : ScopedViewModel(), KoinCompo
     }
 
     val overviewAdapter = WikiHeroOverviewAdapter(this)
-
     val skillsAdapter = WikiHeroSkillsAdapter(this)
 
-
-
-    private val heroAsync = async {
+    private val heroAsync = viewModelScope.async(Dispatchers.Default) {
         repo.getHeroById(heroId)
     }
 
-    private val overviewAsync = async {
+    private val overviewAsync = viewModelScope.async(Dispatchers.Default) {
         repo.getHeroOverview(heroId)
     }
 
-    private val skillsAsync = async {
+    private val skillsAsync = viewModelScope.async(Dispatchers.Default) {
         repo.getHeroSkills(heroId)
     }
 
-    private val tipsAsync = async {
+    private val tipsAsync = viewModelScope.async(Dispatchers.Default) {
         repo.getHeroTips(heroId)
     }
 

@@ -1,36 +1,33 @@
 package com.sc.overhub.presentation.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.MapsRepository
 import com.sc.overhub.presentation.view.adapter.MapImagesAdapter
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class MapViewModel(private val mapId: Long) : ScopedViewModel(), KoinComponent {
+class MapViewModel(private val mapId: Long) : ViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()
 
-    private val mapImagesIdAsync = async {
-        repo.getMapInfo(mapId).imagesId
+    val title = MutableLiveData<String>()
+    val description = MutableLiveData<String>()
+    val adapter = MutableLiveData<MapImagesAdapter>()
+
+    init {
+        initAdapter()
+        initData()
     }
 
-    private val mapDescriptionAsync = async {
-        repo.getMapInfo(mapId).description
+    private fun initAdapter() = viewModelScope.launch {
+        adapter.value = MapImagesAdapter(repo.getMapInfo(mapId).imagesId)
     }
 
-    private val mapTitleAsync = async {
-        repo.getMapInfo(mapId).name
-    }
-
-    val adapter: MapImagesAdapter =
-        MapImagesAdapter(runBlocking { mapImagesIdAsync.await() })
-
-    val title: ObservableField<String> by lazy {
-        ObservableField<String>(runBlocking { mapTitleAsync.await() })
-    }
-
-    val description: ObservableField<String> by lazy {
-        ObservableField<String>(runBlocking { mapDescriptionAsync.await() })
+    private fun initData() = viewModelScope.launch {
+        val info = repo.getMapInfo(mapId)
+        title.value = info.name
+        description.value = info.description
     }
 }

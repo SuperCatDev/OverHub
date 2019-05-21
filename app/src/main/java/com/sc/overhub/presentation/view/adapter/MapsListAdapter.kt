@@ -21,10 +21,10 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
         )
     }
 
-    override fun getItemCount(): Int = viewModel.size
+    override fun getItemCount(): Int = viewModel.size.value!!
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel.maps, position, viewModel.navigate)
+        holder.bind(viewModel.maps.value!!, position, viewModel.navigate)
     }
 
     class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {

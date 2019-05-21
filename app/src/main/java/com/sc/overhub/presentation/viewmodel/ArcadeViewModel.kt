@@ -1,7 +1,7 @@
 package com.sc.overhub.presentation.viewmodel
 
 import android.view.View
-import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.ArcadeRepository
@@ -15,8 +15,8 @@ import org.koin.standalone.inject
 class ArcadeViewModel : ViewModel(), KoinComponent {
     private val repo: ArcadeRepository by inject()
 
-    var loading: ObservableInt = ObservableInt(View.GONE)
-    var showEmpty: ObservableInt = ObservableInt(View.GONE)
+    val loading = MutableLiveData<Int>().apply { value = View.GONE }
+    val showEmpty = MutableLiveData<Int>().apply { value = View.GONE }
 
     private val arcades: List<ArcadeModel> by lazy { runBlocking { arcadeAsync.await() } }
 

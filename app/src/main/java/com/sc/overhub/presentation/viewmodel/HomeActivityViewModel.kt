@@ -2,10 +2,12 @@ package com.sc.overhub.presentation.viewmodel
 
 import android.view.View
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class HomeActivityViewModel : ScopedViewModel() {
+class HomeActivityViewModel : ViewModel() {
     var currentTabId: Int = -1
-    var visibleStatistic = ObservableInt(View.VISIBLE)
-    var visibleArcade = ObservableInt(View.GONE)
-    var visibleWiki = ObservableInt(View.GONE)
+    val visibleStatistic = MutableLiveData<Int>().apply { value = View.VISIBLE }
+    val visibleArcade = MutableLiveData<Int>().apply { value = View.GONE }
+    val visibleWiki = MutableLiveData<Int>().apply { value = View.GONE }
 }

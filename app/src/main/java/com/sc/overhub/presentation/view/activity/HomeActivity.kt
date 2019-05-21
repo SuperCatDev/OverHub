@@ -20,6 +20,7 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
+            lifecycleOwner = this@HomeActivity
             viewModel = vm
         }
 
@@ -68,19 +69,19 @@ class HomeActivity : BaseActivity() {
 
         when (itemId) {
             R.id.menu_statistic -> {
-                vm.visibleStatistic.set(View.VISIBLE)
-                vm.visibleArcade.set(View.GONE)
-                vm.visibleWiki.set(View.GONE)
+                vm.visibleStatistic.value = View.VISIBLE
+                vm.visibleArcade.value = View.GONE
+                vm.visibleWiki.value = View.GONE
             }
             R.id.menu_arcade -> {
-                vm.visibleStatistic.set(View.GONE)
-                vm.visibleArcade.set(View.VISIBLE)
-                vm.visibleWiki.set(View.GONE)
+                vm.visibleStatistic.value = View.GONE
+                vm.visibleArcade.value = View.VISIBLE
+                vm.visibleWiki.value = View.GONE
             }
             R.id.menu_wiki -> {
-                vm.visibleStatistic.set(View.GONE)
-                vm.visibleArcade.set(View.GONE)
-                vm.visibleWiki.set(View.VISIBLE)
+                vm.visibleStatistic.value = View.GONE
+                vm.visibleArcade.value = View.GONE
+                vm.visibleWiki.value = View.VISIBLE
             }
         }
 

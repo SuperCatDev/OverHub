@@ -23,6 +23,7 @@ class ArcadeFragment : BaseFragment() {
             inflater, R.layout.fragment_arcade, container, false
         )
 
+        fragmentBinding.lifecycleOwner = viewLifecycleOwner
         fragmentBinding.viewModel = viewModel
 
         return fragmentBinding.root

@@ -31,6 +31,8 @@ class MapsFragment : BaseFragment() {
             inflater, R.layout.fragment_wiki_maps, container, false
         )
         viewModel.navigate = navigate
+
+        fragmentBinding.lifecycleOwner = viewLifecycleOwner
         fragmentBinding.viewModel = viewModel
 
         return fragmentBinding.root
