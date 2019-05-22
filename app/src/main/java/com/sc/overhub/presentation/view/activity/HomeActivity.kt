@@ -42,7 +42,7 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    private fun getAttachedController(): NavController {
+    fun getAttachedController(): NavController {
         val navId = when (vm.currentTabId) {
             R.id.menu_statistic -> {
                 R.id.statistic_host_fragment

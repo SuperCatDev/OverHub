@@ -21,6 +21,7 @@ interface ProfileRepository {
     fun getBattleTag(): String
     fun setBattleTag(battleTag: String): Boolean
     fun getCashedScore(): String
+    fun clearBattleTag()
     suspend fun getPlayerScore(): String
     suspend fun getHeroesStats(): HeroesStats?
     suspend fun getAchievementsStats(): Achievements?
@@ -30,6 +31,11 @@ interface ProfileRepository {
 class ProfileRepositoryImpl(context: Context) : ProfileRepository {
     private val sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
     private val httpClient = StatisticHttpClient()
+
+    override fun clearBattleTag() {
+        sharedPreferences.edit().putString(battleTagKey, "").apply()
+        sharedPreferences.edit().putString(cashedScoreKey, "").apply()
+    }
 
     override fun getBattleTag(): String {
         return sharedPreferences.getString(battleTagKey, "") ?: ""

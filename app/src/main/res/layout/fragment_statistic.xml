@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.text.TextUtils"/>
         <variable name="viewModel"
                   type="com.sc.overhub.presentation.viewmodel.StatisticViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:theme="?attr/actionBarTheme"
+                android:minHeight="?attr/actionBarSize"
+                app:menu="@menu/statistic_menu"
+                app:title="@string/app_name"
+                android:id="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
 
         <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-        >
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/scrollView2"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

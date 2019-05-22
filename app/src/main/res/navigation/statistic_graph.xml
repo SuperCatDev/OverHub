@@ -4,5 +4,9 @@
             android:id="@+id/statistic_graph" app:startDestination="@id/statisticsFragment">
 
     <fragment android:id="@+id/statisticsFragment" android:name="com.sc.overhub.presentation.view.fragment.StatisticFragment"
-              android:label="StatisticsFragment"/>
+              android:label="StatisticsFragment">
+        <action android:id="@+id/action_statisticsFragment_to_launchActivity" app:destination="@id/launchActivity"/>
+    </fragment>
+    <activity android:id="@+id/launchActivity" android:name="com.sc.overhub.presentation.view.activity.LaunchActivity"
+              android:label="LaunchActivity"/>
 </navigation>
