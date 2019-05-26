@@ -6,9 +6,9 @@ import com.sc.overhub.data.repository.ProfileRepository
 import com.sc.overhub.data.repository.ProfileRepositoryImpl
 import com.sc.overhub.domain.usecase.LeaveFromAccountUseCase
 import com.sc.overhub.domain.usecase.LeaveFromAccountUseCaseImpl
-import org.koin.android.ext.android.startKoin
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module.module
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 val appModule = module {
     single { DbRepositoryFactory.mapsReposImpl }
@@ -21,6 +21,9 @@ val appModule = module {
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(appModule))
+        startKoin{
+            androidContext(this@App)
+            modules(appModule)
+        }
     }
 }

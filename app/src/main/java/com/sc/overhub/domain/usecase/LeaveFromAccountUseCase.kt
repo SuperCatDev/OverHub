@@ -1,8 +1,8 @@
 package com.sc.overhub.domain.usecase
 
 import com.sc.overhub.data.repository.ProfileRepository
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 interface LeaveFromAccountUseCase {
     fun leave()

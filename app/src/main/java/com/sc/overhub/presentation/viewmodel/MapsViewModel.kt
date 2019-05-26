@@ -9,8 +9,8 @@ import com.sc.overhub.presentation.view.adapter.MapsListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class MapsViewModel(var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()

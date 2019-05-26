@@ -4,17 +4,18 @@ import android.view.View
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sc.overhub.domain.model.WikiHeroListModel
 import com.sc.overhub.data.repository.HeroesRepository
+import com.sc.overhub.domain.model.WikiHeroListModel
 import com.sc.overhub.presentation.view.adapter.WikHeroListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class WikiHeroListViewModel(
-    var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
+    var navigate: (Long) -> Unit
+) : ViewModel(), KoinComponent {
 
     private val repo: HeroesRepository by inject()
 
@@ -28,13 +29,13 @@ class WikiHeroListViewModel(
 
     fun getHeroAtIndex(position: Int): WikiHeroListModel = heroes[position]
 
-    fun onItemClick(position: Int){
+    fun onItemClick(position: Int) {
         navigate(heroes[position].id)
     }
 
     fun getSize(): Int = heroes.size
 
-    fun onClickReload(){
+    fun onClickReload() {
 
     }
 }

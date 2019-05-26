@@ -52,11 +52,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
     implementation 'com.android.databinding:compiler:3.1.4'
     kapt "com.android.databinding:compiler:3.1.4"
 
     // Koin
-    implementation 'org.koin:koin-android:1.0.2'
+    implementation 'org.koin:koin-android:2.0.0'
+    testImplementation 'org.koin:koin-test:2.0.0-GA4'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
@@ -66,6 +68,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha04"
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha04"
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
 
     // MaterialDesign
     implementation 'com.google.android.material:material:1.0.0'

@@ -9,8 +9,8 @@ import com.sc.overhub.domain.model.ArcadeModel
 import com.sc.overhub.presentation.view.adapter.ArcadeAdapter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class ArcadeViewModel : ViewModel(), KoinComponent {
     private val repo: ArcadeRepository by inject()

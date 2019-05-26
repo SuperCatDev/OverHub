@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.MapsRepository
 import com.sc.overhub.presentation.view.adapter.MapImagesAdapter
 import kotlinx.coroutines.launch
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class MapViewModel(private val mapId: Long) : ViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()

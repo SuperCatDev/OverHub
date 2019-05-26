@@ -8,17 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.model.WikiHeroSkillExtraModel
 import com.sc.overhub.data.model.WikiHeroSkillMainModel
 import com.sc.overhub.data.model.WikiHeroSkillModel
+import com.sc.overhub.data.repository.HeroesRepository
 import com.sc.overhub.domain.model.WikiHeroModel
 import com.sc.overhub.domain.model.WikiHeroOverViewModel
 import com.sc.overhub.domain.model.WikiHeroTipModel
-import com.sc.overhub.data.repository.HeroesRepository
 import com.sc.overhub.presentation.view.adapter.WikiHeroOverviewAdapter
 import com.sc.overhub.presentation.view.adapter.WikiHeroSkillsAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
     private val repo: HeroesRepository by inject()
@@ -69,7 +69,7 @@ class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
 
     fun getMainSkillAtIndex(index: Int): WikiHeroSkillMainModel? {
         val value = skills.get()
-        if (value != null && value.size > index){
+        if (value != null && value.size > index) {
             return (value[index] as WikiHeroSkillMainModel)
         }
         return null
@@ -77,7 +77,7 @@ class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
 
     fun getExtraSkillAtIndex(index: Int): WikiHeroSkillExtraModel? {
         val value = skills.get()
-        if (value != null && value.size > index){
+        if (value != null && value.size > index) {
             return (value[index] as WikiHeroSkillExtraModel)
         }
         return null
@@ -85,7 +85,7 @@ class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
 
     fun getOverViewTextAt(): String? {
         val value = hero.get()
-        if (value != null){
+        if (value != null) {
             return value.name
         }
         return null

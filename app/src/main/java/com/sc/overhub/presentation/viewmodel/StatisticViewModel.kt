@@ -7,16 +7,15 @@ import com.sc.overhub.R
 import com.sc.overhub.data.repository.ProfileRepository
 import com.sc.overhub.domain.usecase.LeaveFromAccountUseCase
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class StatisticViewModel : ViewModel(), KoinComponent {
     private val repo: ProfileRepository by inject()
     private val leaveUseCase: LeaveFromAccountUseCase by inject()
 
     var score = MutableLiveData<String>()
-    var nickname = MutableLiveData<String>().apply { runBlocking { value = repo.getBattleTag() } }
+    var nickname = MutableLiveData<String>().apply { value = repo.getBattleTag() }
     var imageSrcId = MutableLiveData<Int>()
 
     init {
