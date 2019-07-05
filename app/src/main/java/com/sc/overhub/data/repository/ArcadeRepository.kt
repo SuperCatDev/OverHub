@@ -17,7 +17,7 @@ interface ArcadeRepository {
 class ArcadeRepositoryImp(private val arcadeDao: ArcadeDao, private val mapper: ArcadeMapper): ArcadeRepository {
 
     suspend fun initDefault() = withContext(Dispatchers.IO) {
-        arcadeDao.I_insertModeArcade(
+        arcadeDao.insertModeArcade(
             listOf(
                 ArcadeModeEntity(
                     6, "Competitive Elimination", "6v6", "6v6competitiveelimination",
@@ -46,7 +46,7 @@ class ArcadeRepositoryImp(private val arcadeDao: ArcadeDao, private val mapper: 
                 )
             )
         )
-        arcadeDao.I_insertTodayArcade(ArcadeTodayEntity(null, 6, 22, 25, 29, 24, "2019-04-02 02:01:04"))
+        arcadeDao.insertTodayArcade(ArcadeTodayEntity(null, 6, 22, 25, 29, 24, "2019-04-02 02:01:04"))
     }
 
     override suspend fun getLastUpdate(): String? = withContext(Dispatchers.IO) {

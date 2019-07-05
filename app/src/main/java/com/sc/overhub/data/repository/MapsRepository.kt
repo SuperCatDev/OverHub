@@ -20,10 +20,10 @@ interface MapsRepository {
 class MapsRepositoryImpl(private val wikiMapDao: WikiMapDao, private val mapper: MapMapper) : MapsRepository {
 
     suspend fun initDefault() = withContext(Dispatchers.IO) {
-        wikiMapDao.I_insertMapImage(AppDataBase.PREPOPULATE_DATA_IMAGE)
-        wikiMapDao.I_insertTypeMap(AppDataBase.PREPOPULATE_DATA_TYPE)
-        wikiMapDao.I_insertStatistics(AppDataBase.PREPOPULATE_DATA_STATS)
-        wikiMapDao.I_insert(AppDataBase.PREPOPULATE_DATA)
+        wikiMapDao.insertMapImage(AppDataBase.PREPOPULATE_DATA_IMAGE)
+        wikiMapDao.insertTypeMap(AppDataBase.PREPOPULATE_DATA_TYPE)
+        wikiMapDao.insertStatistics(AppDataBase.PREPOPULATE_DATA_STATS)
+        wikiMapDao.insert(AppDataBase.PREPOPULATE_DATA)
     }
 
     override suspend fun getMapsForList(): List<GameMapListModel> = withContext(Dispatchers.IO) {

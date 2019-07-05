@@ -57,12 +57,12 @@ class HeroesRepositoryImp(private val wikiHeroDao: WikiHeroDao, private val mapp
             WikiHeroTipEntity(982, 11, "12414324123")
         )
 
-        wikiHeroDao.I_insertHero(hero)
-        wikiHeroDao.I_insertHeroRole(heroRole)
-        wikiHeroDao.I_insertHeroOverview(overview)
-        wikiHeroDao.I_insertSkill(heroSkill)
-        wikiHeroDao.I_insertSkillExtra(heroSkillExtra)
-        wikiHeroDao.I_insertTip(heroTip)
+        wikiHeroDao.insertHero(hero)
+        wikiHeroDao.insertHeroRole(heroRole)
+        wikiHeroDao.insertHeroOverview(overview)
+        wikiHeroDao.insertSkill(heroSkill)
+        wikiHeroDao.insertSkillExtra(heroSkillExtra)
+        wikiHeroDao.insertTip(heroTip)
     }
 
     override suspend fun getHeroesForList(): List<WikiHeroListModel> = withContext(Dispatchers.IO) {

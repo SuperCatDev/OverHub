@@ -19,8 +19,8 @@ interface ArcadeDao {
     suspend fun getLastUpdateTime(): String?
 
     @Insert
-    fun I_insertTodayArcade(data: ArcadeTodayEntity)
+    fun insertTodayArcade(data: ArcadeTodayEntity)
 
     @Insert
-    fun I_insertModeArcade(data: List<ArcadeModeEntity>)
+    fun insertModeArcade(data: List<ArcadeModeEntity>)
 }

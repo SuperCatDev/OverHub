@@ -9,7 +9,6 @@ import com.sc.overhub.data.db.wiki.WikiHeroForList
 
 @Dao
 interface WikiHeroDao {
-
     @Query("SELECT wiki_hero.id, wiki_hero.name, wiki_hero_role.role, wiki_hero.complexity, wiki_hero.res_uri FROM wiki_hero INNER JOIN wiki_hero_role ON wiki_hero.id_role = wiki_hero_role.id")
     suspend fun getHeroesForList(): List<WikiHeroForList>
 
@@ -29,21 +28,20 @@ interface WikiHeroDao {
     suspend fun getHeroTipsById(heroID: Long): List<WikiHeroTipEntity>
 
     @Insert
-    fun I_insertHero(data: List<WikiHeroEntity>)
+    fun insertHero(data: List<WikiHeroEntity>)
 
     @Insert
-    fun I_insertHeroOverview(data: List<WikiHeroOverviewEntity>)
+    fun insertHeroOverview(data: List<WikiHeroOverviewEntity>)
 
     @Insert
-    fun I_insertHeroRole(data: List<WikiHeroRoleEntity>)
+    fun insertHeroRole(data: List<WikiHeroRoleEntity>)
 
     @Insert
-    fun I_insertSkill(data: List<WikiHeroSkillEntity>)
+    fun insertSkill(data: List<WikiHeroSkillEntity>)
 
     @Insert
-    fun I_insertSkillExtra(data: List<WikiHeroSkillExtraEntity>)
+    fun insertSkillExtra(data: List<WikiHeroSkillExtraEntity>)
 
     @Insert
-    fun I_insertTip(data: List<WikiHeroTipEntity>)
-
+    fun insertTip(data: List<WikiHeroTipEntity>)
 }

@@ -42,18 +42,6 @@ interface WikiMapDao {
     @Insert
     suspend fun insertStatistics(data: List<WikiMapStatisticEntity>)
 
-    @Insert
-    fun I_insert(data: List<WikiMapEntity>)
-
-    @Insert
-    fun I_insertTypeMap(data: List<WikiMapTypeEntity>)
-
-    @Insert
-    fun I_insertMapImage(data: List<WikiMapImageEntity>)
-
-    @Insert
-    fun I_insertStatistics(data: List<WikiMapStatisticEntity>)
-
     @Query("DELETE FROM wiki_map")
     suspend fun deleteAll()
 }
