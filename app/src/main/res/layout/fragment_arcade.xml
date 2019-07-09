@@ -24,7 +24,7 @@
                 android:indeterminate="true"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:visibility="@{viewModel.loading}"
+                android:visibility="@{safeUnbox(viewModel.loading)}"
                 android:layout_gravity="center"
         />
 
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/error_loading"
-                android:visibility="@{viewModel.showEmpty}"
+                android:visibility="@{safeUnbox(viewModel.showEmpty)}"
                 android:onClick="@{() -> viewModel.onClickReload()}"
                 android:layout_gravity="center"
         />

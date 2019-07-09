@@ -13,7 +13,7 @@
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="@{viewModel.visibleStatistic}"
+                android:visibility="@{safeUnbox(viewModel.visibleStatistic)}"
                 android:id="@+id/statistic_container"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
@@ -29,7 +29,7 @@
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="@{viewModel.visibleArcade}"
+                android:visibility="@{safeUnbox(viewModel.visibleArcade)}"
                 android:id="@+id/arcade_container"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
@@ -45,7 +45,7 @@
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="@{viewModel.visibleWiki}"
+                android:visibility="@{safeUnbox(viewModel.visibleWiki)}"
                 android:id="@+id/wiki_container"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
                 app:layout_constraintTop_toTopOf="parent">

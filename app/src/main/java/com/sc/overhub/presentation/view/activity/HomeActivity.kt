@@ -8,13 +8,16 @@ import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.ActivityMainBinding
 import com.sc.overhub.presentation.viewmodel.HomeActivityViewModel
+import com.sc.overhub.presentation.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : BaseActivity() {
     private val startTabId = R.id.menu_statistic
 
     private val vm: HomeActivityViewModel by lazy {
-        HomeActivityViewModel().apply { currentTabId = startTabId }
+        getViewModel {
+            HomeActivityViewModel().apply { currentTabId = startTabId }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +27,7 @@ class HomeActivity : BaseActivity() {
             viewModel = vm
         }
 
-        bottom_navigation.selectedItemId = R.id.menu_statistic
+        bottom_navigation.selectedItemId = vm.currentTabId
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             handleTab(item.itemId)
 

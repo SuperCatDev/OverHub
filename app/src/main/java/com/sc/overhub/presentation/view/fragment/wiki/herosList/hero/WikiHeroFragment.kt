@@ -30,7 +30,8 @@ class WikiHeroFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         instance = this
         if (arguments != null) {
-            val name = arguments!!.getString("ARG_HERO_NAME")
+            //todo will be used un future
+            arguments!!.getString("ARG_HERO_NAME")
         }
         val fragmentBinding =
             DataBindingUtil.inflate<FragmentWikiHeroBinding>(inflater, R.layout.fragment_wiki_hero, container, false)
@@ -52,11 +53,11 @@ class WikiHeroFragment : BaseFragment() {
     }
 
     interface WikiHeroFragmentTab {
-        fun getHostedViewModel() : WikiHeroViewModel? =
+        fun getHostedViewModel(): WikiHeroViewModel? =
             instance?.viewModel
     }
 
     companion object {
-        private var instance : WikiHeroFragment? = null
+        private var instance: WikiHeroFragment? = null
     }
 }
