@@ -6,8 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.MapsRepository
 import com.sc.overhub.domain.model.GameMapListModel
 import com.sc.overhub.presentation.view.adapter.MapsListAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -18,15 +16,6 @@ class MapsViewModel(var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
     val size = MutableLiveData<Int>()
     val maps = MutableLiveData<List<GameMapListModel>>()
     val adapter = MutableLiveData<MapsListAdapter>()
-/*
-    val size: Int by lazy { runBlocking { mapsAsync.await().size } }
-    val maps: List<GameMapListModel> by lazy { runBlocking { mapsAsync.await() } }
-*/
-
-    // This approach allow to start maps downloading before method invocation
-    private val mapsAsync = viewModelScope.async(Dispatchers.Default) {
-        repo.getMapsForList()
-    }
 
     init {
         initValues()

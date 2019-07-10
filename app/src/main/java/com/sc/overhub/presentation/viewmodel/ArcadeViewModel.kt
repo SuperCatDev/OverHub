@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.ArcadeRepository
 import com.sc.overhub.domain.model.ArcadeModel
-import com.sc.overhub.presentation.view.adapter.ArcadeAdapter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
@@ -25,9 +24,6 @@ class ArcadeViewModel : ViewModel(), KoinComponent {
     private val arcadeAsync = viewModelScope.async {
         repo.getArcadeList()
     }
-
-    var arcadeAdapter: ArcadeAdapter =
-        ArcadeAdapter(this)
 
     fun getArcadeByIndex(index: Int) = arcades[index]
 

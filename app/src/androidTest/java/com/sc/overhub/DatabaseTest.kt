@@ -177,5 +177,4 @@ class DatabaseTest {
         )
         assertEquals(result, heroDao.getHeroSkillsById(11))
     }
-
 }
