@@ -5,17 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.repository.MapsRepository
 import com.sc.overhub.domain.model.GameMapListModel
-import com.sc.overhub.presentation.view.adapter.MapsListAdapter
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class MapsViewModel(var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()
+    var size: Int = 0
+    var maps: List<GameMapListModel> = emptyList()
 
-    val size = MutableLiveData<Int>()
-    val maps = MutableLiveData<List<GameMapListModel>>()
-    val adapter = MutableLiveData<MapsListAdapter>()
+    val initAdapter = MutableLiveData<Unit>()
 
     init {
         initValues()
@@ -23,8 +22,9 @@ class MapsViewModel(var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
 
     private fun initValues() = viewModelScope.launch {
         val repoData = repo.getMapsForList()
-        size.value = repoData.size
-        maps.value = repoData
-        adapter.value = MapsListAdapter(this@MapsViewModel)
+        size = repoData.size
+        maps = repoData
+
+        initAdapter.value = Unit
     }
 }
