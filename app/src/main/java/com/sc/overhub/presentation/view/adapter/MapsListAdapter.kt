@@ -24,14 +24,14 @@ class MapsListAdapter(private val viewModel: MapsViewModel) : RecyclerView.Adapt
     override fun getItemCount(): Int = viewModel.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel.maps, position, viewModel.navigate)
+        holder.bind(viewModel.maps, position)
     }
 
-    class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(maps: List<GameMapListModel>, position: Int, navigate: (Long) -> Unit) {
+    inner class ViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(maps: List<GameMapListModel>, position: Int) {
             binding.setVariable(viewSourceId, maps[position].titleImageID)
             binding.root.setOnClickListener {
-                navigate(maps[position].id)
+                viewModel.mapPressed(maps[position].id)
             }
             binding.setVariable(mapName, maps[position].name)
             binding.executePendingBindings()

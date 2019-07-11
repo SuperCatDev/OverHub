@@ -9,15 +9,20 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class MapsViewModel(var navigate: (Long) -> Unit) : ViewModel(), KoinComponent {
+class MapsViewModel : ViewModel(), KoinComponent {
     private val repo: MapsRepository by inject()
     var size: Int = 0
     var maps: List<GameMapListModel> = emptyList()
 
     val initAdapter = MutableLiveData<Unit>()
+    val navigateToMap = LiveEvent<Long>()
 
     init {
         initValues()
+    }
+
+    fun mapPressed(mapId: Long) {
+        navigateToMap.postValue(mapId)
     }
 
     private fun initValues() = viewModelScope.launch {
