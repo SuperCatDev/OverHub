@@ -12,8 +12,6 @@ import com.sc.overhub.data.repository.HeroesRepository
 import com.sc.overhub.domain.model.WikiHeroModel
 import com.sc.overhub.domain.model.WikiHeroOverViewModel
 import com.sc.overhub.domain.model.WikiHeroTipModel
-import com.sc.overhub.presentation.view.adapter.WikiHeroOverviewAdapter
-import com.sc.overhub.presentation.view.adapter.WikiHeroSkillsAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -27,23 +25,20 @@ class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
     var showEmpty: ObservableInt = ObservableInt(View.GONE)
 
     private val hero: ObservableField<WikiHeroModel> by lazy {
-        ObservableField<WikiHeroModel>(runBlocking { heroAsync.await() })
+        ObservableField(runBlocking { heroAsync.await() })
     }
 
     private val overview: ObservableField<List<WikiHeroOverViewModel>> by lazy {
-        ObservableField<List<WikiHeroOverViewModel>>(runBlocking { overviewAsync.await() })
+        ObservableField(runBlocking { overviewAsync.await() })
     }
 
     private val skills: ObservableField<List<WikiHeroSkillModel>> by lazy {
-        ObservableField<List<WikiHeroSkillModel>>(runBlocking { skillsAsync.await() })
+        ObservableField(runBlocking { skillsAsync.await() })
     }
 
     private val tips: ObservableField<List<WikiHeroTipModel>> by lazy {
-        ObservableField<List<WikiHeroTipModel>>(runBlocking { tipsAsync.await() })
+        ObservableField(runBlocking { tipsAsync.await() })
     }
-
-    val overviewAdapter = WikiHeroOverviewAdapter(this)
-    val skillsAdapter = WikiHeroSkillsAdapter(this)
 
     private val heroAsync = viewModelScope.async(Dispatchers.Default) {
         repo.getHeroById(heroId)
