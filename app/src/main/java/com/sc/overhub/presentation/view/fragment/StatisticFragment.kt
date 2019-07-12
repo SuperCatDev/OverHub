@@ -28,24 +28,15 @@ class StatisticFragment : BaseFragment() {
 
         val view = fragmentBinding.root
 
+        if (viewModel.showDialog) showLeaveDialog()
+
         view.toolbar.overflowIcon = activity!!.getDrawable(R.drawable.ic_settings_black_24dp)
         view.toolbar.setOnMenuItemClickListener {
             if (it.itemId != R.id.statistic_exit) {
                 return@setOnMenuItemClickListener false
             }
 
-            AlertDialog.Builder(activity!!).apply {
-                setTitle("Are you sure what you want to leave from account?")
-                setPositiveButton("Yes") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                    leaveFromAccount()
-                }
-                setNegativeButton("Cancel") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
-                setCancelable(false)
-
-            }.show()
+            showLeaveDialog()
 
             true
         }
@@ -54,6 +45,25 @@ class StatisticFragment : BaseFragment() {
         fragmentBinding.viewModel = viewModel
 
         return view
+    }
+
+    private fun showLeaveDialog() {
+        viewModel.showDialog = true
+
+        AlertDialog.Builder(activity!!).apply {
+            setTitle("Are you sure what you want to leave from account?")
+            setPositiveButton("Yes") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                leaveFromAccount()
+            }
+            setNegativeButton("Cancel") { dialogInterface, _ ->
+                dialogInterface.cancel()
+            }
+            setOnCancelListener {
+                viewModel.showDialog = false
+            }
+
+        }.show()
     }
 
     private fun leaveFromAccount() {

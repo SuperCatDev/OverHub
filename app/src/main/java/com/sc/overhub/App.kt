@@ -8,20 +8,21 @@ import com.sc.overhub.domain.usecase.LeaveFromAccountUseCase
 import com.sc.overhub.domain.usecase.LeaveFromAccountUseCaseImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val appModule = module {
     single { DbRepositoryFactory.mapsReposImpl }
     single { DbRepositoryFactory.heroesReposImp }
     single { DbRepositoryFactory.arcadeReposImp }
-    single { ProfileRepositoryImpl(androidContext()) as ProfileRepository }
-    single { LeaveFromAccountUseCaseImpl() as LeaveFromAccountUseCase }
+    single { ProfileRepositoryImpl(androidContext()) } bind ProfileRepository::class
+    single { LeaveFromAccountUseCaseImpl() } bind LeaveFromAccountUseCase::class
 }
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin{
+        startKoin {
             androidContext(this@App)
             modules(appModule)
         }

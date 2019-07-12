@@ -17,6 +17,7 @@ class StatisticViewModel : ViewModel(), KoinComponent {
     var score = MutableLiveData<String>()
     var nickname = MutableLiveData<String>().apply { value = repo.getBattleTag() }
     var imageSrcId = MutableLiveData<Int>()
+    var showDialog = false
 
     init {
         initScore()
