@@ -13,29 +13,25 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class WikiHeroListViewModel(
-    var navigate: (Long) -> Unit
-) : ViewModel(), KoinComponent {
+class WikiHeroListViewModel : ViewModel(), KoinComponent {
 
     private val repo: HeroesRepository by inject()
 
     var loading: ObservableInt = ObservableInt(View.GONE)
     var showEmpty: ObservableInt = ObservableInt(View.GONE)
+    val navigateToHero = LiveEvent<Long>()
+
     private val heroes: List<WikiHeroListModel> by lazy { runBlocking { heroesAsync.await() } }
-
     private val heroesAsync = viewModelScope.async(Dispatchers.Default) { repo.getHeroesForList() }
-
-    var adapter: WikHeroListAdapter = WikHeroListAdapter(this)
 
     fun getHeroAtIndex(position: Int): WikiHeroListModel = heroes[position]
 
     fun onItemClick(position: Int) {
-        navigate(heroes[position].id)
+        navigateToHero.postValue(heroes[position].id)
     }
 
     fun getSize(): Int = heroes.size
 
     fun onClickReload() {
-
     }
 }
