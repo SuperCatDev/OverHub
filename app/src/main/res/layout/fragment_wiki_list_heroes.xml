@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+>
 
     <data>
         <variable name="model"
@@ -16,8 +16,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/fragment_wiki_list_heroes_recycler"
-                app:setAdapter="@{model.adapter}"/>
+                android:id="@+id/fragment_wiki_list_heroes_recycler"/>
 
         <androidx.core.widget.ContentLoadingProgressBar
                 style="?android:attr/progressBarStyleLarge"
