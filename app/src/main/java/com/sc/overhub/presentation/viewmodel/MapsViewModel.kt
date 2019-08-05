@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class MapsViewModel : ViewModel(), KoinComponent {
+class MapsViewModel : BaseViewModel() {
     private val repo: MapsRepository by inject()
     var size: Int = 0
     var maps: List<GameMapListModel> = emptyList()

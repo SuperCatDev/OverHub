@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class MapViewModel(private val mapId: Long) : ViewModel(), KoinComponent {
+class MapViewModel(private val mapId: Long) : BaseViewModel() {
     private val repo: MapsRepository by inject()
 
     val title = MutableLiveData<String>()

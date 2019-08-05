@@ -13,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class WikiHeroListViewModel : ViewModel(), KoinComponent {
+class WikiHeroListViewModel : BaseViewModel() {
 
     private val repo: HeroesRepository by inject()
 

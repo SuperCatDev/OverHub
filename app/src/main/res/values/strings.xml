@@ -27,4 +27,5 @@
     <string name="statistic_default_nickname">NickName</string>
     <string name="statistic_default_pt">downloading…</string>
     <string name="statistic_exit">Exit from account</string>
+    <string name="patch_note_header">Patch note</string>
 </resources>

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class StatisticViewModel : ViewModel(), KoinComponent {
+class StatisticViewModel : BaseViewModel() {
     private val repo: ProfileRepository by inject()
     private val leaveUseCase: LeaveFromAccountUseCase by inject()
 

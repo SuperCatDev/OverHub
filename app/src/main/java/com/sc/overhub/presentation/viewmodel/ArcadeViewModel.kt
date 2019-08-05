@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class ArcadeViewModel : ViewModel(), KoinComponent {
+class ArcadeViewModel : BaseViewModel() {
     private val repo: ArcadeRepository by inject()
 
     val loading = MutableLiveData<Int>().apply { value = View.GONE }

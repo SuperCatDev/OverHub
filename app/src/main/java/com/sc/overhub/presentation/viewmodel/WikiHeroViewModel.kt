@@ -3,7 +3,6 @@ package com.sc.overhub.presentation.viewmodel
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sc.overhub.data.model.WikiHeroSkillExtraModel
 import com.sc.overhub.data.model.WikiHeroSkillMainModel
@@ -15,10 +14,9 @@ import com.sc.overhub.domain.model.WikiHeroTipModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class WikiHeroViewModel(private val heroId: Long) : ViewModel(), KoinComponent {
+class WikiHeroViewModel(private val heroId: Long) : BaseViewModel() {
     private val repo: HeroesRepository by inject()
 
     var loading: ObservableInt = ObservableInt(View.GONE)
