@@ -10,8 +10,7 @@ import com.sc.overhub.data.repository.ProfileRepository
 import com.sc.overhub.domain.model.statistics.FullStatistic
 import com.sc.overhub.domain.model.statistics.achivments.Achievements
 import com.sc.overhub.domain.model.statistics.heroes.HeroesStats
-import com.sc.overhub.domain.usecase.LeaveFromAccountUseCase
-import com.sc.overhub.domain.usecase.LeaveFromAccountUseCaseImpl
+import com.sc.overhub.domain.interactor.LeaveFromAccountInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -60,7 +59,7 @@ class StatisticViewModelTest {
             modules(
                 module {
                     single { MockRepo() } bind ProfileRepository::class
-                    single { LeaveFromAccountUseCaseImpl() } bind LeaveFromAccountUseCase::class
+                    single { LeaveFromAccountInteractor() } bind LeaveFromAccountInteractor::class
                 })
         }
     }

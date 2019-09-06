@@ -1,5 +1,6 @@
 package com.sc.overhub.data.repository
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -28,8 +29,8 @@ interface ProfileRepository {
     suspend fun getAllStats(): FullStatistic?
 }
 
-class ProfileRepositoryImpl(context: Context) : ProfileRepository {
-    private val sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+class ProfileRepositoryImpl(application: Application) : ProfileRepository {
+    private val sharedPreferences = application.getSharedPreferences(prefName, Context.MODE_PRIVATE)
     private val httpClient = StatisticHttpClient()
 
     override fun clearBattleTag() {

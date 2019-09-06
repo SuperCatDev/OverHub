@@ -3,42 +3,49 @@ package com.sc.overhub.presentation.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.sc.overhub.R
-import com.sc.overhub.data.repository.DbRepositoryFactory
-import com.sc.overhub.data.repository.ProfileRepository
 import com.sc.overhub.databinding.LaunchScreenBinding
+import com.sc.overhub.presentation.view.custom.hide
+import com.sc.overhub.presentation.view.custom.show
+import com.sc.overhub.presentation.viewmodel.LaunchViewModel
 import kotlinx.android.synthetic.main.battle_tag_dialog_layout.view.*
 import kotlinx.android.synthetic.main.launch_screen.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LaunchActivity : BaseActivity() {
-    private val repo: ProfileRepository by inject()
+    private val viewModel by viewModel<LaunchViewModel>()
     private var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LaunchScreenBinding>(this, R.layout.launch_screen)
+        val binding =
+            DataBindingUtil.setContentView<LaunchScreenBinding>(this, R.layout.launch_screen)
         binding.logoId = R.drawable.launch_logo
         binding.titleId = R.drawable.launch_title
-        checkStart()
+
+        progressBar.show()
+
+        viewModel.observeLaunchStatus().observe(this, Observer {
+            if (it) {
+                dialog?.cancel()
+                startApp()
+            } else {
+                showBattleTagDialog()
+            }
+        })
+
+        viewModel.observeErrorMessages().observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (dialog != null) dialog!!.cancel()
-    }
-
-    private fun checkStart() = launch {
-        if (TextUtils.isEmpty(repo.getBattleTag()))
-            showBattleTagDialog()
-        else startApp()
     }
 
     @SuppressLint("InflateParams")
@@ -52,22 +59,16 @@ class LaunchActivity : BaseActivity() {
 
         }.show()
 
-        dialog!!.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            if (repo.setBattleTag(hostView.battleTag_et.text.toString())) {
-                dialog!!.cancel()
-                launch { startApp() }
-            } else {
-                Toast.makeText(this, "You Battle Tag is not valid", Toast.LENGTH_SHORT).show()
-            }
+        dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+            viewModel.setBattleTag(hostView.battleTag_et.text.toString())
+            dialog?.cancel()
+            progressBar.show()
         }
 
-        progressBar.visibility = View.GONE
+        progressBar.hide()
     }
 
-    private suspend fun startApp() {
-        progressBar.visibility = View.VISIBLE
-
-        DbRepositoryFactory.initAllRepo(applicationContext)
+    private fun startApp() {
         startActivity(Intent(this@LaunchActivity, HomeActivity::class.java))
         finish()
     }

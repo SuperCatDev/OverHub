@@ -1,6 +1,5 @@
 package com.sc.overhub.data.repository
 
-import android.content.Context
 import com.sc.overhub.data.db.AppDataBase
 import com.sc.overhub.domain.mapper.ArcadeMapper
 import com.sc.overhub.domain.mapper.HeroMapper
@@ -8,24 +7,26 @@ import com.sc.overhub.domain.mapper.MapMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import org.koin.core.KoinComponent
 
-object DbRepositoryFactory {
+object DbRepositoryFactory : KoinComponent {
     lateinit var mapsReposImpl: MapsRepository
     lateinit var heroesReposImp: HeroesRepository
     lateinit var arcadeReposImp: ArcadeRepository
 
-    suspend fun initAllRepo(context: Context) = coroutineScope {
-        val asyncMap = getMapRepoAsync(context)
-        val asyncHero = getHeroRepoAsync(context)
-        val asyncArcade = getArcadeRepoAsync(context)
+    suspend fun initAllRepo(database: AppDataBase) = coroutineScope {
+        val asyncMap = getMapRepoAsync(database)
+        val asyncHero = getHeroRepoAsync(database)
+        val asyncArcade = getArcadeRepoAsync(database)
 
         mapsReposImpl = asyncMap.await()
         heroesReposImp = asyncHero.await()
         arcadeReposImp = asyncArcade.await()
     }
 
-    private fun CoroutineScope.getMapRepoAsync(context: Context) = async {
-        val mapsReposImpl = MapsRepositoryImpl(AppDataBase.getInstance(context).wikiMapsDao(), MapMapper())
+    private fun CoroutineScope.getMapRepoAsync(database: AppDataBase) = async {
+        val mapsReposImpl =
+            MapsRepositoryImpl(database.wikiMapsDao(), MapMapper())
         val data = mapsReposImpl.getMapsForList()
         if (data.isEmpty()) {
             mapsReposImpl.initDefault()
@@ -34,8 +35,9 @@ object DbRepositoryFactory {
         mapsReposImpl
     }
 
-    private fun CoroutineScope.getHeroRepoAsync(context: Context) = async {
-        val heroesReposImp = HeroesRepositoryImp(AppDataBase.getInstance(context).wikiHeroDao(), HeroMapper())
+    private fun CoroutineScope.getHeroRepoAsync(database: AppDataBase) = async {
+        val heroesReposImp =
+            HeroesRepositoryImp(database.wikiHeroDao(), HeroMapper())
         val data = heroesReposImp.getHeroesForList()
         if (data.isEmpty()) {
             heroesReposImp.initDefault()
@@ -44,8 +46,9 @@ object DbRepositoryFactory {
         heroesReposImp
     }
 
-    private fun CoroutineScope.getArcadeRepoAsync(context: Context) = async {
-        val arcadeReposImp = ArcadeRepositoryImp(AppDataBase.getInstance(context).arcadeDao(), ArcadeMapper())
+    private fun CoroutineScope.getArcadeRepoAsync(database: AppDataBase) = async {
+        val arcadeReposImp =
+            ArcadeRepositoryImp(database.arcadeDao(), ArcadeMapper())
         val data = arcadeReposImp.getArcadeList()
         if (data.isEmpty()) {
             arcadeReposImp.initDefault()

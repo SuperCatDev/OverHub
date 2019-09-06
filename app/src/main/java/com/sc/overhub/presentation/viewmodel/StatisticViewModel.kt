@@ -1,18 +1,16 @@
 package com.sc.overhub.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sc.overhub.R
 import com.sc.overhub.data.repository.ProfileRepository
-import com.sc.overhub.domain.usecase.LeaveFromAccountUseCase
+import com.sc.overhub.domain.interactor.LeaveFromAccountInteractor
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class StatisticViewModel : BaseViewModel() {
     private val repo: ProfileRepository by inject()
-    private val leaveUseCase: LeaveFromAccountUseCase by inject()
+    private val leaveInteractor: LeaveFromAccountInteractor by inject()
 
     var score = MutableLiveData<String>()
     var nickname = MutableLiveData<String>().apply { value = repo.getBattleTag() }
@@ -24,8 +22,8 @@ class StatisticViewModel : BaseViewModel() {
     }
 
     fun leaveFromAccount(navigateToStartCallback: () -> Unit) {
-        leaveUseCase.subscribeOnLeave(navigateToStartCallback)
-        leaveUseCase.leave()
+        leaveInteractor.subscribeOnLeave(navigateToStartCallback)
+        leaveInteractor.leave()
     }
 
     private fun initScore() = viewModelScope.launch {
