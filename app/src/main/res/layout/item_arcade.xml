@@ -4,11 +4,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="position"
-                  type="java.lang.Integer"/>
-
-        <variable name="viewModel"
-                  type="com.sc.overhub.presentation.viewmodel.ArcadeViewModel"/>
+        <variable name="data"
+                  type="com.sc.overhub.domain.model.ArcadeModel"/>
     </data>
 
 
@@ -26,7 +23,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/item_arcade_player_mode" android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp" android:layout_marginTop="8dp"/>
         <TextView
-                android:text="@{viewModel.getArcadeByIndex(safeUnbox(position)).name}"
+                android:text="@{data.name}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_arcade_player_mode" app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +33,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/item_arcade_name" android:textSize="24sp"
                 android:textStyle="italic" android:textAllCaps="true" android:textAlignment="center"/>
         <TextView
-                android:text="@{viewModel.getArcadeByIndex(safeUnbox(position)).playersMode}"
+                android:text="@{data.playersMode}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_arcade_name" app:layout_constraintEnd_toEndOf="parent"
