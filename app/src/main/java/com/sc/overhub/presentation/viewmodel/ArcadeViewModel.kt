@@ -22,7 +22,4 @@ class ArcadeViewModel(interactor: ArcadeInteractor) : ViewModel() {
 
     fun observeArcades(): LiveData<List<ArcadeModel>> = arcades
     fun observeShowProgress(): LiveData<Boolean> = showProgress
-
-    fun getArcadeByIndex(index: Int) = arcades.value?.get(index)
-    fun getArcadesSize() = arcades.value?.size ?: 0
 }

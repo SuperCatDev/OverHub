@@ -3,33 +3,41 @@ package com.sc.overhub.presentation.view.activity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.sc.overhub.R
 import com.sc.overhub.databinding.ActivityMainBinding
 import com.sc.overhub.presentation.viewmodel.HomeActivityViewModel
-import com.sc.overhub.presentation.viewmodel.getViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
-    private val startTabId = R.id.menu_statistic
-
-    private val vm: HomeActivityViewModel by lazy {
-        getViewModel {
-            HomeActivityViewModel().apply { currentTabId = startTabId }
-        }
-    }
+    private val viewModel by viewModel<HomeActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
-            lifecycleOwner = this@HomeActivity
-            viewModel = vm
-        }
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        bottom_navigation.selectedItemId = vm.currentTabId
+        viewModel.observeVisibleArcade().observe(this, Observer {
+            arcade_container.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.observeVisibleStatistic().observe(this, Observer {
+            statistic_container.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.observeVisibleWiki().observe(this, Observer {
+            wiki_container.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.observePopEvent().observe(this, Observer {
+            getAttachedController().apply { popBackStack(graph.startDestination, false) }
+        })
+
+        bottom_navigation.selectedItemId = viewModel.currentTabId.getMenuId()
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
-            handleTab(item.itemId)
+            viewModel.handleTab(getScreenId(item.itemId))
 
             true
         }
@@ -46,48 +54,28 @@ class HomeActivity : BaseActivity() {
     }
 
     fun getAttachedController(): NavController {
-        val navId = when (vm.currentTabId) {
-            R.id.menu_statistic -> {
-                R.id.statistic_host_fragment
-            }
-            R.id.menu_arcade -> {
-                R.id.arcade_host_fragment
-            }
-            R.id.menu_wiki -> {
-                R.id.wiki_host_fragment
-            }
-            else -> startTabId
-        }
+        val navId = viewModel.currentTabId.getId()
 
         return Navigation.findNavController(this, navId)
     }
 
-    private fun handleTab(itemId: Int) {
-        val controller = getAttachedController()
+    private fun HomeActivityViewModel.ScreenId.getId(): Int = when (this) {
+        HomeActivityViewModel.ScreenId.STATISTIC -> R.id.statistic_host_fragment
+        HomeActivityViewModel.ScreenId.ARCADE -> R.id.arcade_host_fragment
+        HomeActivityViewModel.ScreenId.WIKI -> R.id.wiki_host_fragment
+    }
 
-        if (vm.currentTabId == itemId) {
-            getAttachedController().popBackStack(controller.graph.startDestination, false)
-            return
-        }
+    private fun HomeActivityViewModel.ScreenId.getMenuId(): Int = when (this) {
+        HomeActivityViewModel.ScreenId.STATISTIC -> R.id.menu_statistic
+        HomeActivityViewModel.ScreenId.ARCADE -> R.id.menu_arcade
+        HomeActivityViewModel.ScreenId.WIKI -> R.id.menu_wiki
+    }
 
-        when (itemId) {
-            R.id.menu_statistic -> {
-                vm.visibleStatistic.value = View.VISIBLE
-                vm.visibleArcade.value = View.GONE
-                vm.visibleWiki.value = View.GONE
-            }
-            R.id.menu_arcade -> {
-                vm.visibleStatistic.value = View.GONE
-                vm.visibleArcade.value = View.VISIBLE
-                vm.visibleWiki.value = View.GONE
-            }
-            R.id.menu_wiki -> {
-                vm.visibleStatistic.value = View.GONE
-                vm.visibleArcade.value = View.GONE
-                vm.visibleWiki.value = View.VISIBLE
-            }
-        }
 
-        vm.currentTabId = itemId
+    private fun getScreenId(id: Int): HomeActivityViewModel.ScreenId = when (id) {
+        R.id.menu_statistic -> HomeActivityViewModel.ScreenId.STATISTIC
+        R.id.menu_arcade -> HomeActivityViewModel.ScreenId.ARCADE
+        R.id.menu_wiki -> HomeActivityViewModel.ScreenId.WIKI
+        else -> viewModel.currentTabId
     }
 }
